@@ -28,7 +28,7 @@ class NavigationBar extends Component {
     render() {
         return (
             <>
-                <Navbar className="navbar-expand-lg" light>
+                <Navbar className="navbar-expand-lg fixed-top" light>
                     <NavbarBrand href="/">
                         <div className="logo">
                             { i18n.t("Learn Math") }
