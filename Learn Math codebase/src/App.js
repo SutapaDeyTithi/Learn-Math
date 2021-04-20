@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 import NavigationBar from "./Components/NavigationBar";
+import Home from "./Components/Home";
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
             <div>
                 <NavigationBar />
                 <Switch>
-
+                    <Route path="/" component={Home} exact />
                 </Switch>
             </div>
         </BrowserRouter>

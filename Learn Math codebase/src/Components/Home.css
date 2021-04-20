@@ -1,0 +1,13 @@
+#home {
+    text-align: center;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 8%;
+    height: 125vh;
+}
+
+.welcome-img {
+    width: 20%;
+    align-items: left;
+}
