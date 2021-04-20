@@ -31,7 +31,7 @@ class Footer extends Component {
             <>
                 <Navbar className="navbar-expand-lg" light>
                     <NavbarToggler onClick={this.toggle} />
-
+                    
                     <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                             <NavItem>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import "./Home.css";
-//importing resources
 import welcome from "../Resources/Images/homepage1.jpg";
 
 
