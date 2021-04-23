@@ -1,0 +1,153 @@
+#topic {
+    text-align: left;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 4%;
+    height: 125vh;
+}
+.card {
+    margin-top: 25px;
+    /* margin-left: 25px; */
+    width: 12rem;
+    /* float: left; */
+    /* width: 12.5%; */
+    /* padding-right: 10px; */
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-right: 50px ;
+    /* margin-bottom: 25px; */
+}
+.options{
+    width: 90%;
+
+}
+.card-text{
+    text-align: center;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+.column {
+    float: left;
+    width: 16%;
+    padding:0 10px;
+  }
+.logop{
+    width:40px;
+    height:40px
+}
+.see_more{
+   
+        background-color: #e1ece1; /* Green */
+        border-color: #4f4f50;
+        color: rgb(15, 14, 14);
+        margin-top: 60px;
+        margin-left: 200px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+      
+}
+.see_more:hover{
+    box-shadow: 2px 2px 2px 2px rgba(112, 111, 111, 0.24),0 10px 10px 0 rgba(0,0,0,0.19);
+}
+.algeb{
+    width: 80%; 
+    align-self:center;
+}
+.geo{
+    width: 80%; 
+    align-self:center;
+    padding-top: 10px;
+}
+.number{
+    width: 80%; 
+    align-self:center;
+    padding-top: 40px;
+}
+.graph{
+    width: 80%; 
+    align-self:center;
+}
+.logic{
+    /* padding-top: 13px; */
+    width: 80%; 
+    align-self:center;
+    padding-top: 2%; 
+  /* @include border-top-radius($card-inner-border-radius); */
+}
+.search{
+    color: rgb(121, 118, 118);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-top: 30px;
+    
+}
+
+
+
+.popular{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.left{
+    background: white;
+}
+.right{
+    background: rgb(241, 240, 240);
+    height:120vh;
+}
+.first{
+    margin-left: 20px;
+}
+.simple{
+    margin-left: 10px;
+    margin-top: 30px;
+    width:90%;
+    height:5%; 
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    background-color: #49675B;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    padding-top: 5px;
+    font-size: 16px;
+}
+.simplee{
+    margin-left: 10px;
+    /* margin-top: 30px; */
+    width:90%;
+    height:30%; 
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    background-color: white;
+    text-align: left;
+    color: black;
+    border-radius: 5;
+    padding-top: 5px;
+    font-size: 16px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+ .check{
+     margin-right:5%;
+     margin-left: 5%;
+ }
+  /* Create a custom checkbox */
+  
