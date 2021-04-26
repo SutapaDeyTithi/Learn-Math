@@ -98,7 +98,8 @@
 }
 .right{
     background: rgb(241, 240, 240);
-    height:120vh;
+    min-height: 120vh;
+    /* height:120vh; */
 }
 .first{
     margin-left: 20px;
@@ -120,7 +121,7 @@
     margin-left: 10px;
     /* margin-top: 30px; */
     width:90%;
-    height:30%; 
+    
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     background-color: white;
     text-align: left;
@@ -150,4 +151,9 @@
      margin-left: 5%;
  }
   /* Create a custom checkbox */
+.none{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
   

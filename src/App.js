@@ -13,7 +13,7 @@ function App() {
     return (
         <BrowserRouter>
             <div>
-                 <NavigationBar />
+                  <NavigationBar />
                 <Switch>
                      <Route path="/"  exact component = {Home} /> 
                      {/* <Route path="/"  exact component = {Home} />  */}
