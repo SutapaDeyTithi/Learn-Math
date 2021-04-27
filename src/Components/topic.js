@@ -1,4 +1,4 @@
-import React, { Component ,useState} from "react";
+import React, { Component, useState } from "react";
 
 import './topic.css';
 import algebra from "../Resources/Images/al.PNG";
@@ -8,211 +8,234 @@ import geo from "../Resources/Images/geou 1.png";
 import logic from "../Resources/Images/logic 1.png";
 import graph from "../Resources/Images/Cycle_graph_C5 1.png";
 import { Col } from "reactstrap";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import subtopic from './subtopic.js';
 class topic extends Component {
-    
+
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.topic=0
-        this.clicked_topic=-1
-        this.clicked_subtopic=-1
-        this.subtopic=0
+        this.topic = 0
+        this.clicked_topic = -1
+        this.clicked_subtopic = -1
+        this.subtopic = 0
+        this.category_name = 0
         this.state = {
-          count: 0,
-          data: []
+            count: 0,
+            data: [],
+            category: []
+
         };
-        
-      }
-      handleChange = e => {
-        this.setState({topic: e.target.value});
+
+    }
+    handleChange = e => {
+        this.setState({ topic: e.target.value });
         console.log(this.topic);
-        this.setState({clicked_topic:this.clicked_topic+1});
+        this.setState({ clicked_topic: this.clicked_topic + 1 });
         fetch("http://localhost:5000/topic")
-          .then(res => res.json())
-          .then(json => this.setState({ data: json }));
-        
-      };
-      handleChange_sub = e => {
-        this.setState({subtopic: e.target.value});
-        
-        this.setState({clicked_subtopic:this.clicked_subtopic+1});
-        // fetch("http://localhost:5000/topic")
+            .then(res => res.json())
+            .then(json => this.setState({ data: json }));
+
+    };
+    handleChange_sub = e => {
+        this.setState({ subtopic: e.target.value });
+
+        this.setState({ clicked_subtopic: this.clicked_subtopic + 1 });
+        fetch("http://localhost:5000/subtopic")
+            .then(res => res.json())
+            .then(json => this.setState({ category: json }));
+
+    };
+    handleChange_category = e => {
+        this.setState({ category_name: e.target.value });
+
+        // this.setState({clicked_subtopic:this.clicked_subtopic+1});
+        // fetch("http://localhost:5000/subtopic")
         //   .then(res => res.json())
-        //   .then(json => this.setState({ data: json }));
-        
-      };
+        //   .then(json => this.setState({ category: json }));
+
+    };
     //   componentDidMount() {
-        
+
     //   }
 
-      
-      
-      
-      render() {
-        
-    
+
+
+
+    render() {
+
+
 
         return (
-            
+
             <section id="topic">
                 <div className="row">
-                    
-                <div className="col-md-9 left">
-                    <div className="popular">
-                        <h3>Popular <img  className="logop" src={popular} /></h3>
-                        
-           
-                    </div>
-                    <div className="row">
-                        <div className="card first" >
-                                
-                                <img className="algeb" src={algebra}/>
+
+                    <div className="col-md-9 left">
+                        <div className="popular">
+                            <h3>Popular <img className="logop" src={popular} /></h3>
+
+
+                        </div>
+                        <div className="row">
+                            <div className="card first" >
+
+                                <img className="algeb" src={algebra} />
                                 <div className="card-body">
-                                    <p className="card-text">Algebra</p>
+                                    <p className="card-text">
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to="/subtopic">Algebra</Link>
+                                        {/* <subtopic message="Data from first component"/> */}
+                                    </p>
                                 </div>
-                        </div>
-                        <div className="card" >
-                        
-                            <img className="number" src={number}/>
-                            <div className="card-body">
-                                <p className="card-text">Number Theory</p>
                             </div>
-                        </div>
-                        <div className="card" >
-                        
-                            <img className=" geo" src={geo}/>
-                            <div className="card-body">
-                                <p className="card-text">Geometry</p>
-                            </div>
-                        </div>
-                        <div className="card" >
-                        
-                            <img className="number" src={number}/>
-                            <div className="card-body">
-                                <p className="card-text">Number Theory</p>
-                            </div>
-                        </div>
+                            <div className="card" >
 
-                        
-                    </div>
-                    <div>
-                        {this.state.count==0
-                            ? (<div class="col-md-8 text-center ">
-                                <button className="see_more" onClick={() => this.setState({ count: this.state.count + 1 })}>Show More</button>
+                                <img className="number" src={number} />
+                                <div className="card-body">
+
+                                    <p className="card-text">
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to="/subtopic">Number Theory</Link>
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div className="card" >
+
+                                <img className=" geo" src={geo} />
+                                <div className="card-body">
+                                    <p className="card-text">
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to="/subtopic">Geometry</Link>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="card" >
+
+                                <img className="number" src={logic} />
+                                <div className="card-body">
+                                    <p className="card-text">Brain Teaser</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div>
+                            {this.state.count == 0
+                                ? (<div class="col-md-8 text-center ">
+                                    <button className="see_more" onClick={() => this.setState({ count: this.state.count + 1 })}>Show More</button>
                                 </div>)
-                            : (
-                                <div className="row">
-                                
-                                    <div className="card first" >
-                                    
-                                        <img className="card-img-top" src={algebra}/>
-                                        <div className="card-body">
-                                            <p className="card-text">Algebra</p>
-                                        </div>
-                                    </div>
-                                
-                                
-                                    <div className="card" >
-                                    
-                                        <img className="card-img-top" src={algebra}/>
-                                        <div className="card-body">
-                                            <p className="card-text">Graph</p>
-                                        </div>
-                                    </div>
-                               
-                                
-                                    <div className="card" >
-                                    
-                                        <img className="card-img-top" src={algebra}/>
-                                        <div className="card-body">
-                                            <p className="card-text">Brain Teaser</p>
-                                        </div>
-                                    </div>
-                                
-                                
-                                    <div className="card" >
-                                    
-                                        <img className="card-img-top" src={algebra}/>
-                                        <div className="card-body">
-                                            <p className="card-text">Number theory</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                            
-                                
+                                : (
+                                    <div className="row">
 
-                            )
-                        }
-                    </div>
-                </div>
-                
-                
-                       
-                   
-                
+                                        <div className="card first" >
 
-                <div className="col-md-3 right">
-                    
-                     <input type="text" className="search" value="Search Topic" />
-                     <div className="simple">Most Popular</div>
-                     <div className="simple">Topic</div>
-                    <div className="simplee">
-                     <div className="radio-buttons">
-                        <input
-                            className="check"
-                            value="Algebra"
-                            name="platform"
-                            type="radio"
-                            onChange={this.handleChange}
-                        />Algebra<br></br>
-                        
-                        <input
-                           className="check"
-                            value="Number Theory"
-                            name="platform"
-                            type="radio"
-                            onChange={this.handleChange}
-                        />Number Theory<br></br>
-                        
-                        <input
-                            className="check"
-                            value="Geometry"
-                            name="platform"
-                            type="radio"
-                            onChange={this.handleChange}
-                            
-                        
-                        />Geometry<br></br>
-                        <input
-                            className="check"
-                            value="Trigonometry"
-                            name="platform"
-                            type="radio"
-                            onChange={this.handleChange}
-                            
-                        
-                        />Trigonometry<br></br>
-                        <input
-                            className="check"
-                            value="Statistics"
-                            name="platform"
-                            type="radio"
-                            onChange={this.handleChange}
-                            
-                        
-                        />Statistics<br></br>
-                        <input
-                            className="check"
-                            value="Time"
-                            name="platform"
-                            type="radio"
-                            onChange={this.handleChange}
-                            
-                        
-                        />Time<br></br>
+                                            <img className="card-img-top" src={algebra} />
+                                            <div className="card-body">
+                                                <p className="card-text">Algebra</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="card" >
+
+                                            <img className="card-img-top" src={algebra} />
+                                            <div className="card-body">
+                                                <p className="card-text">Graph</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="card" >
+
+                                            <img className="card-img-top" src={algebra} />
+                                            <div className="card-body">
+                                                <p className="card-text">Brain Teaser</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="card" >
+
+                                            <img className="card-img-top" src={algebra} />
+                                            <div className="card-body">
+                                                <p className="card-text">Number theory</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                )
+                            }
                         </div>
-                        <h1>{this.state.topic}</h1>
+                    </div>
+
+
+
+
+
+
+                    <div className="col-md-3 right">
+
+                        <input type="text" className="search" value="Search Topic" />
+                        <div className="simple">Most Popular</div>
+                        <div className="simple">Topic</div>
+                        <div className="simplee">
+                            <div className="radio-buttons">
+                                <input
+                                    className="check"
+                                    value="Algebra"
+                                    name="platform"
+                                    type="radio"
+                                    onChange={this.handleChange}
+                                />Algebra<br></br>
+
+                                <input
+                                    className="check"
+                                    value="Number Theory"
+                                    name="platform"
+                                    type="radio"
+                                    onChange={this.handleChange}
+                                />Number Theory<br></br>
+
+                                <input
+                                    className="check"
+                                    value="Geometry"
+                                    name="platform"
+                                    type="radio"
+                                    onChange={this.handleChange}
+
+
+                                />Geometry<br></br>
+                                <input
+                                    className="check"
+                                    value="Trigonometry"
+                                    name="platform"
+                                    type="radio"
+                                    onChange={this.handleChange}
+
+
+                                />Trigonometry<br></br>
+                                <input
+                                    className="check"
+                                    value="Statistics"
+                                    name="platform"
+                                    type="radio"
+                                    onChange={this.handleChange}
+
+
+                                />Statistics<br></br>
+                                <input
+                                    className="check"
+                                    value="Time"
+                                    name="platform"
+                                    type="radio"
+                                    onChange={this.handleChange}
+
+
+                                />Time<br></br>
+                            </div>
+                            {/* <h1>{this.state.topic}</h1> */}
                         </div>
                         {/* <div>
                         <ul>
@@ -235,58 +258,87 @@ class topic extends Component {
                         </ul>
                         </div> */}
                         <div>
-                            {this.state.clicked_topic>=0
-                            ?(
-                                
-                                <div>
-                            
-                            <div className="simple">Subtopic</div> 
-                            <div className="simplee radio-buttons">
-                            {this.state.data.filter(el =>el.topicname == this.state.topic).map(filteredName => (
-                                <li className="none">
-                            <input type="radio" className="check" name="platform" value={filteredName.subtopic_name}
-                            onChange={this.handleChange_sub}/>
-                            {filteredName.subtopic_name}
-                            </li>
-                            
-                            ))
-                            }
-                            </div>
+                            {this.state.clicked_topic >= 0
+                                ? (
 
-                            
+                                    <div>
 
-                            </div>
-                            )
-                            :(<h1></h1>)
+                                        <div className="simple">Subtopic</div>
+                                        <div className="simplee radio-buttons">
+                                            {this.state.data.filter(el => el.topicname == this.state.topic).map(filteredName => (
+                                                <li className="none">
+                                                    <input type="radio" className="check" name="platform" value={filteredName.subtopic_name}
+                                                        onChange={this.handleChange_sub} />
+                                                    {filteredName.subtopic_name}
+                                                </li>
+
+                                            ))
+                                            }
+                                        </div>
+
+
+
+                                    </div>
+                                )
+                                : (<h1></h1>)
                             }
-                        
-                            
+
+
                         </div>
-                        <h1>{this.state.subtopic}</h1>
-                     
-                        
-                     </div>
-                    
-                   
-                     </div>
-                                    
-                
-               
-                
-            
-            
-                    
-                    
-                    
-                    
-           
-            
-            
-            
-            
-        </section>
-           
-              
+                        {/* <h1>{this.state.subtopic}</h1> */}
+                        <div>
+                            {this.state.clicked_subtopic >= 0
+                                ? (
+
+                                    <div>
+
+                                        <div className="simple">Category</div>
+                                        <div className="simplee radio-buttons">
+                                            {this.state.category.filter(el => el.sub_name == this.state.subtopic).map(filteredName => (
+                                                <li className="none">
+                                                    <input type="radio" className="check" name="platform" value={filteredName.cate_name}
+                                                        onChange={this.handleChange_category} />
+                                                    {filteredName.cate_name}
+                                                </li>
+
+                                            ))
+                                            }
+                                        </div>
+
+
+
+                                    </div>
+                                )
+                                : (<h1></h1>)
+                            }
+
+
+                        </div>
+                        {/* <h1>{this.state.category_name}</h1> */}
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+
         );
     }
 }

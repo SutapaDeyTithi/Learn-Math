@@ -34,6 +34,18 @@ app.get('/topic', async(req,res)=>{
         
     }
 });
+app.get('/subtopic', async(req,res)=>{
+    try {
+        
+        const newsub=await pool.query("SELECT * FROM category");
+        // console.log("inserted");
+        // INSERT INTO subtopic(topicName,subtopic_name) VALUES('Geometry','Circles');
+
+        res.json(newsub.rows);
+    } catch (error) {
+        
+    }
+});
 
 app.get("/topic/:id", async(req,res)=>{
     try {
@@ -54,3 +66,5 @@ app.get("/topic/:id", async(req,res)=>{
 app.listen(5000,()=>{
     console.log("listening");
 })
+//npm run start
+//npm run nodemon
