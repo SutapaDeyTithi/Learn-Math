@@ -7,9 +7,9 @@ import number from "../Resources/Images/number 1.png";
 import geo from "../Resources/Images/geou 1.png";
 import logic from "../Resources/Images/logic 1.png";
 import graph from "../Resources/Images/Cycle_graph_C5 1.png";
-import { Col } from "reactstrap";
+
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import subtopic from './subtopic.js';
+
 class topic extends Component {
 
     constructor(props) {
@@ -20,6 +20,7 @@ class topic extends Component {
         this.clicked_subtopic = -1
         this.subtopic = 0
         this.category_name = 0
+        this.clicked_link = 0
         this.state = {
             count: 0,
             data: [],
@@ -59,7 +60,10 @@ class topic extends Component {
 
     //   }
 
-
+    hello = e => {
+        console.log('hello')
+        this.setState({ clicked_link: this.clicked_link + 1 })
+    };
 
 
     render() {
@@ -69,6 +73,7 @@ class topic extends Component {
         return (
 
             <section id="topic">
+
                 <div className="row">
 
                     <div className="col-md-9 left">
@@ -83,8 +88,13 @@ class topic extends Component {
                                 <img className="algeb" src={algebra} />
                                 <div className="card-body">
                                     <p className="card-text">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to="/subtopic">Algebra</Link>
-                                        {/* <subtopic message="Data from first component"/> */}
+                                        <Link style={{ textDecoration: 'none', color: 'black' }}
+                                            to={{
+                                                pathname: "/subtopic/" + "Algebra",
+                                                state: { name: "Algebra" }
+                                            }}
+                                            onClick={this.hello}>Algebra</Link>
+                                        {/* <Sub name="sudipa"/> */}
                                     </p>
                                 </div>
                             </div>
@@ -94,7 +104,14 @@ class topic extends Component {
                                 <div className="card-body">
 
                                     <p className="card-text">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to="/subtopic">Number Theory</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }}
+                                            to={{
+                                                pathname: "/subtopic/" + "Number Theory",
+                                                state: {
+                                                    name: "Number Theory"
+                                                }
+                                            }}>Number Theory
+                                        </Link>
                                     </p>
 
                                 </div>
@@ -104,13 +121,20 @@ class topic extends Component {
                                 <img className=" geo" src={geo} />
                                 <div className="card-body">
                                     <p className="card-text">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to="/subtopic">Geometry</Link>
+                                        <Link
+                                            style={{ textDecoration: 'none', color: 'black' }}
+                                            to={{
+                                                pathname: "/subtopic/" + "Geometry",
+                                                state: {
+                                                    name: "Geometry"
+                                                }
+                                            }}>Geometry</Link>
                                     </p>
                                 </div>
                             </div>
                             <div className="card" >
 
-                                <img className="number" src={logic} />
+                                <img className="logic" src={logic} />
                                 <div className="card-body">
                                     <p className="card-text">Brain Teaser</p>
                                 </div>
@@ -118,6 +142,8 @@ class topic extends Component {
 
 
                         </div>
+
+
                         <div>
                             {this.state.count == 0
                                 ? (<div class="col-md-8 text-center ">

@@ -5,6 +5,8 @@
     z-index: 1;
     padding-top: 4%;
     min-height: 125vh;
+    margin-left: 2%;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 .card {
     margin-top: 25px;
@@ -56,17 +58,17 @@
 .algeb{
     width: 80%; 
     align-self:center;
-    padding-top: 10px;
+    padding-top: 15px;
 }
 .geo{
     width: 80%; 
     align-self:center;
-    padding-top: 10px;
+    padding-top: 25px;
 }
 .number{
     width: 80%; 
     align-self:center;
-    padding-top: 40px;
+    padding-top: 50px;
 }
 .graph{
     width: 80%; 
@@ -74,9 +76,9 @@
 }
 .logic{
     /* padding-top: 13px; */
-    width: 80%; 
+    width: 80%;
     align-self:center;
-    padding-top: 2%; 
+    padding-top:30px
   /* @include border-top-radius($card-inner-border-radius); */
 }
 .search{
@@ -91,7 +93,7 @@
 
 .popular{
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 1.5%;
 }
 
 .left{

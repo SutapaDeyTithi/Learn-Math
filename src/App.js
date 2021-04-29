@@ -6,7 +6,7 @@ import NavigationBar from "./Components/NavigationBar";
 import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import topic from "./Components/topic";
-import subtopic from './Components/subtopic';
+import Sub from "./Components/Sub";
 
 
 class App extends Component {
@@ -17,16 +17,16 @@ class App extends Component {
         
         <BrowserRouter>
             <div>
-                  <NavigationBar />
+                   <NavigationBar /> 
                 <Switch>
                      <Route path="/"  exact component = {Home} /> 
-                     <Route path="/"  exact component = {Home} /> 
+                     {/* <Route path="/"  exact component = {Home} /> */}
                      <Route path="/getStarted" component ={topic} />
-                     <Route path="/subtopic" component={subtopic}/>
+                     <Route path="/subtopic/:name" component={Sub}/>
                      
                 </Switch> 
                 
-                {/* <Footer /> */}
+               <Footer />
            </div>
         </BrowserRouter>
     );
@@ -34,3 +34,5 @@ class App extends Component {
 }
 
 export default App;
+//npm run nodemon
+//npm run start
