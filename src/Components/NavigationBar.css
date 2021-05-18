@@ -37,3 +37,12 @@
 .logo {
     color:white;
 }
+/* */
+.divider-vertical-second-menu{
+    height: 30px;
+    width: 1px;
+    margin: 0 0px;
+    overflow: hidden;
+    background-color: #DDD;
+    border-right: 2px solid #FFF;
+ }

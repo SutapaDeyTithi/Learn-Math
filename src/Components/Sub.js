@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./sub.css";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 import subtopic_img from "../Resources/Images/content 1.png";
-import gcd from "../Resources/Images/image 70.png";
+
 class Sub extends React.Component {
     constructor(props) {
         super(props);
@@ -13,42 +14,50 @@ class Sub extends React.Component {
         };
     }
 
-    
-    
+
+
     componentDidMount() {
         fetch("http://localhost:5000/topic")
             .then(res => res.json())
             .then(json => this.setState({ subtopic_array: json }));
+
     }
 
     render() {
+
         return (
             <div>
                 {/* <h1 className="sub">{this.props.location.state.name} </h1>
                 <h2 className="sub">{this.props.location.state.age}</h2> */}
+
                 <section id="subtopic">
                     <h3 className="subtopics">Related Subtopics <img src={subtopic_img} /></h3>
-                    <div className="row" >
-                        {this.state.subtopic_array.filter(el => el.topicname == this.props.location.state.name).map(filteredName => (
-                            // <li >
+                    <div className="box">
+                        <div className="row">
+                            {this.state.subtopic_array.filter(el => el.topicname == this.props.location.state.name).map(filteredName => (
 
-                            //     {filteredName.subtopic_name}
-                            // </li>
-                            
-                                <div className="card my_card" >
+                                <div className="card my-card" >
 
-                                    <img src={gcd} className="all_img"/>
+                                    <img src={`../img/${filteredName.subtopic_name}.jpg`} className="all_img"></img>
                                     <div className="card-body">
                                         <p className="card_text" >
-                                            {filteredName.subtopic_name}
+                                            <Link className="link"
+                                                to={{
+                                                    pathname: "/category/" + filteredName.subtopic_name,
+                                                    state: {
+                                                        name: filteredName.topicname + "//" + filteredName.subtopic_name
+                                                    }
+                                                }}>{filteredName.subtopic_name}</Link>
+
+
                                         </p>
                                     </div>
                                 </div>
 
-                        ))
-                        }
-                            </div>
-
+                            ))
+                            }
+                        </div>
+                    </div>
 
                 </section>
 

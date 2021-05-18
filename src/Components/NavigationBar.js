@@ -40,22 +40,37 @@ class NavigationBar extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink className="nav-links" to="/getStarted">
-                                    { i18n.t("Get Started") }
+                                <NavLink className="nav-links" to="">
+                                    { i18n.t("Problem of the week") }
                                 </NavLink>
                             </NavItem>
+                            <li class="divider-vertical-second-menu"></li>
                             <NavItem>
-                                <NavLink className="nav-links" to="/helpCenter">
-                                    { i18n.t("Help Center") }
+                                <NavLink className="nav-links" to="">
+                                    { i18n.t("Regular Test") }
                                 </NavLink>
                             </NavItem>
+                            <li class="divider-vertical-second-menu"></li>
                             <NavItem>
-                                <NavLink className="nav-links" to="/signin">
-                                    { i18n.t("Sign In") }
+                                <NavLink className="nav-links" to="/practice">
+                                    { i18n.t("Practice") }
+                                </NavLink>
+                            </NavItem>
+                            <li class="divider-vertical-second-menu"></li>
+                            <NavItem>
+                                <NavLink className="nav-links" to="">
+                                    { i18n.t("Tutorial") }
+                                </NavLink>
+                            </NavItem>
+                            <li class="divider-vertical-second-menu"></li>
+                            <NavItem>
+                                <NavLink className="nav-links" to="">
+                                    { i18n.t("Forum") }
                                 </NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
+                    
                 </Navbar>
             </>
         );

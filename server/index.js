@@ -25,7 +25,7 @@ app.post('/', async(req,res)=>{
 app.get('/topic', async(req,res)=>{
     try {
         
-        const newsub=await pool.query("SELECT * FROM subtopic");
+        const newsub=await pool.query("SELECT * FROM final_subtopic");
         // console.log("inserted");
         // INSERT INTO subtopic(topicName,subtopic_name) VALUES('Geometry','Circles');
 
@@ -40,6 +40,7 @@ app.get('/subtopic', async(req,res)=>{
         const newsub=await pool.query("SELECT * FROM category");
         // console.log("inserted");
         // INSERT INTO subtopic(topicName,subtopic_name) VALUES('Geometry','Circles');
+        //INSERT INTO category(sub_name,cate_name) VALUES('GCD/LCM','Calculate GCD/LCM');
 
         res.json(newsub.rows);
     } catch (error) {
@@ -47,20 +48,7 @@ app.get('/subtopic', async(req,res)=>{
     }
 });
 
-app.get("/topic/:id", async(req,res)=>{
-    try {
-        
-        const { newsub }=req.params;
-         const subtop=await pool.query("SELECT * from subtopic where subtopic_id=$1",[newsub]);
-        res.json(subtop.rows[0]);
-        // console.log("inserted");
-        // INSERT INTO subtopic(topicName,subtopic_name) VALUES('Geometry','Circles');
 
-       
-    } catch (error) {
-        
-    }
-});
 
 
 app.listen(5000,()=>{

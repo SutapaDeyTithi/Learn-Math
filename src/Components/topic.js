@@ -7,6 +7,10 @@ import number from "../Resources/Images/number 1.png";
 import geo from "../Resources/Images/geou 1.png";
 import logic from "../Resources/Images/logic 1.png";
 import graph from "../Resources/Images/Cycle_graph_C5 1.png";
+import clock from "../Resources/Images/clock.PNG";
+import Practise from './Practise';
+
+
 
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
@@ -15,12 +19,14 @@ class topic extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.topic = 0
+
+        this.topic = " "
         this.clicked_topic = -1
         this.clicked_subtopic = -1
-        this.subtopic = 0
-        this.category_name = 0
+        this.subtopic = " "
+        this.category_name = " "
         this.clicked_link = 0
+        this.search_topic_item = null
         this.state = {
             count: 0,
             data: [],
@@ -28,14 +34,16 @@ class topic extends Component {
 
         };
 
+
     }
     handleChange = e => {
         this.setState({ topic: e.target.value });
-        console.log(this.topic);
-        this.setState({ clicked_topic: this.clicked_topic + 1 });
+
+        this.setState({ clicked_topic: 1 });
         fetch("http://localhost:5000/topic")
             .then(res => res.json())
             .then(json => this.setState({ data: json }));
+
 
     };
     handleChange_sub = e => {
@@ -45,6 +53,7 @@ class topic extends Component {
         fetch("http://localhost:5000/subtopic")
             .then(res => res.json())
             .then(json => this.setState({ category: json }));
+
 
     };
     handleChange_category = e => {
@@ -64,6 +73,9 @@ class topic extends Component {
         console.log('hello')
         this.setState({ clicked_link: this.clicked_link + 1 })
     };
+
+
+    search_topic = e => this.setState({ search_topic_item: e.target.value })
 
 
     render() {
@@ -88,23 +100,23 @@ class topic extends Component {
                                 <img className="algeb" src={algebra} />
                                 <div className="card-body">
                                     <p className="card-text">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }}
+                                        <Link className="link"
                                             to={{
                                                 pathname: "/subtopic/" + "Algebra",
                                                 state: { name: "Algebra" }
                                             }}
-                                            onClick={this.hello}>Algebra</Link>
+                                        >Algebra</Link>
                                         {/* <Sub name="sudipa"/> */}
                                     </p>
                                 </div>
                             </div>
-                            <div className="card" >
+                            <div className="card " >
 
                                 <img className="number" src={number} />
                                 <div className="card-body">
 
                                     <p className="card-text">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }}
+                                        <Link className="link"
                                             to={{
                                                 pathname: "/subtopic/" + "Number Theory",
                                                 state: {
@@ -121,8 +133,7 @@ class topic extends Component {
                                 <img className=" geo" src={geo} />
                                 <div className="card-body">
                                     <p className="card-text">
-                                        <Link
-                                            style={{ textDecoration: 'none', color: 'black' }}
+                                        <Link className="link"
                                             to={{
                                                 pathname: "/subtopic/" + "Geometry",
                                                 state: {
@@ -136,7 +147,15 @@ class topic extends Component {
 
                                 <img className="logic" src={logic} />
                                 <div className="card-body">
-                                    <p className="card-text">Brain Teaser</p>
+                                    <p className="card-text">
+                                        <Link className="link"
+                                            to={{
+                                                pathname: "/subtopic/" + "BrainTeaser",
+                                                state: {
+                                                    name: "BrainTeaser"
+                                                }
+                                            }}>BrainTeaser</Link>
+                                    </p>
                                 </div>
                             </div>
 
@@ -154,38 +173,46 @@ class topic extends Component {
 
                                         <div className="card first" >
 
-                                            <img className="card-img-top" src={algebra} />
+                                            <img className="graph" src={graph} />
                                             <div className="card-body">
-                                                <p className="card-text">Algebra</p>
+                                                <p className="card-text">
+                                                    <Link className="link"
+                                                        to={{
+                                                            pathname: "/subtopic/" + "Graph",
+                                                            state: {
+                                                                name: "Graph"
+                                                            }
+                                                        }}>Graph</Link>
+                                                </p>
                                             </div>
                                         </div>
-
 
                                         <div className="card" >
 
-                                            <img className="card-img-top" src={algebra} />
+                                            <img className="clock" src={clock} />
                                             <div className="card-body">
-                                                <p className="card-text">Graph</p>
+                                                <p className="card-text">
+                                                    <Link className="link"
+                                                        to={{
+                                                            pathname: "/subtopic/" + "Time",
+                                                            state: {
+                                                                name: "TIME"
+                                                            }
+                                                        }}>Time</Link>
+                                                </p>
                                             </div>
                                         </div>
 
 
-                                        <div className="card" >
-
-                                            <img className="card-img-top" src={algebra} />
-                                            <div className="card-body">
-                                                <p className="card-text">Brain Teaser</p>
-                                            </div>
-                                        </div>
 
 
-                                        <div className="card" >
 
-                                            <img className="card-img-top" src={algebra} />
-                                            <div className="card-body">
-                                                <p className="card-text">Number theory</p>
-                                            </div>
-                                        </div>
+
+
+
+
+
+
                                     </div>
 
 
@@ -203,66 +230,101 @@ class topic extends Component {
 
                     <div className="col-md-3 right">
 
-                        <input type="text" className="search" value="Search Topic" />
-                        <div className="simple">Most Popular</div>
-                        <div className="simple">Topic</div>
-                        <div className="simplee">
-                            <div className="radio-buttons">
-                                <input
-                                    className="check"
-                                    value="Algebra"
-                                    name="platform"
-                                    type="radio"
-                                    onChange={this.handleChange}
-                                />Algebra<br></br>
 
-                                <input
-                                    className="check"
-                                    value="Number Theory"
-                                    name="platform"
-                                    type="radio"
-                                    onChange={this.handleChange}
-                                />Number Theory<br></br>
+                        <input
 
-                                <input
-                                    className="check"
-                                    value="Geometry"
-                                    name="platform"
-                                    type="radio"
-                                    onChange={this.handleChange}
+                            // id="weight"
+                            onChange={this.search_topic}
+                            value={this.state.search_topic_item}
+                            placeholder="Search Topic"
+                            className="search"
+                        />
 
-
-                                />Geometry<br></br>
-                                <input
-                                    className="check"
-                                    value="Trigonometry"
-                                    name="platform"
-                                    type="radio"
-                                    onChange={this.handleChange}
-
-
-                                />Trigonometry<br></br>
-                                <input
-                                    className="check"
-                                    value="Statistics"
-                                    name="platform"
-                                    type="radio"
-                                    onChange={this.handleChange}
-
-
-                                />Statistics<br></br>
-                                <input
-                                    className="check"
-                                    value="Time"
-                                    name="platform"
-                                    type="radio"
-                                    onChange={this.handleChange}
-
-
-                                />Time<br></br>
-                            </div>
-                            {/* <h1>{this.state.topic}</h1> */}
+                        <div className="simple">Topic
                         </div>
+                        <div className="simplee">
+                            {
+                                !this.state.search_topic_item
+                                    ? (<div className="radio-buttons">
+                                        <input
+                                            className="check"
+                                            value="Algebra"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+                                        />Algebra<br></br>
+
+                                        <input
+                                            className="check"
+                                            value="Number Theory"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+                                        />Number Theory<br></br>
+
+                                        <input
+                                            className="check"
+                                            value="Geometry"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+
+
+                                        />Geometry<br></br>
+                                        <input
+                                            className="check"
+                                            value="Trigonometry"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+
+
+                                        />Trigonometry<br></br>
+                                        <input
+                                            className="check"
+                                            value="Statistics"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+
+
+                                        />Statistics<br></br>
+                                        <input
+                                            className="check"
+                                            value="Time"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+
+
+                                        />Time<br></br>
+                                        <input
+                                            className="check"
+                                            value="Brain Teaser"
+                                            name="platform"
+                                            type="radio"
+                                            onChange={this.handleChange}
+
+
+                                        />Brain Teaser<br></br>
+                                    </div>)
+                                    : (<div className="radio-buttons">
+                                    <input
+                                        className="check"
+                                        value={this.state.search_topic_item}
+                                        name="platform"
+                                        type="radio"
+                                        onChange={this.handleChange}
+                                    />{this.state.search_topic_item}<br></br>
+                                    </div>)
+                            }
+
+                        </div>
+
+
+
+
+
                         {/* <div>
                         <ul>
                         {this.state.data.map(el => {
@@ -306,9 +368,11 @@ class topic extends Component {
 
                                     </div>
                                 )
-                                : (<h1></h1>)
+                                : (<h3></h3>)
                             }
-
+                            {
+                                console.log(this.state.category)
+                            }
 
                         </div>
                         {/* <h1>{this.state.subtopic}</h1> */}
@@ -335,13 +399,29 @@ class topic extends Component {
 
                                     </div>
                                 )
-                                : (<h1></h1>)
+                                : (<h3></h3>)
                             }
 
 
                         </div>
-                        {/* <h1>{this.state.category_name}</h1> */}
-
+                        {/* <h1>{this.state.category_name}</h1>
+                        <h1>{this.state.topic}</h1>
+                        <h1>{this.state.subtopic}</h1> */}
+                        <div>
+                            {
+                                this.state.topic >= " " && this.state.subtopic >= " " && this.state.category_name >= " "
+                                    ? (<div className="submit_button">
+                                        <Link className="submit_button_link"
+                                            to={{
+                                                pathname: "/practise",
+                                                state: {
+                                                    name: this.state.topic + "//" + this.state.subtopic + "//" + this.state.category_name
+                                                }
+                                            }}>Submit</Link>
+                                    </div>)
+                                    : <h2></h2>
+                            }
+                        </div>
 
                     </div>
 

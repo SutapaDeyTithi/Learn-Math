@@ -7,6 +7,8 @@ import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import topic from "./Components/topic";
 import Sub from "./Components/Sub";
+import Cat from "./Components/Cat";
+import Practise from "./Components/Practise";
 
 
 class App extends Component {
@@ -21,8 +23,10 @@ class App extends Component {
                 <Switch>
                      <Route path="/"  exact component = {Home} /> 
                      {/* <Route path="/"  exact component = {Home} /> */}
-                     <Route path="/getStarted" component ={topic} />
+                     <Route path="/practice" component ={topic} />
                      <Route path="/subtopic/:name" component={Sub}/>
+                     <Route path="/category/:name" component={Cat} />
+                     <Route path="/practise" component={Practise} />
                      
                 </Switch> 
                 
