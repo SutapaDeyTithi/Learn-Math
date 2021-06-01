@@ -42,7 +42,7 @@
     width:40px;
     height:40px
 }
-.see_more{
+.see_more2{
    
         background-color: #e1ece1; /* Green */
         border-color: #4f4f50;
@@ -54,6 +54,8 @@
         display: inline-block;
         font-size: 16px;
         border-radius: 5px;
+        width:100px;
+        height:30px;
       
 }
 .see_more:hover{

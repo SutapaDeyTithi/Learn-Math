@@ -1,0 +1,126 @@
+#practise{
+    
+    
+    /* position: relative; */
+    position: initial;
+    /* z-index: 1; */
+    /* padding-top: 4%; */
+    min-height: 125vh;
+    
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    
+    overflow-x: hidden;
+}
+.middle{
+    height: 90vh;
+    border-style: outset;
+    margin-left:1%;
+    border-width: 4px;
+    margin-right: 1%;
+    border-radius: 10px 10px;
+    margin-top: 10%;
+    
+}
+.first{
+    margin-top: 5%;
+    
+}
+.third{
+    margin-top: 5%;
+}
+.border{
+  border-right: 6px solid green;
+  height: 500px;
+}
+.headerdivider {
+    border-left: 1px solid #38546d;
+    background: #16222c;
+    width: 1px;
+    height: 80px;
+    position: absolute;
+    right: 250px;
+    top: 10px;
+}
+.border-between > [class*='col-']:before {
+    background: #e3e3e3;
+    bottom: 0;
+    content: " ";
+    left: 0;
+    position: absolute;
+    width: 2px;
+    top: 0;
+    height: 500px;
+ }
+ 
+ .borderright {
+    border-right: 1px solid #cfc1c3;
+    position: absolute;
+    top: 100%;
+    bottom: 100%;
+    height: 125vh;
+  }
+ .style_6{
+    padding-right:20px;
+     border-right: 1px solid #ccc;
+    
+
+ }
+ .show-calc{
+     margin-left: 50%;
+     font-size: 16px;
+     width: 140px;
+     height: 30px;
+     margin-top: 7%;
+     border-radius: 5px;
+ }
+
+.submit{
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 5%;
+}
+.submit2{
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 5%;
+   
+}
+.submit3{
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 5%;
+    margin-left: 4%;
+}
+.idea{
+    width:20%
+}
+.ans{
+    padding-top: 30px;
+    margin-right: 10px;
+}
+.correct{
+    border-color: rgb(173, 243, 173);
+    width:auto;
+    height:50px;
+    background-color: rgb(173, 243, 173);
+    margin-left: 50px;
+    padding-top: 10px;
+    border-radius: 5px;
+
+}
+.wrong{
+    border-color: rgb(247, 130, 149);
+    width:auto;
+    height:50px;
+    background-color: rgb(247, 130, 149);
+    margin-left: 50px;
+    padding-top: 10px;
+    border-radius: 5px;
+
+}

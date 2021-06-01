@@ -30,10 +30,20 @@ class topic extends Component {
         this.state = {
             count: 0,
             data: [],
-            category: []
+            category: [],
+            topic_array: []
 
         };
+        
 
+
+    }
+    componentDidMount() {
+        
+        fetch("http://localhost:5000/")
+            .then(res => res.json())
+            .then(json => this.setState({ topic_array: json }));
+        
 
     }
     handleChange = e => {
@@ -76,7 +86,7 @@ class topic extends Component {
 
 
     search_topic = e => this.setState({ search_topic_item: e.target.value })
-
+    
 
     render() {
 
@@ -85,7 +95,7 @@ class topic extends Component {
         return (
 
             <section id="topic">
-
+                <h1>{this.props.status}</h1>
                 <div className="row">
 
                     <div className="col-md-9 left">
@@ -95,7 +105,7 @@ class topic extends Component {
 
                         </div>
                         <div className="row">
-                            <div className="card first" >
+                            <div className="card" >
 
                                 <img className="algeb" src={algebra} />
                                 <div className="card-body">
@@ -166,12 +176,12 @@ class topic extends Component {
                         <div>
                             {this.state.count == 0
                                 ? (<div class="col-md-8 text-center ">
-                                    <button className="see_more" onClick={() => this.setState({ count: this.state.count + 1 })}>Show More</button>
+                                    <button className="see_more2" onClick={() => this.setState({ count: this.state.count + 1 })}>Show More</button>
                                 </div>)
                                 : (
                                     <div className="row">
 
-                                        <div className="card first" >
+                                        <div className="card" >
 
                                             <img className="graph" src={graph} />
                                             <div className="card-body">
@@ -243,81 +253,29 @@ class topic extends Component {
                         <div className="simple">Topic
                         </div>
                         <div className="simplee">
-                            {
-                                !this.state.search_topic_item
-                                    ? (<div className="radio-buttons">
-                                        <input
-                                            className="check"
-                                            value="Algebra"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
-                                        />Algebra<br></br>
+                            {/* { */}
+                                {/* !this.state.search_topic_item && */}
+                                <div className="radio-buttons">
+                                    {this.state.topic_array.map(filteredName => (
+                                        <li className="none">
+                                            <input type="radio" className="check" name="platform" value={filteredName.topicname}
+                                                onChange={this.handleChange} />
+                                            {filteredName.topicname}
+                                        </li>
 
-                                        <input
-                                            className="check"
-                                            value="Number Theory"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
-                                        />Number Theory<br></br>
-
-                                        <input
-                                            className="check"
-                                            value="Geometry"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
+                                    ))
+                                    }
+                                </div>
+                           
 
 
-                                        />Geometry<br></br>
-                                        <input
-                                            className="check"
-                                            value="Trigonometry"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
 
 
-                                        />Trigonometry<br></br>
-                                        <input
-                                            className="check"
-                                            value="Statistics"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
 
 
-                                        />Statistics<br></br>
-                                        <input
-                                            className="check"
-                                            value="Time"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
 
 
-                                        />Time<br></br>
-                                        <input
-                                            className="check"
-                                            value="Brain Teaser"
-                                            name="platform"
-                                            type="radio"
-                                            onChange={this.handleChange}
 
-
-                                        />Brain Teaser<br></br>
-                                    </div>)
-                                    : (<div className="radio-buttons">
-                                    <input
-                                        className="check"
-                                        value={this.state.search_topic_item}
-                                        name="platform"
-                                        type="radio"
-                                        onChange={this.handleChange}
-                                    />{this.state.search_topic_item}<br></br>
-                                    </div>)
-                            }
 
                         </div>
 

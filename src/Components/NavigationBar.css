@@ -23,6 +23,16 @@
     font-size: 1rem;
     align-items: right;
 }
+.nav-item2 {
+    padding-right: 10px;
+    font-size: 1rem;
+    align-items: right;
+}
+.nav-item3 {
+    padding-left: 10px;
+    font-size: 1rem;
+    align-items: right;
+}
 
 .nav-links {
     color: #FFFFFF;
@@ -37,12 +47,22 @@
 .logo {
     color:white;
 }
-/* */
 .divider-vertical-second-menu{
     height: 30px;
     width: 1px;
-    margin: 0 0px;
-    overflow: hidden;
+    
+    
     background-color: #DDD;
-    border-right: 2px solid #FFF;
+    border-right:1px solid #FFF;
+ }
+ .divider-vertical-second-menu2{
+    height: 30px;
+    width: 1px;
+    
+    
+    background-color: #DDD;
+    border-right:1px solid #FFF;
+ }
+ .logo_image{
+     width:17%;
  }
