@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink ,Link} from "react-router-dom";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import {
@@ -71,7 +71,7 @@ class NavigationBar extends Component {
                             </NavItem>
                             <li class="divider-vertical-second-menu"></li>
                             <NavItem>
-                                <NavLink className="nav-links" to="">
+                                <NavLink className="nav-links" to="/tutorial">
                                     {i18n.t("Tutorial")}
                                 </NavLink>
                             </NavItem>
@@ -85,8 +85,9 @@ class NavigationBar extends Component {
                             {/* <NavItem>
                             
                             </NavItem> */}
+                            <Link to="/profile">
                             <img src={avatar} />
-
+                            </Link>
                             <NavItem style={{ paddingLeft: 10 }}>
                                 <NavLink className="nav-links" to="/">
                                 {i18n.t("Sign Out")}

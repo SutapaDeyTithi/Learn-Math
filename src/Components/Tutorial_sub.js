@@ -43,7 +43,7 @@ class Sub extends React.Component {
                                         <p className="card_text" >
                                             <Link className="link"
                                                 to={{
-                                                    pathname: "/category" ,
+                                                    pathname: "/video" ,
                                                     state: {
                                                         name: filteredName.topicname + "//" + filteredName.subtopic_name
                                                     }

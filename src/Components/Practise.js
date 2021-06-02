@@ -6,6 +6,7 @@ import Question1 from './Question1';
 import Options from "./Options"
 import Explain1 from "./Explain1";
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 class Cat extends React.Component {
     constructor(props) {
         super(props);
@@ -21,8 +22,8 @@ class Cat extends React.Component {
             question_no: 1,
             show_buttons: 0,
             explanation: 0,
-            answer:0,
-            op_name:""
+            answer: 0,
+            op_name: ""
 
 
 
@@ -54,8 +55,8 @@ class Cat extends React.Component {
     hide_answer = e => {
         this.setState({ answer: 0 })
     }
-    handleCallback = (childData) =>{
-        this.setState({op_name: childData})
+    handleCallback = (childData) => {
+        this.setState({ op_name: childData })
     }
 
     componentDidMount() {
@@ -92,8 +93,8 @@ class Cat extends React.Component {
     hidecalc = e => {
         this.setState({ index: 0 })
     }
-    option_value(value){
-        this.setState({op:value});
+    option_value(value) {
+        this.setState({ op: value });
     }
 
     render() {
@@ -110,10 +111,10 @@ class Cat extends React.Component {
                             <div className="middle">
                                 {
                                     !this.state.explanation
-                                    ?(<Question1 question_no={1} question={this.state.question} />)
-                                    :(<Explain1/>)
+                                        ? (<Question1 question_no={1} question={this.state.question} />)
+                                        : (<Explain1 />)
                                 }
-                                
+
 
                                 {
                                     !this.state.index
@@ -126,44 +127,52 @@ class Cat extends React.Component {
                         </div>
                         <div className="col-md-3 third " style={{ textAlign: "center" }}>
                             
-                            
-                            
+
+
                             {
                                 this.state.show_buttons
                                     ? (
-                                        <div>
+                                        <div style={{marginTop:60}}>
                                             {
-                                                this.state.op_name==="40"
-                                                ?(<div className="correct">Correct Answer</div>)
-                                                :(<div className="wrong">Wrong Answer</div>)
+                                                this.state.op_name === "40"
+                                                    ? (<div className="correct">Correct Answer</div>)
+                                                    : (<div className="wrong">Wrong Answer</div>)
                                             }
-                                            
+
                                             {
                                                 !this.state.answer
-                                                ?(<button className="submit2" onClick={this.show_answer}>Show Answer</button>)
-                                                :(<button className="submit2" onClick={this.hide_answer}>Hide Answer</button>)
+                                                    ? (<button className="submit2" onClick={this.show_answer}>Show Answer</button>)
+                                                    : (<button className="submit2" onClick={this.hide_answer}>Hide Answer</button>)
                                             }
-                                            
+
                                             {
                                                 !this.state.explanation
-                                                ?(<button className="submit3" onClick={this.show_explanations}>Show Explanation</button>)
-                                                :(<button className="submit3" onClick={this.hide_explanations}>Hide Explanation</button>)
+                                                    ? (<button className="submit3" onClick={this.show_explanations}>Show Explanation</button>)
+                                                    : (<button className="submit3" onClick={this.hide_explanations}>Hide Explanation</button>)
                                             }
-                                            
+
                                             <br></br>
                                             <button className="submit2">Join Discussion</button>
                                         </div>
                                     )
                                     : (
                                         <div>
-                                            <Options question={this.state.question} parentCallback = {this.handleCallback}/>
+                                            <Options question={this.state.question} parentCallback={this.handleCallback} />
                                             <button className="submit" onClick={this.show_three_buttons}>Submit</button>
                                         </div>)
                             }
                             {
                                 this.state.answer
-                                ?(<h5 className="ans">The correct answer is 40</h5>)
-                                :(<h6></h6>)
+                                    ? (<h5 className="ans">The correct answer is 40</h5>)
+                                    : (<h6></h6>)
+                            }
+                            {
+                                this.state.show_buttons
+                                ?(<Link to="/next" className="btn btn-primary next-prob"> 
+                                Continue
+                                </Link>
+                                )
+                                :(<h1></h1>)
                             }
                             {
                                 this.state.index

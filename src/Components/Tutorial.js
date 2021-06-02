@@ -112,7 +112,7 @@ class topic extends Component {
                                     <p className="card-text">
                                         <Link className="link"
                                             to={{
-                                                pathname: "/subtopic",
+                                                pathname: "/tutorial_sub",
                                                 state: { name: "Algebra" }
                                             }}
                                         >Algebra</Link>
@@ -128,7 +128,7 @@ class topic extends Component {
                                     <p className="card-text">
                                         <Link className="link"
                                             to={{
-                                                pathname: "/subtopic",
+                                                pathname: "/tutorial_sub",
                                                 state: {
                                                     name: "Number Theory"
                                                 }
@@ -145,7 +145,7 @@ class topic extends Component {
                                     <p className="card-text">
                                         <Link className="link"
                                             to={{
-                                                pathname: "/subtopic",
+                                                pathname: "/tutorial_sub",
                                                 state: {
                                                     name: "Geometry"
                                                 }
@@ -160,7 +160,7 @@ class topic extends Component {
                                     <p className="card-text">
                                         <Link className="link"
                                             to={{
-                                                pathname: "/subtopic",
+                                                pathname: "/tutorial_sub",
                                                 state: {
                                                     name: "BrainTeaser"
                                                 }
@@ -188,7 +188,7 @@ class topic extends Component {
                                                 <p className="card-text">
                                                     <Link className="link"
                                                         to={{
-                                                            pathname: "/subtopic",
+                                                            pathname: "/tutorial_sub",
                                                             state: {
                                                                 name: "Graph"
                                                             }
@@ -204,7 +204,7 @@ class topic extends Component {
                                                 <p className="card-text">
                                                     <Link className="link"
                                                         to={{
-                                                            pathname: "/subtopic",
+                                                            pathname: "/tutorial_sub",
                                                             state: {
                                                                 name: "TIME"
                                                             }
@@ -334,46 +334,18 @@ class topic extends Component {
 
                         </div>
                         {/* <h1>{this.state.subtopic}</h1> */}
-                        <div>
-                            {this.state.clicked_subtopic >= 0
-                                ? (
-
-                                    <div>
-
-                                        <div className="simple">Category</div>
-                                        <div className="simplee radio-buttons">
-                                            {this.state.category.filter(el => el.sub_name == this.state.subtopic).map(filteredName => (
-                                                <li className="none">
-                                                    <input type="radio" className="check" name="platform" value={filteredName.cate_name}
-                                                        onChange={this.handleChange_category} />
-                                                    {filteredName.cate_name}
-                                                </li>
-
-                                            ))
-                                            }
-                                        </div>
-
-
-
-                                    </div>
-                                )
-                                : (<h3></h3>)
-                            }
-
-
-                        </div>
-                        {/* <h1>{this.state.category_name}</h1>
+                           {/* <h1>{this.state.category_name}</h1>
                         <h1>{this.state.topic}</h1>
                         <h1>{this.state.subtopic}</h1> */}
                         <div>
                             {
-                                this.state.topic >= " " && this.state.subtopic >= " " && this.state.category_name >= " "
+                                this.state.topic >= " " && this.state.subtopic >= " " 
                                     ? (<div className="submit_button">
                                         <Link className="submit_button_link"
                                             to={{
-                                                pathname: "/practise",
+                                                pathname: "/video",
                                                 state: {
-                                                    name: this.state.topic + "//" + this.state.subtopic + "//" + this.state.category_name
+                                                    name: this.state.topic + "//" + this.state.subtopic 
                                                 }
                                             }}>Submit</Link>
                                     </div>)
