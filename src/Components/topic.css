@@ -191,10 +191,11 @@
  .submit_button{
      text-align: center;
      width:60px;
-     background-color: rgb(201, 193, 193);
+     background-color: #aaafad;
      margin-left: 90px;
      margin-top: 13px;
-     border-radius: 1;
+     border-radius: 4px;
+
  }
  .submit_button_link{
      text-decoration: none;

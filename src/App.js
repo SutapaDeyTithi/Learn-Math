@@ -17,7 +17,7 @@ import Tutorial from "./Components/Tutorial";
 import Tutorial_sub from "./Components/Tutorial_sub"
 import Video from "./Components/Video"
 import Profile from "./Components/Profile";
-
+import Next from "./Components/next_q";
 class App extends Component {
     constructor(props) {
         super(props);
@@ -74,7 +74,7 @@ class App extends Component {
                         <Route path="/tutorial_sub" component={Tutorial_sub} />
                         <Route path="/video" component={Video} />
                         <Route path="/profile" component={Profile}/>
-
+                        <Route path="/next" component={Next}/>
 
                     </Switch>
 

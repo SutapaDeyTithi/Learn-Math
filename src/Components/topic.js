@@ -26,7 +26,7 @@ class topic extends Component {
         this.subtopic = " "
         this.category_name = " "
         this.clicked_link = 0
-        this.search_topic_item = null
+        this.search_topic_item = " "
         this.state = {
             count: 0,
             data: [],
@@ -34,16 +34,16 @@ class topic extends Component {
             topic_array: []
 
         };
-        
+
 
 
     }
     componentDidMount() {
-        
+
         fetch("http://localhost:5000/")
             .then(res => res.json())
             .then(json => this.setState({ topic_array: json }));
-        
+
 
     }
     handleChange = e => {
@@ -86,7 +86,7 @@ class topic extends Component {
 
 
     search_topic = e => this.setState({ search_topic_item: e.target.value })
-    
+
 
     render() {
 
@@ -250,13 +250,16 @@ class topic extends Component {
                             className="search"
                         />
 
+
                         <div className="simple">Topic
                         </div>
                         <div className="simplee">
                             {/* { */}
-                                {/* !this.state.search_topic_item && */}
-                                <div className="radio-buttons">
-                                    {this.state.topic_array.map(filteredName => (
+                            {/* !this.state.search_topic_item && */}
+                            {
+                                this.state.search_topic_item >= " "
+                                    ? (<div className="radio-buttons">
+                                    {this.state.topic_array.filter(item => item.topicname.toLowerCase().includes(this.state.search_topic_item.toLowerCase())).map(filteredName => (
                                         <li className="none">
                                             <input type="radio" className="check" name="platform" value={filteredName.topicname}
                                                 onChange={this.handleChange} />
@@ -265,8 +268,21 @@ class topic extends Component {
 
                                     ))
                                     }
-                                </div>
-                           
+                                </div>)
+                                    : (<div className="radio-buttons">
+                                        {this.state.topic_array.map(filteredName => (
+                                            <li className="none">
+                                                <input type="radio" className="check" name="platform" value={filteredName.topicname}
+                                                    onChange={this.handleChange} />
+                                                {filteredName.topicname}
+                                            </li>
+
+                                        ))
+                                        }
+                                    </div>)
+                            }
+
+
 
 
 
