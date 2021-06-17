@@ -85,6 +85,7 @@ class first extends Component {
     handleChange_role(e) {
         //console.log("Fruit Selected!!");
         this.setState({ role: e.target.value });
+        this.props.setRole(e);
     }
     handleChange_name(e) {
         //console.log("Fruit Selected!!");

@@ -7,15 +7,13 @@ import './Signin.css'
 class first extends Component {
     constructor(props) {
         super(props);
-        
-        
-      }
-      handleLangChange = () => {
-       
+    }
+    
+    handleLangChange = () => {
         // this.props.passToParent(1);
         this.props.onRouteChange("signedin");             
     }
- 
+    
     
     render() {
 
@@ -31,7 +29,9 @@ class first extends Component {
                         
                         <p style={{marginTop:15}}>Login as 
                         <input type="checkbox" id="vehicle1" name="vehicle1" value="Student" className="checkb"/>Student 
-                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Instructor" className="checkb"/>Instructor
+                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Instructor" className="checkb"
+                        />
+                        Instructor
                         <input type="checkbox" id="vehicle1" name="vehicle1" value="Moderator" className="checkb"/> Moderator
                         </p> 
                         

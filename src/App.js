@@ -27,6 +27,7 @@ class App extends Component {
           box: {},
           route: '',
           isSignedIn: false,
+          role: '',
           user: {
             id: '',
             name: '',
@@ -45,6 +46,10 @@ class App extends Component {
           this.setState({isSignedIn: true})
         }
         this.setState({route: route});
+      }
+
+      setRole = (role) => {
+          this.setState({role: role});
       }
     
       render() {
@@ -68,22 +73,43 @@ class App extends Component {
                               <Route exact path="/" render={(props) => <Home isSignedIn={this.state.isSignedIn} {...props} /> }/>
                             }
     
-                            <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} {...props} /> } />
-                            <Route exact path="/register" render={(props) => <Register onRouteChange={this.onRouteChange} {...props} /> }/>
-    
-                            {/* STUDENT */}
-                            <Route path="/practice" component={Topic}/>
-                            <Route path="/subtopic" component={Sub} />
-                            <Route path="/category" component={Cat} />
-                            <Route path="/practise" component={Practise} />
-                            <Route path="/tutorial" component={Tutorial} />
-                            <Route path="/tutorial_sub" component={Tutorial_sub} />
-                            <Route path="/video" component={Video} />
-                            <Route path="/profile" component={Profile}/>
-                            <Route path="/next" component={Next}/>
-    
-                            {/* INSTRUCTOR */}
-                            {/* MODERATOR */}
+                            <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} setRole={this.setRole} {...props} /> } />
+                            <Route exact path="/register" render={(props) => <Register onRouteChange={this.onRouteChange} setRole={this.setRole} {...props} /> }/>
+                         
+                            {this.state.role == "student" ?
+                                <div>
+                                    {/* STUDENT */}
+                                    <Route path="/practice" component={Topic}/>
+                                    <Route path="/subtopic" component={Sub} />
+                                    <Route path="/category" component={Cat} />
+                                    <Route path="/practise" component={Practise} />
+                                    <Route path="/tutorial" component={Tutorial} />
+                                    <Route path="/tutorial_sub" component={Tutorial_sub} />
+                                    <Route path="/video" component={Video} />
+                                    <Route path="/profile" component={Profile}/>
+                                    <Route path="/next" component={Next}/>
+                                </div>
+                                :
+                                <div>
+                                    {this.state.role == "instructor" ?
+                                        <div>
+                                            {/* INSTRUCTOR */}
+                                            <div>
+                                                {/* <Route path="/instructorHome" component = {InstructorHome}/>
+                                                <Route path="/createTutorial" component = {CreateTutorial} />
+                                                <Route path="/examCorner" component = {ExamCorner} />
+                                                <Route path="/createExam" component = {ExamCorner2} /> */}
+                                            </div>
+
+                                        </div>
+                                        :
+                                        <div>
+                                            {/* MODERATOR */}
+
+                                        </div>
+                                    }
+                                </div>
+                            }
                           </div>
                     </Switch>
     
@@ -95,5 +121,8 @@ class App extends Component {
     }
 
 export default App;
+
 //npm run nodemon
 //npm run start
+
+// jhamela hoile, CSE408 -> Learn Math Final Codebase -> CSE408-master theke add korbo :| 
