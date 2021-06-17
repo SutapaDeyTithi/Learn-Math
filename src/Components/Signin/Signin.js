@@ -12,7 +12,8 @@ class first extends Component {
       }
       handleLangChange = () => {
        
-        this.props.passToParent(1);            
+        // this.props.passToParent(1);
+        this.props.onRouteChange("signedin");             
     }
  
     

@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
-import NavigationBar from "./Components/Navigation/NavigationBar";
-import Footer from "./Components/Footer/Footer";
+import Navigation from "./Components/Navigation/NavigationBar";
+import Footer from "./Components/Footer/Footer2";
 import Home from "./Components/Home/Home";
 import Topic from "./Components/Student/Topic";
 import Sub from "./Components/Student/Sub";
 import Cat from "./Components/Student/Category";
 import Practise from "./Components/Student/Practise";
 import NavigationBar2 from "./Components/Navigation/Navigation2";
-import First_page from "./Components/Signin/Signin";
+import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
 //import Signin from "./Components/Signin";
 import Tutorial from "./Components/Student/Tutorial";
@@ -22,68 +22,77 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isToggleOn: 0, language: '',
-            isAuthenticated: false,
-            text: 0
-        };
+          input: '',
+          imageUrl: '',
+          box: {},
+          route: '',
+          isSignedIn: false,
+          user: {
+            id: '',
+            name: '',
+            email: '',
+            entries: 0,
+            joined: ''
+          }
+        }
+      }
 
-        // This binding is necessary to make `this` work in the callback
-        // this.handleClick = this.handleClick.bind(this);
-    }
+
+      onRouteChange = (route) => {
+        if (route === 'signout') {
+          this.setState({isSignedIn: false})
+        } else if (route === 'signedin') {
+          this.setState({isSignedIn: true})
+        }
+        this.setState({route: route});
+      }
     
-    handleLanguage = (langValue) => {
-        this.setState({ isToggleOn: langValue });
-    }
-    
-
-
-    render() {
-        
-        return (
-
-
+      render() {
+          return (
             <BrowserRouter>
-
                 <div>
-                    
-                    {
-                        this.state.isToggleOn > 0
-                            ? <NavigationBar />
-                            : (
-
-                                <NavigationBar2 />
-
-
-                            )
-
-                    }
-                    {/* <h1 style={{marginTop:100}}>{this.state.isToggleOn}</h1> */}
-                    <Switch>
-                        {/* render={(props) => <Home passToParent={this.childCallback} {...props} /> } */}
-                        <Route exact path="/" render={(props) => <Home passToParent={this.handleLanguage} {...props} /> } />
-                        <Route exact path="/first" render={(props) => <First_page passToParent={this.handleLanguage} {...props} /> } />
-
-
-
-                        <Route exact path="/register" render={(props) => <Register passToParent={this.handleLanguage} {...props} /> }/>
-                        <Route path="/practice" component={Topic}/>
-                        <Route path="/subtopic" component={Sub} />
-                        <Route path="/category" component={Cat} />
-                        <Route path="/practise" component={Practise} />
-                        <Route path="/tutorial" component={Tutorial} />
-                        <Route path="/tutorial_sub" component={Tutorial_sub} />
-                        <Route path="/video" component={Video} />
-                        <Route path="/profile" component={Profile}/>
-                        <Route path="/next" component={Next}/>
-
+                    <Route 
+                      path="" 
+                      render={(props) => ( 
+                          <Navigation
+                            isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} {...props}
+                          />
+                        )}
+                      />
+                      
+                      <Switch>
+                          <div>
+                            {this.state.isSignedIn ?
+                            <div></div>
+                            :
+                              <Route exact path="/" render={(props) => <Home isSignedIn={this.state.isSignedIn} {...props} /> }/>
+                            }
+    
+                            <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} {...props} /> } />
+                            <Route exact path="/register" render={(props) => <Register onRouteChange={this.onRouteChange} {...props} /> }/>
+    
+                            {/* STUDENT */}
+                            <Route path="/practice" component={Topic}/>
+                            <Route path="/subtopic" component={Sub} />
+                            <Route path="/category" component={Cat} />
+                            <Route path="/practise" component={Practise} />
+                            <Route path="/tutorial" component={Tutorial} />
+                            <Route path="/tutorial_sub" component={Tutorial_sub} />
+                            <Route path="/video" component={Video} />
+                            <Route path="/profile" component={Profile}/>
+                            <Route path="/next" component={Next}/>
+    
+                            {/* INSTRUCTOR */}
+                            {/* MODERATOR */}
+                          </div>
                     </Switch>
-
+    
                     <Footer />
                 </div>
             </BrowserRouter>
         );
+      }
     }
-}
 
 export default App;
 //npm run nodemon

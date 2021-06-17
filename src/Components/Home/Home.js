@@ -10,9 +10,9 @@ class Home extends Component {
         super(props);
         
       }
-    componentDidMount(){
-      this.props.passToParent(0);  
-    }  
+    // componentDidMount(){
+    //   this.props.passToParent(0);  
+    // }  
     render() {
         return (
             <>

@@ -100,7 +100,8 @@ class first extends Component {
     }
     handleLangChange = () => {
 
-        this.props.passToParent(1);
+        // this.props.passToParent(1);
+        this.props.onRouteChange("signedin"); 
         fetch('http://localhost:5000/', {
             method: 'POST',
             headers: {
