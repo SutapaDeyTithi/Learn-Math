@@ -1,10 +1,3 @@
-CREATE DATABASE topic;
-
-CREATE table subtopic(
-    subtopic_id SERIAL PRIMARY KEY,
-    topicname VARCHAR(255),
-    subtopic_name VARCHAR(255)
-);
 CREATE table category(
     id SERIAL PRIMARY KEY,
     sub_name VARCHAR(255),
@@ -31,11 +24,6 @@ CREATE table user_data(
     pass VARCHAR(255),
     roletype VARCHAR(255),
     class int
-);
-create table check_table(
-    id SERIAL PRIMARY KEY,
-    firstname VARCHAR(255),
-    secondname VARCHAR(255)
 );
 
 create table multiple_answer(

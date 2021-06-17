@@ -17,8 +17,8 @@ class Profile extends Component {
         super(props);
         this.state = {
             mode: 0,
-            name: "Javed Kamal",
-            class: "6",
+            name: "Karim",
+            class: "3",
             school: "",
             email: "1605014@ugrad.cse.buet.ac.bd"
         }
