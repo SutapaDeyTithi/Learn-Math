@@ -20,8 +20,8 @@ class first extends Component {
 
         return (
             <div id="first">
-                <h1>{this.props.text}</h1>
-                <div className="card my_card border-dark">
+                {/* <h1>{this.props.text}</h1> */}
+                <div className="card signin_card border-dark" >
                     <div className="card-body">
                         <h3 className="card-title">Sign In</h3>
                         <input id="Email" name="Email" type="text" placeholder="Email address" className="email"/> 

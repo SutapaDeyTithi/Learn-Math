@@ -7,8 +7,8 @@ import Options from "./Options"
 import Explain1 from "./Explain1";
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import boy from "../Resources/Images/boy.jpg";
-import idea from "../Resources/Images/idea.jpg"
+import boy from "../../Resources/Images/boy.jpg";
+import idea from "../../Resources/Images/idea.jpg"
 
 class Cat extends React.Component {
     constructor(props) {

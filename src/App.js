@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
-import NavigationBar from "./Components/NavigationBar";
-import Footer from "./Components/Footer";
-import Home from "./Components/Home";
-import Topic from "./Components/Topic";
-import Sub from "./Components/Sub";
-import Cat from "./Components/Category";
-import Practise from "./Components/Practise";
-import NavigationBar2 from "./Components/Navigation2";
-import First_page from "./Components/Signin";
-import Register from "./Components/Register";
+import NavigationBar from "./Components/Navigation/NavigationBar";
+import Footer from "./Components/Footer/Footer";
+import Home from "./Components/Home/Home";
+import Topic from "./Components/Student/Topic";
+import Sub from "./Components/Student/Sub";
+import Cat from "./Components/Student/Category";
+import Practise from "./Components/Student/Practise";
+import NavigationBar2 from "./Components/Navigation/Navigation2";
+import First_page from "./Components/Signin/Signin";
+import Register from "./Components/Register/Register";
 //import Signin from "./Components/Signin";
-import Tutorial from "./Components/Tutorial";
-import Tutorial_sub from "./Components/Tutorial_sub"
-import Video from "./Components/Video"
-import Profile from "./Components/Profile";
-import Next from "./Components/next_q";
+import Tutorial from "./Components/Student/Tutorial";
+import Tutorial_sub from "./Components/Student/Tutorial_sub"
+import Video from "./Components/Student/Video"
+import Profile from "./Components/Student/Profile";
+import Next from "./Components/Student/next_q";
 class App extends Component {
     constructor(props) {
         super(props);

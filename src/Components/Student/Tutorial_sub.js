@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./sub.css";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
-import subtopic_img from "../Resources/Images/content 1.png";
+import subtopic_img from "../../Resources/Images/content 1.png";
 
 class Sub extends React.Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class Sub extends React.Component {
                                         <p className="card_text" >
                                             <Link className="link"
                                                 to={{
-                                                    pathname: "/category" ,
+                                                    pathname: "/video" ,
                                                     state: {
                                                         name: filteredName.topicname + "//" + filteredName.subtopic_name
                                                     }

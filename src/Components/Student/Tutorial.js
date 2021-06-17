@@ -1,14 +1,14 @@
 import React, { Component, useState } from "react";
 
 import './topic.css';
-import algebra from "../Resources/Images/al.PNG";
-import popular from "../Resources/Images/popular.png";
-import number from "../Resources/Images/number 1.png";
-import geo from "../Resources/Images/geou 1.png";
-import logic from "../Resources/Images/logic 1.png";
-import graph from "../Resources/Images/Cycle_graph_C5 1.png";
-import clock from "../Resources/Images/clock.PNG";
-import Practise from './Practise';
+import algebra from "../../Resources/Images/al.PNG";
+import popular from "../../Resources/Images/popular.png";
+import number from "../../Resources/Images/number 1.png";
+import geo from "../../Resources/Images/geou 1.png";
+import logic from "../../Resources/Images/logic 1.png";
+import graph from "../../Resources/Images/Cycle_graph_C5 1.png";
+import clock from "../../Resources/Images/clock.PNG";
+
 
 
 

@@ -13,7 +13,7 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
 import i18n from "i18next";
-import "./NavigationBar.css";
+import "./Footer.css";
 
 class Footer extends Component {
     state = {

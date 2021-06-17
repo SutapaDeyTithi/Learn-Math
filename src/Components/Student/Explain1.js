@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import idea from "../Resources/Images/idea.jpg"
+import idea from "../../Resources/Images/idea.jpg"
 
 class q extends Component {
     constructor(props) {

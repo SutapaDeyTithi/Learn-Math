@@ -13,7 +13,7 @@ import {
     DropdownItem } from 'reactstrap';
 import i18n from "i18next";
 import "./NavigationBar.css";
-import logo_image from "../Resources/Images/image 6.png";
+import logo_image from "../../Resources/Images/image 6.png";
 
 class NavigationBar extends Component {
     state = {
@@ -32,8 +32,8 @@ class NavigationBar extends Component {
                 <Navbar className="navbar-expand-lg fixed-top" light>
                     <NavbarBrand href="/">
                         <div className="logo">
-                        <img src={logo_image} className="logo_image"/>
-                            { i18n.t("Learn Math") }
+                        
+                           Learn Math
                             
                         </div>
                         

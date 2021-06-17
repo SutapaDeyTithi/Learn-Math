@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import "./Home.css";
-import welcome from "../Resources/Images/homepage1.jpg";
+import welcome from "../../Resources/Images/homepage1.jpg";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 class Home extends Component {

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./cat.css";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
-import category_pic from "../Resources/Images/content 2.png";
-import gcd from "../Resources/Images/image 70.png";
+import category_pic from "../../Resources/Images/content 2.png";
+import gcd from "../../Resources/Images/image 70.png";
 class Cat extends React.Component {
     constructor(props) {
         super(props);

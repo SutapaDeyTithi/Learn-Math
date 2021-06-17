@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import friend from "../Resources/Images/Friend.PNG";
+import friend from "../../Resources/Images/Friend.PNG";
 class q extends Component {
     constructor(props) {
         super(props);
