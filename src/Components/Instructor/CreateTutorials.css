@@ -1,0 +1,16 @@
+#tutorial {
+    text-align: center;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 8%;
+    padding-left: 10%;
+    padding-right: 10%;
+    min-height: 100vh;
+    width: 100%;
+    /* box-align: center; */
+}
+
+/* .checkbox {
+    position: center;
+} */
