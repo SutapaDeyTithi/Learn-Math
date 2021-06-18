@@ -1,3 +1,4 @@
+-- final database 
 CREATE TABLE "User" (
     user_id serial not null unique
         constraint user_pk
