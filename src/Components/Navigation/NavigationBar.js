@@ -73,73 +73,115 @@ class NavigationBar extends Component {
             );
         }
     else {
-        return (
-            <>
-                <Navbar className="navbar-expand-lg fixed-top " light>
-                    <NavbarBrand href="/">
-                        <div className="logo">
-                            <img src={logo_image} className="logo_image" />
-                            Learn Math
+        if(this.props.role == "student") {
+            return (
+                <>
+                    <Navbar className="navbar-expand-lg fixed-top " light>
+                        <NavbarBrand href="/">
+                            <div className="logo">
+                                <img src={logo_image} className="logo_image" />
+                                Learn Math
 
-                        </div>
+                            </div>
 
-                    </NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
+                        </NavbarBrand>
+                        <NavbarToggler onClick={this.toggle} />
 
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="ml-auto" navbar>
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="ml-auto" navbar>
 
-                            <NavItem>
-                                <NavLink className="nav-links" to="">
-                                    Problem of the week
-                                </NavLink>
-                            </NavItem>
-
-
-                            <li className="divider-vertical-second-menu"></li>
-                            <NavItem>
-                                <NavLink className="nav-links" to="">
-                                    Regular Test
-                                </NavLink>
-                            </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="">
+                                        Problem of the week
+                                    </NavLink>
+                                </NavItem>
 
 
-                            <li className="divider-vertical-second-menu"></li>
-                            <NavItem>
-                                <NavLink className="nav-links" to="/practice">
-                                   Practice
-                                </NavLink>
-                            </NavItem>
-                            <li className="divider-vertical-second-menu"></li>
-                            <NavItem>
-                                <NavLink className="nav-links" to="/tutorial">
-                                   Tutorial
-                                </NavLink>
-                            </NavItem>
-                            <li className="divider-vertical-second-menu"></li>
-                            <NavItem>
-                                <NavLink className="nav-links" to="">
-                                   Forum
-                                </NavLink>
-                            </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="">
+                                        Regular Test
+                                    </NavLink>
+                                </NavItem>
 
-                            {/* <NavItem>
+
+                                <li className="divider-vertical-second-menu"></li>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/authHome">
+                                    Practice
+                                    </NavLink>
+                                </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/tutorial">
+                                    Tutorial
+                                    </NavLink>
+                                </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="">
+                                    Forum
+                                    </NavLink>
+                                </NavItem>
+
+                                {/* <NavItem>
+                                
+                                </NavItem> */}
+                                <Link to="/profile">
+                                <img src={avatar} />
+                                </Link>
+                                <NavItem style={{ paddingLeft: 10 }}>
+                                    <NavLink className="nav-links" to="/" onClick={this.onSubmitSignOut}>
+                                    Sign Out
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+
+                    </Navbar>
+                </>
+            );
+        }
+        else if(this.props.role == "instructor") {
+            return (
+                <>
+                    <Navbar className="navbar-expand-lg fixed-top" light>
+                        <NavbarBrand href="/">
+                            <div className="logo">
+                              Learn Math
+                            </div>
                             
-                            </NavItem> */}
-                            <Link to="/profile">
-                            <img src={avatar} />
-                            </Link>
-                            <NavItem style={{ paddingLeft: 10 }}>
-                                <NavLink className="nav-links" to="/" onClick={this.onSubmitSignOut}>
-                                Sign Out
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-
-                </Navbar>
-            </>
-        );
+                        </NavbarBrand>
+                        <NavbarToggler onClick={this.toggle} />
+    
+                        <Collapse isOpen={this.props.navStateOpen} navbar>
+                            <Nav className="ml-auto" navbar>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/createTutorial">
+                                      Create Content
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/examCorner">
+                                        Exam Corner
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/forum">
+                                        Forum
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/" onClick={this.onSubmitSignOut}>
+                                        Sign Out
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+                    </Navbar>
+                </>
+            );
+        }
     }
     }
 }

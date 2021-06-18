@@ -78,7 +78,7 @@ class first extends Component {
                         Moderator
                         </p> 
                         
-                        <Link to="/practice" className="btn btn-primary " onClick={this.handleLangChange}>Submit</Link>
+                        <Link to="/authHome" className="btn btn-primary " onClick={this.handleLangChange}>Submit</Link>
                         <br></br> 
                         <p style={{marginTop:10}}>Don't have an account??   <Link to="/register">Register</Link></p>
                         

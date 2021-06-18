@@ -5,6 +5,8 @@ import "./App.css";
 import Navigation from "./Components/Navigation/NavigationBar";
 import Footer from "./Components/Footer/Footer2";
 import Home from "./Components/Home/Home";
+
+// STUDENT
 import Topic from "./Components/Student/Topic";
 import Sub from "./Components/Student/Sub";
 import Cat from "./Components/Student/Category";
@@ -18,6 +20,13 @@ import Tutorial_sub from "./Components/Student/Tutorial_sub"
 import Video from "./Components/Student/Video"
 import Profile from "./Components/Student/Profile";
 import Next from "./Components/Student/next_q";
+
+// INSTRUCTOR
+import CreateTutorial from './Components/Instructor/CreateTutorial';
+import ExamCorner from './Components/Instructor/ExamCorner1';
+import ExamCorner2 from './Components/Instructor/ExamCorner2';
+import InstructorHome from './Components/Instructor/HomeInstructor';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -61,7 +70,9 @@ class App extends Component {
                       path="" 
                       render={(props) => ( 
                           <Navigation
-                            isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} {...props}
+                            isSignedIn={this.state.isSignedIn} 
+                            role={this.state.role}
+                            onRouteChange={this.onRouteChange} {...props}
                           />
                         )}
                       />
@@ -71,7 +82,8 @@ class App extends Component {
                             {this.state.isSignedIn ?
                             <div></div>
                             :
-                              <Route exact path="/" render={(props) => <Home isSignedIn={this.state.isSignedIn} {...props} /> }/>
+                            <div></div>
+                              // <Route exact path="/" render={(props) => <Home isSignedIn={this.state.isSignedIn} {...props} /> }/>
                             }
     
                             <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} setRole={this.setRole} {...props} /> } />
@@ -80,7 +92,10 @@ class App extends Component {
                             {this.state.role == "student" ?
                                 <div>
                                     {/* STUDENT */}
-                                    <Route path="/practice" component={Topic}/>
+                                    {/* /practice --> /authHome 
+                                        for generalising all the roles :'(
+                                    */}
+                                    <Route path="/authHome" component={Topic}/>
                                     <Route path="/subtopic" component={Sub} />
                                     <Route path="/category" component={Cat} />
                                     <Route path="/practise" component={Practise} />
@@ -96,10 +111,10 @@ class App extends Component {
                                         <div>
                                             {/* INSTRUCTOR */}
                                             <div>
-                                                {/* <Route path="/instructorHome" component = {InstructorHome}/>
+                                                <Route path="/authHome" component = {InstructorHome}/>
                                                 <Route path="/createTutorial" component = {CreateTutorial} />
                                                 <Route path="/examCorner" component = {ExamCorner} />
-                                                <Route path="/createExam" component = {ExamCorner2} /> */}
+                                                <Route path="/createExam" component = {ExamCorner2} />
                                             </div>
 
                                         </div>

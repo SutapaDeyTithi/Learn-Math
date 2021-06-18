@@ -32,15 +32,15 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 // } from "./UIToolsInstructor/FullImageCard";
 
 import "./HomeInstructor.css";
-import welcome from "../../Resources/Images/homepage1.jpg";
-import img1 from "../../Resources/Images/img3.jpg";
-import img2 from "../../Resources/Images/img2.png";
-import img3 from "../../Resources/Images/img1.jpg";
-import quiz from "../../Resources/Images/quiz.jpg";
-import avatar1 from "../..\\Resources\\Images\\avatar1.jpg";
-import avatar2 from "../../Resources/Images/avatar2.jpg";
-import avatar3 from "../../Resources/Images/avatar3.jpg";
-import avatar4 from "../../Resources/Images/avatar4.jpg";
+import welcome from "../../Resources/ImagesInstructor/homepage1.jpg";
+import img1 from "../../Resources/ImagesInstructor/img3.jpg";
+import img2 from "../../Resources/ImagesInstructor/img2.png";
+import img3 from "../../Resources/ImagesInstructor/img1.jpg";
+import quiz from "../../Resources/ImagesInstructor/quiz.jpg";
+import avatar1 from "../..\\Resources\\ImagesInstructor\\avatar1.jpg";
+import avatar2 from "../../Resources/ImagesInstructor/avatar2.jpg";
+import avatar3 from "../../Resources/ImagesInstructor/avatar3.jpg";
+import avatar4 from "../../Resources/ImagesInstructor/avatar4.jpg";
 
 
 
