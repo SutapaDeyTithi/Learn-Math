@@ -1,4 +1,6 @@
 -- final database 
+CREATE DATABASE final_topic;
+
 CREATE TABLE "User" (
     user_id serial not null unique
         constraint user_pk
