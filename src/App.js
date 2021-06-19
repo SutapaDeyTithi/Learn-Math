@@ -11,7 +11,7 @@ import Topic from "./Components/Student/Topic";
 import Sub from "./Components/Student/Sub";
 import Cat from "./Components/Student/Category";
 import Practise from "./Components/Student/Practise";
-import NavigationBar2 from "./Components/Navigation/Navigation2";
+import NavigationBar2 from "./Components/Navigation/Navigation2_notused";
 import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
 //import Signin from "./Components/Signin";

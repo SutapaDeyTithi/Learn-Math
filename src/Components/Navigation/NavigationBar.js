@@ -161,16 +161,19 @@ class NavigationBar extends Component {
                                       Create Content
                                     </NavLink>
                                 </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
                                     <NavLink className="nav-links" to="/examCorner">
                                         Exam Corner
                                     </NavLink>
                                 </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
                                     <NavLink className="nav-links" to="/forum">
                                         Forum
                                     </NavLink>
                                 </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
                                     <NavLink className="nav-links" to="/" onClick={this.onSubmitSignOut}>
                                         Sign Out

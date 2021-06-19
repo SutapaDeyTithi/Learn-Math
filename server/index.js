@@ -6,8 +6,6 @@ app.use(cors());
 app.use(express.json());
 
 
-
-
 app.post('/', async(req,res)=>{
     try {
         // const { topicname, subtopic } = req.body;
@@ -41,10 +39,10 @@ app.get('/topic', async(req,res)=>{
         // INSERT INTO subtopic(topicName,subtopic_name) VALUES('Geometry','Circles');
 
         res.json(newsub.rows);
-    } catch (error) {
-        
+    } catch (error) {        
     }
 });
+
 app.get('/', async(req,res)=>{
     try {
         
@@ -57,6 +55,8 @@ app.get('/', async(req,res)=>{
         
     }
 });
+
+
 app.get('/subtopic', async(req,res)=>{
     try {
         
@@ -88,5 +88,6 @@ app.get('/mcq',async(req,res)=>{
 app.listen(5000,()=>{
     console.log("listening");
 })
+
 //npm run start
 //npm run nodemon
