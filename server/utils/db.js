@@ -2,10 +2,12 @@ const Pool=require("pg").Pool;
 
 const pool=new Pool({
     user:"postgres",
-    password:"123456",
+    password:"",
     host:"localhost",
     port:5432,
-    database:"final_topic"
+    database:"storage"
 })
 
 module.exports=pool;
+
+// you can create the database running finalDatabase.sql

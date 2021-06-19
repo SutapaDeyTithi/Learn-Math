@@ -17,7 +17,7 @@ class Sub extends React.Component {
 
 
     componentDidMount() {
-        fetch("http://localhost:5000/topic")
+        fetch("http://localhost:5000/subtopic")
             .then(res => res.json())
             .then(json => this.setState({ subtopic_array: json }));
 

@@ -85,11 +85,7 @@ class first extends Component {
                     {/* <input type="submit" id="submit" className="submit" onClick={this.handleLangChange}/>  */}
                                         
                     </div>
-                </div>
-
-                
-                
-                
+                </div>                             
             </div>
         )
     }

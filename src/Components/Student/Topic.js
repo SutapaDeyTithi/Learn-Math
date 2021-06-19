@@ -40,27 +40,23 @@ class topic extends Component {
     }
     componentDidMount() {
 
-        fetch("http://localhost:5000/")
+        fetch("http://localhost:5000/topic")
             .then(res => res.json())
             .then(json => this.setState({ topic_array: json }));
-
-
     }
     handleChange = e => {
         this.setState({ topic: e.target.value });
 
         this.setState({ clicked_topic: 1 });
-        fetch("http://localhost:5000/topic")
+        fetch("http://localhost:5000/subtopic")
             .then(res => res.json())
             .then(json => this.setState({ data: json }));
-
-
     };
     handleChange_sub = e => {
         this.setState({ subtopic: e.target.value });
 
         this.setState({ clicked_subtopic: this.clicked_subtopic + 1 });
-        fetch("http://localhost:5000/subtopic")
+        fetch("http://localhost:5000/category")
             .then(res => res.json())
             .then(json => this.setState({ category: json }));
 

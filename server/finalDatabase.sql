@@ -1,18 +1,19 @@
--- final database 
-CREATE DATABASE final_topic;
+-- final database
+CREATE DATABASE storage;
 
-CREATE TABLE "User" (
+CREATE TABLE "Users" (
     user_id serial not null unique
         constraint user_pk
             primary key,
-    user_name varchar(255) not null ,
-    email varchar(255) not null ,
+    user_name varchar(255) not null,
+    email varchar(255) not null unique,
     password varchar(255) not null ,
     dob varchar(255),
     image oid,
-    privilege integer not null,
+    privilege varchar(255) not null,
     rank integer,
     level integer,
+    class integer,
     contribution integer
 );
 
@@ -22,11 +23,11 @@ CREATE TABLE "User_History" (
             primary key,
     user_id     integer not null
         constraint fk_user
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     instructor_id     integer not null
         constraint fk_instructor
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     content_id integer,
     content_type integer,
@@ -45,7 +46,7 @@ create table "Feedback"
             primary key,
     user_id     integer not null
         constraint fk_user
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     feedback text
 );
@@ -57,7 +58,7 @@ create table "Forum_question"
             primary key,
     user_id     integer not null
         constraint fk_user
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     topic_name varchar(255),
     forum_text text,
@@ -66,23 +67,23 @@ create table "Forum_question"
     upvote integer,
     downvote integer
 );
-
-create table "Forum_question"
-(
-    forum_ques_id   serial not null unique
-        constraint forum_ques_pk
-            primary key,
-    user_id     integer not null
-        constraint fk_user
-            references "User"
-            on update cascade on delete cascade,
-    topic_name varchar(255),
-    forum_text text,
-    figures oid[],
-    link varchar(255),
-    upvote integer,
-    downvote integer
-);
+--
+-- create table "Forum_question"
+-- (
+--     forum_ques_id   serial not null unique
+--         constraint forum_ques_pk
+--             primary key,
+--     user_id     integer not null
+--         constraint fk_user
+--             references "User"
+--             on update cascade on delete cascade,
+--     topic_name varchar(255),
+--     forum_text text,
+--     figures oid[],
+--     link varchar(255),
+--     upvote integer,
+--     downvote integer
+-- );
 
 create table "Forum_answer"
 (
@@ -91,7 +92,7 @@ create table "Forum_answer"
             primary key,
     user_id     integer not null
         constraint fk_user
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     forum_ques_id     integer not null
         constraint fk_forum_ques
@@ -274,7 +275,7 @@ CREATE TABLE "Discussion_question" (
             on update cascade on delete cascade,
     user_id integer not null
 	    constraint fk_user
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     discussion_text text,
     figures oid[],
@@ -293,7 +294,7 @@ CREATE TABLE "Discussion_answer" (
             on update cascade on delete cascade,
     user_id integer not null
 	    constraint fk_user
-            references "User"
+            references "Users"
             on update cascade on delete cascade,
     discussion_answer_text text,
     figures oid[],
@@ -314,3 +315,27 @@ Create Table "Problems_of_the_week"(
 	total_participants integer,
 	participants_rank integer[]
 );
+
+-- insert some data
+
+INSERT INTO "Users"(user_name, email, password, privilege, class) VALUES('sudipa', '1605014@ugrad.cse.buet.ac.bd', '123', 'student', 5);
+
+Insert into "Topic"(topic_name) Values('Algebra');
+Insert into "Topic"(topic_name) Values('Geometry');
+Insert into "Topic"(topic_name) Values('BrainTeaser');
+Insert into "Topic"(topic_name) Values('Number Theory');
+Insert into "Topic"(topic_name) Values('Statistics');
+
+Insert into "Subtopic"(topic_id,subtopic_name) Values(1,'Algebric Expression');
+Insert into "Subtopic"(topic_id,subtopic_name) Values(1,'Algebric Formula');
+Insert into "Subtopic"(topic_id,subtopic_name) Values(1,'Algebric Fraction');
+Insert into "Subtopic"(topic_id,subtopic_name) Values(1,'Factor GCD_LCD');
+Insert into "Subtopic"(topic_id,subtopic_name) Values(1,'Equation Solving');
+
+Insert into "Category"(subtopic_id, category_name) Values(1,'Simplify');
+Insert into "Category"(subtopic_id, category_name) Values(1,'Add_Subtract');
+Insert into "Category"(subtopic_id, category_name) Values(1,'Multiply_Divide');
+
+Insert into "Question"(category_id, ques_type) VALUES (1, 1);
+Insert into "MCQ"(question_id, ques_text, options) Values(1,'Hablu and Dablu are two friends. One day they were playing together. While playing Hablu said that he had considered two numbers. Sum of them is 160 and one is three times of other. He challenged Dablu to correctly identify the numbers. Can you help him?','{40,50,60,70}');
+

@@ -64,7 +64,7 @@ class first extends Component {
         super(props);
         this.state = {
 
-            class: "",
+            class: 3,
             role: "none",
             name:"",
             email:"",
@@ -100,30 +100,24 @@ class first extends Component {
         this.setState({ pass: e.target.value });
     }
     handleLangChange = () => {
-
-        // this.props.passToParent(1);
         this.props.onRouteChange("signedin"); 
-        fetch('http://localhost:5000/', {
+        fetch('http://localhost:5000/signUp', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-            //   id: this.state.id,
-            //   item: this.state.item,
-            //   itemType: this.state.itemType
-            username:this.state.name,
-            email:this.state.email,
-            pass:this.state.pass,
-            roletype:this.state.role,
-            class:this.state.class
-        
-        
+                //   id: this.state.id,
+                //   item: this.state.item,
+                //   itemType: this.state.itemType
+                username:this.state.name,
+                email:this.state.email,
+                pass:this.state.pass,
+                roletype:this.state.role,
+                class:this.state.class       
             })
-          })
-          
-       
+          })    
     }
 
 
@@ -136,7 +130,7 @@ class first extends Component {
                     <div className="card-body">
                         <h3 className="card-title">Register</h3>
                         
-                        <input id="Email" name="Email" type="text" placeholder="Full name" className="email" onChange={this.handleChange_name} />
+                        <input id="Name" name="Name" type="text" placeholder="Full name" className="email" onChange={this.handleChange_name} />
                         <input id="Email" name="Email" type="text" placeholder="Email address" className="email"  onChange={this.handleChange_email} />
                         <input id="password" name="password" type="password" placeholder="Password" className="password"  onChange={this.handleChange_pass} />
 
@@ -162,7 +156,7 @@ class first extends Component {
                         }
 
 
-                        <Link to="/practice" className="btn btn-primary " onClick={this.handleLangChange}>Submit</Link>
+                        <Link to="/authHome" className="btn btn-primary " onClick={this.handleLangChange}>Submit</Link>
                         <br></br>
 
                         {/* <input type="submit" id="submit" className="submit" onClick={this.handleLangChange}/>  */}

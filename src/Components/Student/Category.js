@@ -20,7 +20,7 @@ class Cat extends React.Component {
 
 
     componentDidMount() {
-        fetch("http://localhost:5000/subtopic")
+        fetch("http://localhost:5000/category")
             .then(res => res.json())
             .then(json => this.setState({ category: json }));
         const name_arry = this.props.location.state.name.split('//', 2);
