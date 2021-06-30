@@ -20,13 +20,37 @@ exports.signUp = async(req, res) => {
 
         // have to check validity
         // const { valid, errors } = validateSignUpData(newUser);
+
+        // check if user already exists
+        pool.query("select exists(select 1 from \"Users\" where email=$1)",
+            [newUser.email], (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("error");
+                }
+                console.log(result);
+                console.log("user exists? ", result.rows[0].exists);
+                if (result.rows[0].exists == true) {
+                    return res.json("error");
+                }
+                else {
+                    // check if new user
+                    pool.query("INSERT INTO \"Users\"(user_name, email, password, privilege, class) VALUES($1, $2, $3, $4, $5)",
+                        [newUser.username, newUser.email, newUser.pass, newUser.roletype, newUser.classnum], (err, result) => {
+                            if (err) {
+                                console.error('Error executing query', err.stack);
+                                return res.json("error");
+                            }
+                            else {
+                                return res.json("registered");
+                            }
+                        }
+                    )
+                }
+                    
+                   
+                })
      
-        const newsub = await pool.query("INSERT INTO \"Users\"(user_name, email, password, privilege, class) VALUES($1, $2, $3, $4, $5)", 
-                                        [newUser.username, newUser.email, newUser.pass, newUser.roletype, newUser.classnum]);
-        
-                                        // console.log("inserted");
-        // INSERT INTO subtopics(topicName,subtopic_name) VALUES('Algebra','GCD/LCM')
-        return res.json(newsub);
     } catch (err) {   
         // have to handle more error code to send specific error
         console.log(err);
@@ -34,7 +58,7 @@ exports.signUp = async(req, res) => {
     }
 }
 
-exports.login = (req, res) => {
+exports.login = async(req, res) => {
     console.log("logging in..")
     try {
         const user = {
@@ -52,10 +76,22 @@ exports.login = (req, res) => {
         // const { valid, errors } = validateSignUpData(newUser);
      
         // check if the user exists
+
+        pool.query("select exists(select 1 from \"Users\" where email=$1 and password=$2 and privilege=$3)", 
+                    [user.email, user.pass, user.roletype], (err, result) => {
+            if (err) {
+              console.error('Error executing query', err.stack)
+              return res.json("error");
+            }
+            if(result.rows[0].exists == true)
+                return res.json("loggedin");
+            else
+                return res.json("error");
+          })
         
 
         // return user profile
-         return res.json("User has successfully logged in.");
+         //return res.json("User has successfully logged in.");
     } catch (err) {   
         console.log(err);
         return res.status(500).json({ error: err.code});

@@ -102,7 +102,6 @@ class first extends Component {
 
     // INCOMPLETE
     handleLangChange = () => {
-        this.props.onRouteChange("signedin"); 
         fetch('http://localhost:5000/signUp', {
             method: 'POST',
             headers: {
@@ -120,6 +119,17 @@ class first extends Component {
                 class:this.state.class       
             })
           })    
+          .then((response) => response.json())
+          .then((data) => {
+              console.log('This is your data:\n', data);
+              if(data === "registered")
+                this.props.onRouteChange("signedin"); 
+              else
+              {
+                  
+              }
+
+          });
     }
 
 

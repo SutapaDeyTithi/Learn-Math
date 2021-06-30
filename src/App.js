@@ -116,13 +116,18 @@ class App extends Component {
                                     {this.state.role == "instructor" ?
                                         <div>
                                             {/* INSTRUCTOR */}
+                                            {this.state.isSignedIn ?
+                                              <div>
+                                                  <Route path="/authHome" component = {InstructorHome}/>
+                                                  <Route path="/createTutorial" component = {CreateTutorial} />
+                                                  <Route path="/examCorner" component = {ExamCorner} />
+                                                  <Route path="/createExam" component = {ExamCorner2} />
+                                              </div>
+                                            :
                                             <div>
-                                                <Route path="/authHome" component = {InstructorHome}/>
-                                                <Route path="/createTutorial" component = {CreateTutorial} />
-                                                <Route path="/examCorner" component = {ExamCorner} />
-                                                <Route path="/createExam" component = {ExamCorner2} />
+                                              
                                             </div>
-
+                                          }
                                         </div>
                                         :
                                         <div>

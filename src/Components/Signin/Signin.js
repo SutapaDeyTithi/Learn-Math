@@ -13,7 +13,7 @@ class first extends Component {
             instructor: false,
             moderator: false,
 
-            role: "none",
+            role: "",
             email:"",
             pass:""
           };
@@ -22,27 +22,37 @@ class first extends Component {
         this.handleChangeModerator = this.handleChangeModerator.bind(this);
         //   this.handleSubmit = this.handleSubmit.bind(this);
 
-        //this.handleChange_role = this.handleChange_role.bind(this);
+        this.handleChange_role = this.handleChange_role.bind(this);
         this.handleChange_email = this.handleChange_email.bind(this);
         this.handleChange_pass = this.handleChange_pass.bind(this);
     }
 
     handleChange_role = () => {
-        if(this.state.student)
-            this.setState({ role: "student" });
-        else if(this.state.instructor)
-            this.setState({ role: "instructor" });
-        else if(this.state.moderator)
-            this.setState({ role: "moderator" });
+        console.log("setting role..");
+        if(this.state.student == true) {
+            //this.setState({ role: 'student' });
+            this.state.role = 'student';
+            console.log("if 1: ", this.state.role);
+        }
+        else if(this.state.instructor == true) {
+            this.state.role = 'instructor';
+            console.log("if 2: ", this.state.role);
+        }
+        else if(this.state.moderator == true) {
+            this.state.role = 'moderator';
+            console.log("if 3: ", this.state.role);
+        }
+        console.log(this.state.role);
     }
     
     handleSubmit = () => {
-        if(this.state.student)
-            this.setState({ role: "student" });
-        else if(this.state.instructor)
-            this.setState({ role: "instructor" });
-        else if(this.state.moderator)
-            this.setState({ role: "moderator" });
+        // if(this.state.student)
+        //     this.setState({ role: "student" });
+        // else if(this.state.instructor)
+        //     this.setState({ role: "instructor" });
+        // else if(this.state.moderator)
+        //     this.setState({ role: "moderator" });
+        this.handleChange_role();
 
         fetch('http://localhost:5000/login', {
             method: 'POST',
@@ -62,9 +72,12 @@ class first extends Component {
           .then((response) => response.json())
           .then((data) => {
               console.log('This is your data:\n', data);
-              if(data === "User has successfully logged in.")
+              if(data === "loggedin")
                 this.props.onRouteChange("signedin"); 
-              //else
+              else
+              {
+                  
+              }
 
           });
         //this.props.onRouteChange("signedin");             
