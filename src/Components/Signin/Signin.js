@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import axios from "axios";
 
 import './Signin.css'
 class first extends Component {
@@ -10,17 +11,63 @@ class first extends Component {
         this.state = {
             student: false,
             instructor: false,
-            moderator: false
+            moderator: false,
+
+            role: "none",
+            email:"",
+            pass:""
           };
         this.handleChangeStudent = this.handleChangeStudent.bind(this);
         this.handleChangeInstructor = this.handleChangeInstructor.bind(this);
         this.handleChangeModerator = this.handleChangeModerator.bind(this);
         //   this.handleSubmit = this.handleSubmit.bind(this);
+
+        //this.handleChange_role = this.handleChange_role.bind(this);
+        this.handleChange_email = this.handleChange_email.bind(this);
+        this.handleChange_pass = this.handleChange_pass.bind(this);
+    }
+
+    handleChange_role = () => {
+        if(this.state.student)
+            this.setState({ role: "student" });
+        else if(this.state.instructor)
+            this.setState({ role: "instructor" });
+        else if(this.state.moderator)
+            this.setState({ role: "moderator" });
     }
     
-    handleLangChange = () => {
-        // this.props.passToParent(1);
-        this.props.onRouteChange("signedin");             
+    handleSubmit = () => {
+        if(this.state.student)
+            this.setState({ role: "student" });
+        else if(this.state.instructor)
+            this.setState({ role: "instructor" });
+        else if(this.state.moderator)
+            this.setState({ role: "moderator" });
+
+        fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                //   id: this.state.id,
+                //   item: this.state.item,
+                //   itemType: this.state.itemType
+                email:this.state.email,
+                pass:this.state.pass,
+                roletype:this.state.role
+            })
+          })   
+          .then((response) => response.json())
+          .then((data) => {
+              console.log('This is your data:\n', data);
+              if(data === "User has successfully logged in.")
+                this.props.onRouteChange("signedin"); 
+              //else
+
+          });
+        //this.props.onRouteChange("signedin");             
     }
 
     handleChangeStudent(event) {
@@ -47,6 +94,15 @@ class first extends Component {
             console.log("moderator")
         }
     }
+
+    handleChange_email(e) {
+        //console.log("Fruit Selected!!");
+        this.setState({ email: e.target.value });
+    }
+    handleChange_pass(e) {
+        //console.log("Fruit Selected!!");
+        this.setState({ pass: e.target.value });
+    }
     
     
     render() {
@@ -56,8 +112,8 @@ class first extends Component {
                 <div className="card signin_card border-dark" >
                     <div className="card-body">
                         <h3 className="card-title">Sign In</h3>
-                        <input id="Email" name="Email" type="text" placeholder="Email address" className="email"/> 
-                        <input id="password" name="password" type="password" placeholder="Password" className="password" /> 
+                        <input id="Email" name="Email" type="text" placeholder="Email address" className="email" onChange={this.handleChange_email}/> 
+                        <input id="password" name="password" type="password" placeholder="Password" className="password" onChange={this.handleChange_pass}/> 
                         <br></br>
                         
                         <p style={{marginTop:15}}>Login as 
@@ -77,8 +133,8 @@ class first extends Component {
                         /> 
                         Moderator
                         </p> 
-                        
-                        <Link to="/authHome" className="btn btn-primary " onClick={this.handleLangChange}>Submit</Link>
+                        {/* authHome */}
+                        <Link to="/authHome" className="btn btn-primary " onClick={this.handleSubmit}>Submit</Link>
                         <br></br> 
                         <p style={{marginTop:10}}>Don't have an account??   <Link to="/register">Register</Link></p>
                         

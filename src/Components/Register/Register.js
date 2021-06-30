@@ -99,6 +99,8 @@ class first extends Component {
         //console.log("Fruit Selected!!");
         this.setState({ pass: e.target.value });
     }
+
+    // INCOMPLETE
     handleLangChange = () => {
         this.props.onRouteChange("signedin"); 
         fetch('http://localhost:5000/signUp', {

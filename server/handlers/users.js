@@ -22,7 +22,7 @@ exports.signUp = async(req, res) => {
         // const { valid, errors } = validateSignUpData(newUser);
      
         const newsub = await pool.query("INSERT INTO \"Users\"(user_name, email, password, privilege, class) VALUES($1, $2, $3, $4, $5)", 
-                                        [username, email, pass, roletype, classnum]);
+                                        [newUser.username, newUser.email, newUser.pass, newUser.roletype, newUser.classnum]);
         
                                         // console.log("inserted");
         // INSERT INTO subtopics(topicName,subtopic_name) VALUES('Algebra','GCD/LCM')
@@ -55,7 +55,7 @@ exports.login = (req, res) => {
         
 
         // return user profile
-        // return res.json(newsub);
+         return res.json("User has successfully logged in.");
     } catch (err) {   
         console.log(err);
         return res.status(500).json({ error: err.code});

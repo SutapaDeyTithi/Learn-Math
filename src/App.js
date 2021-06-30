@@ -95,15 +95,21 @@ class App extends Component {
                                     {/* /practice --> /authHome 
                                         for generalising all the roles :'(
                                     */}
-                                    <Route path="/authHome" component={Topic}/>
-                                    <Route path="/subtopic" component={Sub} />
-                                    <Route path="/category" component={Cat} />
-                                    <Route path="/practise" component={Practise} />
-                                    <Route path="/tutorial" component={Tutorial} />
-                                    <Route path="/tutorial_sub" component={Tutorial_sub} />
-                                    <Route path="/video" component={Video} />
-                                    <Route path="/profile" component={Profile}/>
-                                    <Route path="/next" component={Next}/>
+                                    {this.state.isSignedIn ?
+                                      <div>
+                                        <Route path="/authHome" component={Topic}/>
+                                        <Route path="/subtopic" component={Sub} />
+                                        <Route path="/category" component={Cat} />
+                                        <Route path="/practise" component={Practise} />
+                                        <Route path="/tutorial" component={Tutorial} />
+                                        <Route path="/tutorial_sub" component={Tutorial_sub} />
+                                        <Route path="/video" component={Video} />
+                                        <Route path="/profile" component={Profile}/>
+                                        <Route path="/next" component={Next}/>
+                                      </div>
+                                    :
+                                      <div></div>
+                                    }
                                 </div>
                                 :
                                 <div>
