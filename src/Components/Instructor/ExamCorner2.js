@@ -6,7 +6,10 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import '@fortawesome/react-fontawesome'
 import '@fortawesome/free-solid-svg-icons'
-import "./ExamCorner2";
+ 
+import Sidenav from "../UIToolsInstructor/sideNav";
+import Dynamicaddques from "../UIToolsInstructor/dynamic_ques_add";
+import "./ExamCorner2.css";
 
 class ExamCorner2 extends React.Component {
   constructor(props) {
@@ -25,56 +28,22 @@ class ExamCorner2 extends React.Component {
   render() {
       return (
           <div>
-          <div className="sidemenu">
-        <SideNav style={{ marginTop: '3em', marginBottom: '-3em', background: '#555' }}
-        expanded='true'
-    onSelect={(selected) => {
-        // Add your code here
-        console.log("side nav: selected: ", selected);
-        if(selected == "Create Outline") {
-            console.log("Inside ", selected);
-        }
-    }}
->
-    {/* <SideNav.Toggle/> */}
-    <SideNav.Nav defaultSelected="Create Outline">
-        <NavItem eventKey="Create Outline">
-            <NavIcon>
-                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
-            </NavIcon>
-            <NavText>
-                Create Outline
-            </NavText>
-        </NavItem>
-        <NavItem eventKey="Grade Submissions">
-            <NavIcon>
-                <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
-            </NavIcon>
-            <NavText>
-                Grade Submissions
-            </NavText>
-            <NavItem eventKey="Grade Submissions/New">
-                <NavText>
-                    Grade new
-                </NavText>
-            </NavItem>
-            <NavItem eventKey="Grade Submissions/Regrade">
-                <NavText>
-                    Regrade
-                </NavText>
-            </NavItem>
-        </NavItem>
-    </SideNav.Nav>
-</SideNav>
-</div>
-
-if(this.state.nav_selected == "Create Outline") {
-    <p>
-        {this.state.nav_selected}
-    </p>
-}
-
-</div>
+              <Sidenav/>
+   
+              <div id="ques_container">
+              <div className="card ques_card2 border-dark" style={{minWidth: '80%'}}>
+                    <div className="card-body">
+                        <h3 className="card-title">Question Paper Outline</h3>
+                        <Dynamicaddques />
+                  
+                    
+                        
+                    {/* <input type="submit" id="submit" className="submit" onClick={this.handleLangChange}/>  */}
+                                        
+                    </div>
+                    </div>
+                </div>           
+          </div>
       );
   }
 }
