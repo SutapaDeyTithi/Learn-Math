@@ -8,7 +8,7 @@ import '@fortawesome/react-fontawesome'
 import '@fortawesome/free-solid-svg-icons'
 import "./sideNav.css";
 
-class ExamCorner2 extends React.Component {
+class sideNav extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
@@ -18,24 +18,27 @@ class ExamCorner2 extends React.Component {
   }
 
   handleSelected = (selected) => {
-    console.log("Event: selected: ", selected);
+    //console.log("Event: selected: ", selected);
     this.state.nav_selected = selected;
+    this.props.setNav(selected);
   }
       
   render() {
       return (
           <div>
           <div className="sidemenu">
-        <SideNav style={{ marginTop: '3em', position: "fixed", background: '#555' }}
-        expanded='true'
-    onSelect={(selected) => {
-        // Add your code here
-        console.log("side nav: selected: ", selected);
-        if(selected == "Create Outline") {
-            console.log("Inside ", selected);
-        }
-    }}
->
+            <SideNav style={{ marginTop: '3em', position: "fixed", background: '#555' }}
+            expanded='true'
+            onSelect={(selected) => {
+                // Add your code here
+                //console.log("side nav: selected: ", selected);
+                // if(selected == "Create Outline") {
+                //     console.log("Inside ", selected);
+                // }
+                this.handleSelected(selected)
+            }}
+            // onClick={this.handleSelected(selected)}
+        >
     {/* <SideNav.Toggle/> */}
     <SideNav.Nav defaultSelected="Create Outline" style={{ marginTop: '.8em'}}>
         <NavItem eventKey="Create Outline">
@@ -79,4 +82,4 @@ if(this.state.nav_selected == "Create Outline") {
   }
 }
 
-export default ExamCorner2;
+export default sideNav;
