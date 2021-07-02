@@ -21,22 +21,28 @@ class ExamCorner2 extends React.Component {
   }
 
   handleSelected = (selected) => {
-    console.log("Event: selected: ", selected);
+    console.log("selected: ", selected);
     this.state.nav_selected = selected;
+    console.log("nav_selected: ", selected);
   }
       
-  render() {
+  render() { 
+    var selc = this.state.nav_selected;
+    console.log("here ** ", selc);
+    if(selc == "Create Outline") {
+      console.log("if --> ", this.state.nav_selected);
       return (
           <div>
-              <Sidenav/>
+              <Sidenav setNav={this.handleSelected}/>
    
               <div id="ques_container">
               <div className="card ques_card2 border-dark" style={{minWidth: '80%'}}>
                     <div className="card-body">
-                        <h3 className="card-title">Question Paper Outline</h3>
-                        <Dynamicaddques />
-                  
                     
+                        <div>
+                          <h3 className="card-title">Question Paper Outline</h3>
+                          {/* <Dynamicaddques /> */}
+                        </div>
                         
                     {/* <input type="submit" id="submit" className="submit" onClick={this.handleLangChange}/>  */}
                                         
@@ -45,6 +51,16 @@ class ExamCorner2 extends React.Component {
                 </div>           
           </div>
       );
+    }
+    else {
+      console.log("else --> ", this.state.nav_selected);
+        return (
+          <div>
+            <h3 className="card-title">Grade Answer Paper</h3>
+              {/* <Dynamicaddques /> */}
+          </div>
+        )
+    }
   }
 }
 
