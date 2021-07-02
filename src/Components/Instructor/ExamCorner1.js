@@ -11,14 +11,10 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
-import i18n from "i18next";
-import Popupwindow from "../UIToolsInstructor/popupWindow";
 
-
+import Popupwindow from "../UIToolsInstructor/ExamCorner1_1";
 import "./CreateTutorials.css";
 
-import Box from '@material-ui/core/Box';
-// import welcome from "";
 
 // import from materials-ui
 const defaultProps = {

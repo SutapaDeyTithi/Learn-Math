@@ -1,0 +1,39 @@
+#first{
+    text-align: left;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 2%;
+    min-height: 125vh;
+    margin-left: 34%;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    min-width: initial;
+    overflow-x: hidden;
+  }
+  .signin_card{
+    text-align: center;
+    width: 25rem;
+    border-radius: 10px;
+    border-style: outset;
+    height: 25rem;
+  }
+  .title,.password{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 100%;
+    /* height: 20rem; */
+    background-color: #e0dede;
+    border-radius: 3px;
+  }
+  .btn-primary {
+    color: white;
+    /* background-color:#49675B; */
+    border-radius: 5px;
+    
+    margin-bottom: 1%;
+  }
+  .btn-primary{
+    background-color:#49675B !important;
+  }
+
+  

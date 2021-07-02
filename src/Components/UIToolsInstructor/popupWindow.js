@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useRef, Fragment } from "react";
 import {
   Grid,
   Dialog,
@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 
 export default () => {
   const [open, setOpen] = React.useState(true);
+  const [state, setState] = React.useState("");
   const [Type] = React.useState([
     { value: "1", label: "Regular Exam" },
     { value: "2", label: "Problem of the Week" }
@@ -49,8 +50,11 @@ export default () => {
   }
 
   function handleNext() {
+    console.log("text field: ", state);
+    console.log("open: ", open);
     setOpen(false);
     // this.props.showCreateExam(true);
+    
     history.push("/createExam")
   }
 
@@ -60,6 +64,25 @@ export default () => {
   const classes = useStyles();
 
   const history = useHistory();
+
+  const valueRef_textfield = useRef('') //creating a refernce for TextField Component
+
+  const handleTitle = (event) => {
+    console.log(event.target.value);
+    console.log("here.. ", valueRef_textfield.current.value) //on clicking button accesing current value of TextField and outputing it to console 
+  }
+
+  const handleTextvalue = event => {
+    console.log("hi")
+    const { value } = event.target;
+    setState(value);
+    console.log(state);
+    console.log(value);
+  };
+
+  function handleLevel(value) {
+    console.log(value);
+  };
 
   return (
     <Fragment>
@@ -86,10 +109,15 @@ export default () => {
         >
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <Textfield label="Title of the Exam"/>
+              <Textfield 
+                label="Title of the Exam" 
+                value={state}
+                onChange={this.handleTextvalue}
+                //onChange = {handleTitle}
+                />
             </Grid>
           </Grid>
-
+ 
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <FormControl style={{ width: "100%" }}>
@@ -101,10 +129,10 @@ export default () => {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <FormControl style={{ width: "100%" }}>
-              <ReactSelect isMulti={false} options={difficulty} label="Difficulty level"/>
+              <ReactSelect id="diff_level" isMulti={false} options={difficulty} label="Difficulty level" onChange={this.handleLevel}/>
               </FormControl>
             </Grid>
-          </Grid>
+          </Grid> 
         </DialogContent>
 
         <DialogActions>
@@ -120,20 +148,3 @@ export default () => {
     </Fragment>
   );
 };
-
-
-// const mapStateToProps = (state) => {
-//   return {
-//       // isSignedIn: state.isSignedIn,
-//       createExamWindow: state.createExamWindow
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//       // signin: (isSignedIn) => { dispatch({type: 'SIGN IN', isSignedIn: isSignedIn})},
-//       showCreateExam: (createExamWindow) => {dispatch({type: 'SHOW CREATE EXAM', createExamWindow: createExamWindow})}
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps) (NavigationBar);
