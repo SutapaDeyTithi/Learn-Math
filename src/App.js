@@ -11,7 +11,7 @@ import Topic from "./Components/Student/Topic";
 import Sub from "./Components/Student/Sub";
 import Cat from "./Components/Student/Category";
 import Practise from "./Components/Student/Practise";
-import NavigationBar2 from "./Components/Navigation/Navigation2_notused";
+// import Home from "./Components/Home/Home";
 import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
 //import Signin from "./Components/Signin";
@@ -82,8 +82,11 @@ class App extends Component {
                             {this.state.isSignedIn ?
                             <div></div>
                             :
-                            <div></div>
+                            <div>
+                              {/* <Route exact path="/" component={Home} /> */}
+                            </div>
                               // <Route exact path="/" render={(props) => <Home isSignedIn={this.state.isSignedIn} {...props} /> }/>
+                              
                             }
     
                             <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} setRole={this.setRole} {...props} /> } />

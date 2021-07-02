@@ -18,7 +18,8 @@ class Home extends Component {
             <>
                 <main>
                     <section id="home">
-                        
+                        <div></div>
+{/*                         
                         <div className="container-fluid">
                             <img
                                 className="welcome-img mx-left"
@@ -28,7 +29,7 @@ class Home extends Component {
                                 Get Started
                             </button> */}
                             {/* <Link to="/first" className="btn btn-primary">Sign up</Link> */}
-                        </div>
+                        {/* </div>  */}
                     </section>
                 </main>
             </>
