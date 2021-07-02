@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Component } from 'react';
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 import './Signin.css'
 class first extends Component {
@@ -53,6 +52,10 @@ class first extends Component {
         // else if(this.state.moderator)
         //     this.setState({ role: "moderator" });
         this.handleChange_role();
+
+        // must delete this line later
+        // auto sign up
+        this.props.onRouteChange("signedin");
 
         fetch('http://localhost:5000/login', {
             method: 'POST',

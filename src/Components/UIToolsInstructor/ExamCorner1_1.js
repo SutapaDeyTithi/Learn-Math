@@ -57,12 +57,12 @@ class popup extends React.Component {
 
     render() {
         return (
-            <div id="first">
-                <div className="card signin_card border-dark" >
+            <div id="first2">
+                <div className="card signin_card2 border-dark" >
                     <div className="card-body">
                         <h3 className="card-title">Exam Settings</h3>
                         
-                        <input id="title" name="title" type="text" placeholder="Exam title" className="title" onChange={this.handleTextvalue}/> 
+                        <input id="title2" name="title" type="text" placeholder="Exam title" className="title" onChange={this.handleTextvalue}/> 
                         <br></br><br></br>
 
                         <p>Exam Type</p>

@@ -1,4 +1,4 @@
-#first{
+#first2{
     text-align: left;
     /* position: relative; */
     position: initial;
@@ -10,14 +10,14 @@
     min-width: initial;
     overflow-x: hidden;
   }
-  .signin_card{
+  .signin_card2{
     text-align: center;
     width: 25rem;
     border-radius: 10px;
     border-style: outset;
     height: 25rem;
   }
-  .title,.password{
+  .title2,.password2{
     margin-top: 2%;
     margin-bottom: 2%;
     width: 100%;
