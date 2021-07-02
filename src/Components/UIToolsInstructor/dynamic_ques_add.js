@@ -121,74 +121,137 @@ export default function FloatingActionButtonZoom() {
 
   // const defaultOption = options[0];
   // rubrik
-  // const [rubrik, ]
+  const [rubrik, setRubrik] = React.useState(false);
 
-  return (
+  const handleRubrik = () => {
+    setRubrik(true);
+    console.log("Rubrik: ", rubrik);
+  }
+
+  const [rubrikList, setRubrikList] = useState([{ breakpoint: "", marks: "" }]);
+
+   // handle click event of the Remove button
+   const handleRemoveClick_rubrik = index => {
+    const list = [...rubrikList];
+    list.splice(index, 1);
+    setRubrikList(list);
+  };
+  
+  // handle click event of the Add button
+  const handleAddClick_rubrik = () => {
+    setRubrikList([...rubrikList, { breakpoint: "", marks: "" }]);
+  };
+
+  if(rubrik == true) {
+  //  <div >
+  return(
     <div>
+    <br></br> <br></br>
+    {rubrikList.map((x, i) => {
+    return (
+      <form>
+        <label >
+        Enter Rubrik Breakpoint: 
+          <input type="text" name="breakpoint" style={{ marginLeft: "1%", maxWidth: "50%", minWidth: "50%"}}/>
+        </label>
+
+        <label >
+        Enter Marks: 
+          <input type="text" name="marks" style={{ marginLeft: "3%", maxWidth: "15%"}} />
+        </label>
+
+        
+
+
+        {rubrikList.length !== 1 &&
+            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em', marginLeft: "85%" }}
+                onClick={() => handleRemoveClick_rubrik(i)}>
+                  Remove
+            </Button>
+        }
+        {rubrikList.length - 1 === i &&
+            <Button variant="primary" size="sm" 
+                onClick={handleAddClick_rubrik} style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em', marginLeft: "85%" }}>
+                  Add
+            </Button>
+        }
       
-      <div >
-      {inputList.map((x, i) => {
-        return (
-          <div className="box" style={{ marginTop: 20 }}>
-            {/* onChange={this._onSelect} */}
-            {/* value={defaultOption} */}
-            <div className="dropdown">
-            <Dropdown options={options}  placeholder="Question Type"/>
-            </div>
-            {/* <input
-            name="question"
-  	        placeholder="Enter Question Text"
-            value={x.question}
+      </form>
+    );
+    })}
+    <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+    <input type="submit" value="Save Rubrik" style={{ marginLeft: "85%"}}/>
+    </div>
+  ) 
+}
+else {
+  return(
+  <div>
+    <div >
+    {inputList.map((x, i) => {
+      return (
+        <div className="box" style={{ marginTop: 20 }}>
+          {/* onChange={this._onSelect} */}
+          {/* value={defaultOption} */}
+          <div className="dropdown">
+          <Dropdown options={options}  placeholder="Question Type"/>
+          </div>
+          {/* <input
+          name="question"
+          placeholder="Enter Question Text"
+          value={x.question}
+          onChange={e => handleInputChange(e, i)}
+          style={{ marginTop: 10 }}
+          /> */}
+          <br></br>
+          <Textfield label="Enter Question Text" />
+          <ImageUp />
+          <br/>
+          {/* <input
+            className="ml10"
+            name="answer"
+            placeholder="Enter Answer Text"
+            value={x.answer}
             onChange={e => handleInputChange(e, i)}
             style={{ marginTop: 10 }}
-            /> */}
+          /> */}
+          <Textfield label="Enter Answer Text" />
+          <ImageUp />
+
+        
+
+          <div className="btn-box" style={{ marginTop: 10 }}>
+            <Button variant="secondary" size="lg" style={{ marginLeft: 20 }} onClick={handleRubrik}>
+              Rubrik
+            </Button>
+
             <br></br>
-            <Textfield label="Enter Question Text" />
-            <ImageUp />
-            <br/>
-            {/* <input
-              className="ml10"
-              name="answer"
-              placeholder="Enter Answer Text"
-              value={x.answer}
-              onChange={e => handleInputChange(e, i)}
-              style={{ marginTop: 10 }}
-            /> */}
-            <Textfield label="Enter Answer Text" />
-            <ImageUp />
 
-           
-
-            <div className="btn-box" style={{ marginTop: 10 }}>
-              <Button variant="secondary" size="lg" style={{ marginLeft: 20 }}>
-                Rubrik
+            {inputList.length !== 1 &&
+            <Button variant="secondary" size="lg" style={{ marginLeft: 20, marginTop: 10 }}
+                onClick={() => handleRemoveClick(i)}>
+                  Remove
               </Button>
-
-              <br></br>
-
-              {inputList.length !== 1 &&
-               <Button variant="secondary" size="lg" style={{ marginLeft: 20, marginTop: 10 }}
-                  onClick={() => handleRemoveClick(i)}>
-                    Remove
-                </Button>
-              }
-              {inputList.length - 1 === i &&
-               <Button variant="secondary" size="lg" 
-                  onClick={handleAddClick} style={{ marginLeft: 20, marginTop: 10 }}>
-                    Add
-              </Button>
-              }
-            </div>
+            }
+            {inputList.length - 1 === i &&
+            <Button variant="secondary" size="lg" 
+                onClick={handleAddClick} style={{ marginLeft: 20, marginTop: 10 }}>
+                  Add
+            </Button>
+            }
           </div>
-        );
-      })}
-      {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
-    </div>
+        </div>
+      );
+    })}
+    {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
+  </div>
+    
 
-    <br></br> 
-    <Link to="/createExam" className="btn btn-primary" style={{marginLeft: '85%'}}>Save Outline</Link>
-    <br></br> 
-     
-    </div>
+  <br></br> 
+  <Link to="/createExam" className="btn btn-primary" style={{marginLeft: '85%'}}>Save Outline</Link>
+  <br></br> 
+    
+  </div>   
   );
+ }
 }
