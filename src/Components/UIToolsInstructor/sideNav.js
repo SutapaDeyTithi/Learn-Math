@@ -40,7 +40,7 @@ class sideNav extends React.Component {
             // onClick={this.handleSelected(selected)}
         >
     {/* <SideNav.Toggle/> */}
-    <SideNav.Nav defaultSelected="Create Outline" style={{ marginTop: '.8em'}}>
+    <SideNav.Nav defaultSelected={this.props.currentValue} style={{ marginTop: '.8em'}}>
         <NavItem eventKey="Create Outline">
             <NavIcon>
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
@@ -70,12 +70,6 @@ class sideNav extends React.Component {
     </SideNav.Nav>
 </SideNav>
 </div>
-
-if(this.state.nav_selected == "Create Outline") {
-    <p>
-        {this.state.nav_selected}
-    </p>
-}
 
 </div>
       );

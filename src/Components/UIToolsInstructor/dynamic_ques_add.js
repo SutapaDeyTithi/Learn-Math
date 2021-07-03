@@ -123,8 +123,13 @@ export default function FloatingActionButtonZoom() {
   // rubrik
   const [rubrik, setRubrik] = React.useState(false);
 
-  const handleRubrik = () => {
+  const OpenRubrik = () => {
     setRubrik(true);
+    console.log("Rubrik: ", rubrik);
+  }
+
+  const CloaseRubrik = () => {
+    setRubrik(false);
     console.log("Rubrik: ", rubrik);
   }
 
@@ -141,6 +146,10 @@ export default function FloatingActionButtonZoom() {
   const handleAddClick_rubrik = () => {
     setRubrikList([...rubrikList, { breakpoint: "", marks: "" }]);
   };
+
+  const submitRubrik = () => {
+      CloaseRubrik();
+  }
 
   if(rubrik == true) {
   //  <div >
@@ -180,7 +189,7 @@ export default function FloatingActionButtonZoom() {
     );
     })}
     <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-    <input type="submit" value="Save Rubrik" style={{ marginLeft: "85%"}}/>
+    <input type="submit" value="Save Rubrik" style={{ marginLeft: "85%"}} onClick={submitRubrik}/>
     </div>
   ) 
 }
@@ -221,21 +230,22 @@ else {
         
 
           <div className="btn-box" style={{ marginTop: 10 }}>
-            <Button variant="secondary" size="lg" style={{ marginLeft: 20 }} onClick={handleRubrik}>
+            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+             onClick={OpenRubrik}>
               Rubrik
             </Button>
 
             <br></br>
 
             {inputList.length !== 1 &&
-            <Button variant="secondary" size="lg" style={{ marginLeft: 20, marginTop: 10 }}
+            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
                 onClick={() => handleRemoveClick(i)}>
                   Remove
               </Button>
             }
             {inputList.length - 1 === i &&
-            <Button variant="secondary" size="lg" 
-                onClick={handleAddClick} style={{ marginLeft: 20, marginTop: 10 }}>
+            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+                onClick={handleAddClick} >
                   Add
             </Button>
             }

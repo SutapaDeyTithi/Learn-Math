@@ -158,7 +158,13 @@ class NavigationBar extends Component {
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
                                     <NavLink className="nav-links" to="/createTutorial">
-                                      Create Content
+                                      Tutorials
+                                    </NavLink>
+                                </NavItem>
+                                <li className="divider-vertical-second-menu"></li>
+                                <NavItem>
+                                    <NavLink className="nav-links" to="/createTutorial">
+                                      Practice Problems
                                     </NavLink>
                                 </NavItem>
                                 <li className="divider-vertical-second-menu"></li>
