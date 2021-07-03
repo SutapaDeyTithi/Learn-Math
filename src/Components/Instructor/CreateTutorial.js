@@ -16,8 +16,11 @@ import Textfield from "../UIToolsInstructor/textField";
 import Checkbox from "../UIToolsInstructor/checkBox";
 import Htmleditor from "../UIToolsInstructor/htmlEditor";
 import Dropdown from "../UIToolsInstructor/dropdwon";
-import Button from "../UIToolsInstructor/button";
+// import Button from "../UIToolsInstructor/button";
 import Videoup from "../UIToolsInstructor/videoUp";
+import Imageup from "../UIToolsInstructor/imageUploadGeeks";
+import Button from 'react-bootstrap/Button';
+
 
 import "./CreateTutorials.css";
 
@@ -52,11 +55,17 @@ class CreateTutorial extends Component {
                             <div className="checkbox">
                                 <Checkbox />
                             </div>
-                            <Videoup />
+                            {/* <Videoup /> */}
+                            <Imageup /> 
                             <Box borderRadius={4} {...defaultProps}>
                             <Htmleditor />
                             </Box>
-                            <Button label="Upload"/>
+                            
+                            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+                                onClick={this.onFileUpload}>
+                                Upload
+                            </Button>
+
                         </div>
                     </section>
                     </main>

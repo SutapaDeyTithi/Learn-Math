@@ -21,7 +21,8 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
 
 // new imports
-import ImageUp from "./imageUp";
+// import ImageUp from "./imageUp";
+import ImageUp from "./imageUploadGeeks";
 import Textfield from "./textField";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -202,9 +203,12 @@ else {
         <div className="box" style={{ marginTop: 20 }}>
           {/* onChange={this._onSelect} */}
           {/* value={defaultOption} */}
-          <div className="dropdown">
+
+          {/* ------------- Exam e shudhu written ques e thake, tai ei drop down unnecessary ----------------- */}
+          {/* <div className="dropdown">
           <Dropdown options={options}  placeholder="Question Type"/>
-          </div>
+          </div> */}
+
           {/* <input
           name="question"
           placeholder="Enter Question Text"
@@ -226,6 +230,7 @@ else {
           /> */}
           <Textfield label="Enter Answer Text" />
           <ImageUp />
+          {/* https://www.geeksforgeeks.org/file-uploading-in-react-js/ */}
 
         
 

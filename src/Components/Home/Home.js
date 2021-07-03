@@ -19,12 +19,13 @@ class Home extends Component {
                 <main>
                     <section id="home">
                         <div></div>
-{/*                         
+                       
                         <div className="container-fluid">
                             <img
                                 className="welcome-img mx-left"
                                 src={welcome}
                             />
+                            </div>
                             {/* <button onClick={this.handleLangChange}>
                                 Get Started
                             </button> */}

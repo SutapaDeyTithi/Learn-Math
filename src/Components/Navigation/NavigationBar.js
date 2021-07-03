@@ -148,6 +148,7 @@ class NavigationBar extends Component {
                     <Navbar className="navbar-expand-lg fixed-top" light>
                         <NavbarBrand href="/">
                             <div className="logo">
+                                <img src={logo_image} className="logo_image" />
                               Learn Math
                             </div>
                             
@@ -163,7 +164,7 @@ class NavigationBar extends Component {
                                 </NavItem>
                                 <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
-                                    <NavLink className="nav-links" to="/createTutorial">
+                                    <NavLink className="nav-links" to="/createPracticeProblems">
                                       Practice Problems
                                     </NavLink>
                                 </NavItem>

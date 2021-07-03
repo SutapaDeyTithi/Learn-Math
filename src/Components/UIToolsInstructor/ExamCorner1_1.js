@@ -2,14 +2,17 @@ import React from 'react';
 import {Link } from "react-router-dom";
 import './ExamCorner1_1.css'
 
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 class popup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             open: true,
             examTile: '',
-            difficulty_level: 'select',
-            exam_type: 'Regular Exam'
+            difficulty_level: 'Difficulty Level',
+            exam_type: 'Exam Type'
         }
         this.handleTextvalue = this.handleTextvalue.bind(this);
         this.handleDifficulty_level = this.handleDifficulty_level.bind(this);
@@ -40,17 +43,16 @@ class popup extends React.Component {
         console.log("exam title: ", this.state.examTile);
     }
     
-    handleDifficulty_level = (event) => {
-        const { value } = event.target;
-        // this.setState({difficulty_level: value});
-        this.state.difficulty_level = value;
+    handleDifficulty_level = (e) => {
+        // const { value } = event.target;
+        this.setState({difficulty_level: e});
+        this.state.difficulty_level = e;
         console.log("difficulty level: ", this.state.difficulty_level);
     }
 
-    handleExam_type = (event) => {
-        const { value } = event.target;
-        // this.setState({exam_type: value});
-        this.state.exam_type = event.target.value;;
+    handleExam_type = (e) => {
+        this.setState({exam_type: e});
+        this.state.exam_type = e;;
         console.log("Exam type: ", this.state.exam_type);
     }
         
@@ -62,10 +64,14 @@ class popup extends React.Component {
                     <div className="card-body">
                         <h3 className="card-title">Exam Settings</h3>
                         
-                        <input id="title2" name="title" type="text" placeholder="Exam title" className="title" onChange={this.handleTextvalue}/> 
+                        <br></br>
+                        <input id="title2" name="title" type="text" placeholder="Exam title" className="title" 
+                            onChange={this.handleTextvalue}
+                            style={{ minWidth: '80%', minHeight: '15%', alignItems: 'center'}}
+                        /> 
                         <br></br><br></br>
 
-                        <p>Exam Type</p>
+                        {/* <p>Exam Type</p>
                         <select id="exam_type" onChange={this.handleExam_type}>
                             <option value="Regular Exam">Regular Exam</option>
                             <option value="Problem of the Week">Problem of the Week</option>
@@ -77,15 +83,40 @@ class popup extends React.Component {
                             <option value="Level 1">Level 1</option>
                             <option value="Level 2">Level 2</option>
                             <option value="Level 3">Level 3</option>
-                        </select>
-                        <br></br><br></br>
+                        </select> */}
+
+                        <DropdownButton
+                            menuAlign="right"
+                            title={this.state.exam_type}
+                            id="dropdown-menu-align-left"
+                            style={{ minWidth: '100vh', marginLeft: '-27vh'}}
+                            onSelect={this.handleExam_type}
+                            >
+                            <Dropdown.Item eventKey="Regular Exam">Regular Exam</Dropdown.Item>
+                            <Dropdown.Item eventKey="Problem of the Week">Problem of the Week</Dropdown.Item>
+                        </DropdownButton>
+
+                        <DropdownButton
+                            menuAlign="right"
+                            title={this.state.difficulty_level}
+                            id="dropdown-menu-align-left"
+                            style={{ minWidth: '100vh', marginLeft: '-27vh'}}
+                            onSelect={this.handleDifficulty_level}
+                            >
+                            <Dropdown.Item eventKey="Level 1">Level 1</Dropdown.Item>
+                            <Dropdown.Item eventKey="Level 2">Level 2</Dropdown.Item>
+                            <Dropdown.Item eventKey="Level 3">Level 3</Dropdown.Item>
+                            <Dropdown.Item eventKey="Level 4">Level 4</Dropdown.Item>
+                            <Dropdown.Item eventKey="Level 5">Level 5</Dropdown.Item>
+                        </DropdownButton>
+
+
+
+                        <br></br>
                        
                         <Link to="/createExam" className="btn btn-primary " onClick={this.handleNext}>Next</Link>
                         <br></br> 
-                        {/* <p style={{marginTop:10}}>Don't have an account??   <Link to="/register">Register</Link></p> */}
-                        
-                    {/* <input type="submit" id="submit" className="submit" onClick={this.handleLangChange}/>  */}
-                                        
+
                     </div>
                 </div>                             
             </div>

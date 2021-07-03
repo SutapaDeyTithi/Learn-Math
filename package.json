@@ -33,6 +33,7 @@
     "react-i18next": "^11.8.12",
     "react-images-upload": "^1.2.8",
     "react-player": "^2.9.0",
+    "react-radio-group": "^3.0.3",
     "react-responsive-animate-navbar": "^1.1.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

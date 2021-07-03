@@ -4,17 +4,20 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navigation from "./Components/Navigation/NavigationBar";
 import Footer from "./Components/Footer/Footer2";
-import Home from "./Components/Home/Home";
+
+
 
 // STUDENT
 import Topic from "./Components/Student/Topic";
 import Sub from "./Components/Student/Sub";
 import Cat from "./Components/Student/Category";
-import Practise from "./Components/Student/Practise";
-// import Home from "./Components/Home/Home";
+// ei sign in register ektu upore tulchilam, eksathe rakhar jonno, eta shorale css noshto hoye jay :3
+// don't touch here
 import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
-//import Signin from "./Components/Signin";
+import Home from "./Components/Home/Home";
+
+import Practise from "./Components/Student/Practise";
 import Tutorial from "./Components/Student/Tutorial";
 import Tutorial_sub from "./Components/Student/Tutorial_sub"
 import Video from "./Components/Student/Video"
@@ -22,10 +25,12 @@ import Profile from "./Components/Student/Profile";
 import Next from "./Components/Student/next_q";
 
 // INSTRUCTOR
+import InstructorHome from './Components/Instructor/HomeInstructor';
+import PracticeProblems from './Components/Instructor/PracticeProblems';
 import CreateTutorial from './Components/Instructor/CreateTutorial';
 import ExamCorner from './Components/Instructor/ExamCorner1';
 import ExamCorner2 from './Components/Instructor/ExamCorner2';
-import InstructorHome from './Components/Instructor/HomeInstructor';
+
 
 class App extends Component {
     constructor(props) {
@@ -83,7 +88,7 @@ class App extends Component {
                             <div></div>
                             :
                             <div>
-                              {/* <Route exact path="/" component={Home} /> */}
+                              <Route exact path="/" component={Home} />
                             </div>
                               // <Route exact path="/" render={(props) => <Home isSignedIn={this.state.isSignedIn} {...props} /> }/>
                               
@@ -123,6 +128,7 @@ class App extends Component {
                                               <div>
                                                   <Route path="/authHome" component = {InstructorHome}/>
                                                   <Route path="/createTutorial" component = {CreateTutorial} />
+                                                  <Route path="/createPracticeProblems" component = {PracticeProblems} />
                                                   <Route path="/examCorner" component = {ExamCorner} />
                                                   <Route path="/createExam" component = {ExamCorner2} />
                                               </div>

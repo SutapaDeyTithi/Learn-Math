@@ -34,9 +34,9 @@ class ExamCorner extends Component {
                     <main>
                     <section id="tutorial">
                         <div className="container-fluid">
-                            <h3> 
+                            {/* <h3> 
                                 Create a New Exam Question.
-                            </h3>
+                            </h3> */}
                             <Popupwindow />
                         </div>
                     </section>
