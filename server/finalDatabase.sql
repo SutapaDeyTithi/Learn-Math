@@ -339,3 +339,23 @@ Insert into "Category"(subtopic_id, category_name) Values(1,'Multiply_Divide');
 Insert into "Question"(category_id, ques_type) VALUES (1, 1);
 Insert into "MCQ"(question_id, ques_text, options) Values(1,'Hablu and Dablu are two friends. One day they were playing together. While playing Hablu said that he had considered two numbers. Sum of them is 160 and one is three times of other. He challenged Dablu to correctly identify the numbers. Can you help him?','{40,50,60,70}');
 
+-- NEW TABLES 
+create table "ExamQuestion"
+(
+    question_id        serial not null primary key,
+    exam_id            serial not null,
+    ques_text          text   not null,
+    ans_text           text   not null,
+    explanation        text,
+    figure_ques        oid,
+    figure_ans         oid,
+    figure_explanation oid,
+    column_9           integer,
+    ques_status        integer,
+    level              integer,
+    attempt            integer,
+    success            integer,
+    upvote             integer,
+    downvote           integer,
+    created_by         integer
+);
