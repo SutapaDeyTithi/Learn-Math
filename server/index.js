@@ -19,6 +19,10 @@ const {
     getCategory
 } = require("./handlers/student");
 
+const {
+    uploadQues
+} = require("./handlers/instructor");
+
 // COMMON
 app.post('/signUp', signUp);
 app.post('/login', login);
@@ -31,6 +35,7 @@ app.get('/mcq', getMCQ);
 
 
 // INSTRUCTOR
+app.post('/uploadQues', uploadQues);
 
 // MODERATOR
 

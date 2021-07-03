@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields(label = "", rowMax = "") {
+export default function MultilineTextFields(props) {
   // console.log(label.label);
   const classes = useStyles();
   // const [value, setValue] = React.useState('');
@@ -28,13 +28,34 @@ export default function MultilineTextFields(label = "", rowMax = "") {
       ...state,
       [name]: event.target.value,
     });
+
+    if(props.Ques_type == 'MCQ') {
+      if(props.label == "Enter Question") {
+        props.setText(event.target.value)
+      }
+      else if(props.label == "Enter Option 1") {
+        props.setoption1(event.target.value)
+      }
+      else if(props.label == "Enter Option 2") {
+        props.setoption2(event.target.value)
+      }
+      else if(props.label == "Enter Option 3") {
+        props.setoption3(event.target.value)
+      }
+      else if(props.label == "Enter Option 4") {
+        props.setoption4(event.target.value)
+      }
+      else if(props.label == "Enter Explanation") {
+        props.setExplanation(event.target.value)
+      }
+    }
   };
 
   return (
     <form className={classes.root} noValidate autoComplete="off" align='left'>
       <div>
         <TextField
-          label={label.label}
+          label={props.label}
           multiline
           fullWidth
           // rowsMax={rowMax.rowMax}
