@@ -14,6 +14,9 @@ class PracticeProblem extends Component {
         super(props);
         this.state = {
             create_new_ques: false,
+            topic: "Topic",
+            subtopic: "Subtopic",
+            category: "Category",
             Ques_type: "Question Type",
             ques_text: '',
             option1: '',
@@ -26,6 +29,10 @@ class PracticeProblem extends Component {
         }
         this.createNewQues = this.createNewQues.bind(this);
         this.saveQues = this.saveQues.bind(this);
+
+        this.handleTopic = this.handleTopic.bind(this);
+        this.handleSubtopic = this.handleSubtopic.bind(this);
+        this.handleCategory = this.handleCategory.bind(this);
 
         this.handleQuesType = this.handleQuesType.bind(this);
         this.handleQuesText = this.handleQuesText.bind(this);
@@ -69,6 +76,24 @@ class PracticeProblem extends Component {
 
         this.setState({create_new_ques: false});
         this.state.create_new_ques = false;
+    }
+
+    handleTopic = (e) => {
+        this.setState({topic: e});
+        this.state.topic = e;
+        console.log("topic --> ", this.state.topic);
+    }
+
+    handleSubtopic = (e) => {
+        this.setState({subtopic: e});
+        this.state.subtopic = e;
+        console.log("subtopic --> ", this.state.subtopic);
+    }
+
+    handleCategory = (e) => {
+        this.setState({category: e});
+        this.state.category = e;
+        console.log("category --> ", this.state.category);
     }
 
     handleQuesType = (e) => {
@@ -133,11 +158,48 @@ class PracticeProblem extends Component {
             <div>
                 {this.state.create_new_ques==false?
                 <div>
+
+                    <DropdownButton
+                        menuAlign="right"
+                        title={this.state.topic}
+                        id="dropdown-menu-align-right"
+                        style={{ marginLeft: '38%', marginTop: '10%', maxHeight: '3em'}}
+                        onSelect={this.handleTopic}
+                        >
+                        <Dropdown.Item eventKey="Geometry">Geometry</Dropdown.Item>
+                        <Dropdown.Item eventKey="Algebra">Algebra</Dropdown.Item>
+                        <Dropdown.Item eventKey="Trigonometry">Trigonometry</Dropdown.Item>
+                    </DropdownButton>
+
+                    <DropdownButton
+                        menuAlign="right"
+                        title={this.state.subtopic}
+                        id="dropdown-menu-align-right"
+                        style={{ marginLeft: '38%', marginTop: '2%', maxHeight: '3em'}}
+                        onSelect={this.handleSubtopic}
+                        >
+                        <Dropdown.Item eventKey="Geometry">Geometry</Dropdown.Item>
+                        <Dropdown.Item eventKey="Algebra">Algebra</Dropdown.Item>
+                        <Dropdown.Item eventKey="Trigonometry">Trigonometry</Dropdown.Item>
+                    </DropdownButton>
+
+                    <DropdownButton
+                        menuAlign="right"
+                        title={this.state.category}
+                        id="dropdown-menu-align-right"
+                        style={{ marginLeft: '38%', marginTop: '2%', maxHeight: '3em'}}
+                        onSelect={this.handleCategory}
+                        >
+                        <Dropdown.Item eventKey="Geometry">Geometry</Dropdown.Item>
+                        <Dropdown.Item eventKey="Algebra">Algebra</Dropdown.Item>
+                        <Dropdown.Item eventKey="Trigonometry">Trigonometry</Dropdown.Item>
+                    </DropdownButton>
+
                     <DropdownButton
                         menuAlign="right"
                         title={this.state.Ques_type}
                         id="dropdown-menu-align-right"
-                        style={{ marginLeft: '38%', marginTop: '10%', maxHeight: '3em'}}
+                        style={{ marginLeft: '38%', marginTop: '2%', maxHeight: '3em'}}
                         onSelect={this.handleQuesType}
                         >
                         <Dropdown.Item eventKey="MCQ">MCQ</Dropdown.Item>
