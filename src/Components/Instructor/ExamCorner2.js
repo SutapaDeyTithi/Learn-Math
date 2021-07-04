@@ -11,20 +11,22 @@ import Sidenav from "../UIToolsInstructor/sideNav";
 import Dynamicaddques from "../UIToolsInstructor/dynamic_ques_add";
 import Gradenew from "../UIToolsInstructor/GradeNew";
 import "./ExamCorner2.css";
+import Popupwindow from "../UIToolsInstructor/ExamCorner1_1";
 
 class ExamCorner2 extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        nav_selected: 'Create Outline'
+        nav_selected: ''
       }
       this.handleSelected = this.handleSelected.bind(this);
   }
 
   handleSelected = (selected) => {
-   // console.log("selected: ", selected);
+   console.log("selected: ", selected);
+   this.setState({nav_selected: selected});
     this.state.nav_selected = selected;
-    this.setState({nav_selected: selected});
+    
     //console.log("nav_selected: ", selected);
   }
       
@@ -33,7 +35,7 @@ class ExamCorner2 extends React.Component {
           <div>
               <Sidenav setNav={this.handleSelected} currentValue={this.state.nav_selected}/>
 
-              {this.state.nav_selected=="Create Outline"?
+              {this.state.nav_selected=="New Exam/Create Outline"?
                 
 
                 <div id="ques_container">
@@ -56,12 +58,27 @@ class ExamCorner2 extends React.Component {
 
               :
 
-              <div id="grade">     
-                <h5>Grade Answer Paper</h5>
-                {console.log("nav_selected --> ", this.state.nav_selected)}
-                  <Gradenew />
+              <div>
+
+                  {this.state.nav_selected=="New Exam/Exam Settings"?
+                    <div className="container-fluid" style={{marginLeft: '10%', marginTop: '7%'}}>
+                      {/* <h3> 
+                          Create a New Exam Question.
+                      </h3> */}
+                      <Popupwindow setNav={this.handleSelected}/>
+                    </div>
+                  :
+                    <div id="grade">     
+                      <h5>Grade Answer Paper</h5>
+                      {console.log("nav_selected --> ", this.state.nav_selected)}
+                        <Gradenew />
+                    </div>
+
+                  }
+
               </div>
 
+              
               }          
           </div>
       );

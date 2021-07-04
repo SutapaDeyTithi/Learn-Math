@@ -117,8 +117,8 @@ class PracticeProblem extends Component {
 
 
         // APATOTO, FOR EASE
-        this.setState({create_new_ques: true});
-            this.state.create_new_ques = true;
+        // this.setState({create_new_ques: true});
+        //     this.state.create_new_ques = true;
     }
 
     saveQues = () => {

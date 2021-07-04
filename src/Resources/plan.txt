@@ -24,3 +24,9 @@ success integer,
 upvote integer,
 downvote integer,
 created_by   integer
+
+
+--------------------
+What is division?
+
+The division is a method of distributing a group of things into equal parts. The division is a primary arithmetic operation in which numbers are combined and divided in such a way that it forms a new number.

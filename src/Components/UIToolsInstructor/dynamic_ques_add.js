@@ -265,7 +265,7 @@ else {
     
 
   <br></br> 
-  <Link to="/createExam" className="btn btn-primary" style={{marginLeft: '85%'}}>Save Outline</Link>
+  <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '85%'}}>Save Outline</Link>
   <br></br> 
     
   </div>   

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 import './ExamCorner1_1.css'
 
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -23,17 +24,26 @@ class popup extends React.Component {
         
     }
 
+    componentDidMount() {
+        this.state.open = true;
+        this.setState({open: true});
+    }
+
     handleClickOpen = () => {
         this.state.open = true;
+        this.setState({open: true});
     }
 
     handleClose = () => {
         this.state.open = false;
+        this.setState({open: false});
     }
 
     handleNext = () => {
         console.log("text field: ", this.state.examTile);
         console.log("open: ", this.state.open);
+        this.props.setNav("New Exam/Create Outline");
+        this.setState({open: false});
       }
     
     handleTextvalue = (event) => {
@@ -60,6 +70,8 @@ class popup extends React.Component {
     render() {
         return (
             <div id="first2">
+                {this.state.open == true?
+
                 <div className="card signin_card2 border-dark" >
                     <div className="card-body">
                         <h3 className="card-title">Exam Settings</h3>
@@ -114,11 +126,21 @@ class popup extends React.Component {
 
                         <br></br>
                        
-                        <Link to="/createExam" className="btn btn-primary " onClick={this.handleNext}>Next</Link>
+                        {/* <Link to="/createExam" className="btn btn-primary " onClick={this.handleNext}>Next</Link> */}
+                        <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+                            onClick={this.handleClose}
+                            >
+                            Save
+                        </Button>
                         <br></br> 
 
                     </div>
-                </div>                             
+                </div>    
+                
+                :
+
+                <div></div>
+            }
             </div>
         );
     }

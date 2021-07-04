@@ -25,11 +25,11 @@ import Profile from "./Components/Student/Profile";
 import Next from "./Components/Student/next_q";
 
 // INSTRUCTOR
-import InstructorHome from './Components/Instructor/HomeInstructor';
 import PracticeProblems from './Components/Instructor/PracticeProblems';
 import CreateTutorial from './Components/Instructor/CreateTutorial';
 import ExamCorner from './Components/Instructor/ExamCorner1';
 import ExamCorner2 from './Components/Instructor/ExamCorner2';
+import InstructorHome from './Components/Instructor/HomeInstructor';
 
 
 class App extends Component {
@@ -129,8 +129,8 @@ class App extends Component {
                                                   <Route path="/authHome" component = {InstructorHome}/>
                                                   <Route path="/createTutorial" component = {CreateTutorial} />
                                                   <Route path="/createPracticeProblems" component = {PracticeProblems} />
-                                                  <Route path="/examCorner" component = {ExamCorner} />
-                                                  <Route path="/createExam" component = {ExamCorner2} />
+                                                  {/* <Route path="/examCorner" component = {ExamCorner2} /> */}
+                                                  <Route path="/examCorner" component = {ExamCorner2} />
                                               </div>
                                             :
                                             <div>

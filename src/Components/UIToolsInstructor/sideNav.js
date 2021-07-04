@@ -18,7 +18,7 @@ class sideNav extends React.Component {
   }
 
   handleSelected = (selected) => {
-    //console.log("Event: selected: ", selected);
+    console.log("Event: selected: ", selected);
     this.state.nav_selected = selected;
     this.props.setNav(selected);
   }
@@ -41,14 +41,28 @@ class sideNav extends React.Component {
         >
     {/* <SideNav.Toggle/> */}
     <SideNav.Nav defaultSelected={this.props.currentValue} style={{ marginTop: '.8em'}}>
-        <NavItem eventKey="Create Outline">
+        <NavItem eventKey="New Exam">
             <NavIcon>
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>
             <NavText>
-                Create Outline
+                New Exam
             </NavText>
+
+            <NavItem eventKey="New Exam/Exam Settings">
+                <NavText>
+                Exam Settings
+                </NavText>
+            </NavItem>
+
+            <NavItem eventKey="New Exam/Create Outline">
+                <NavText>
+                Create Outline
+                </NavText>
+            </NavItem>
+
         </NavItem>
+    
         <NavItem eventKey="Grade Submissions">
             <NavIcon>
                 <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
@@ -64,6 +78,11 @@ class sideNav extends React.Component {
             <NavItem eventKey="Grade Submissions/Regrade">
                 <NavText>
                     Regrade
+                </NavText>
+            </NavItem>
+            <NavItem eventKey="Grade Submissions/Saved">
+                <NavText>
+                 Saved
                 </NavText>
             </NavItem>
         </NavItem>

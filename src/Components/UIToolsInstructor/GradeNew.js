@@ -138,7 +138,7 @@ class gradeNew extends React.Component {
                                         <br /><br />
                                         <li>
                                             <p>
-                                                Title: {listItems.title}
+                                                Breakpoint: {listItems.title}
                                                 <br />
                                                 Marks: {listItems.marks}
                                             </p>

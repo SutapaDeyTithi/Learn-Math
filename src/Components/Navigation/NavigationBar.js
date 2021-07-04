@@ -146,7 +146,7 @@ class NavigationBar extends Component {
             return (
                 <>
                     <Navbar className="navbar-expand-lg fixed-top" light>
-                        <NavbarBrand href="/">
+                        <NavbarBrand href="/authHome">
                             <div className="logo">
                                 <img src={logo_image} className="logo_image" />
                               Learn Math
