@@ -9,6 +9,50 @@ import axios from "axios";
 import Textfield from "../UIToolsInstructor/textField";
 import Imageup from "../UIToolsInstructor/imageUploadGeeks";
 
+// const categorization = [
+//     {
+//         topic: "Geometry",
+//         subtopic: ["Circle", "Square"],
+//         catefory: ["Area",
+//     },
+//     {
+//         topic: "Geometry",
+//         subtopic: "Circle",
+//         catefory: "Radius"
+//     },
+//     {
+//         topic: "Geometry",
+//         subtopic: "Square",
+//         catefory: "Area"
+//     },
+//     {
+//         topic: "Geometry",
+//         subtopic: "Square",
+//         catefory: "Formula"
+//     },
+//     {
+//         topic: "Algebra",
+//         subtopic: "Equation",
+//         catefory: "2 variables"
+//     },
+//     {
+//         topic: "Algebra",
+//         subtopic: "Equation",
+//         catefory: "3 variables"
+//     },
+//     {
+//         topic: "Algebra",
+//         subtopic: "Power",
+//         catefory: "Basics"
+//     },
+//     {
+//         topic: "Algebra",
+//         subtopic: "Power",
+//         catefory: "Complex"
+//     },
+    
+// ]
+
 class PracticeProblem extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +69,16 @@ class PracticeProblem extends Component {
             option4: '',
             correct_option: '',
             is_true: '0',
-            explanation: ''
+            explanation: '',
+            difficulty_level: "Difficulty Level",
+
+            category_array: [],
+            topic_array: [],
+            subtopic_array: [],
+
+            ques_figure: null,
+            ans_figure: null,
+            exp_figure: null
         }
         this.createNewQues = this.createNewQues.bind(this);
         this.saveQues = this.saveQues.bind(this);
@@ -46,48 +99,134 @@ class PracticeProblem extends Component {
         this.handleTrueFalse = this.handleTrueFalse.bind(this);
 
         this.handleExplanation = this.handleExplanation.bind(this);
+        this.handleDifficulty = this.handleDifficulty.bind(this);
+
+        this.handleQues_figure = this.handleQues_figure.bind(this);
+        this.handleAns_figure = this.handleAns_figure.bind(this);
+        this.handleExp_figure = this.handleExp_figure.bind(this);
+
     }
 
+    componentDidMount() {
+        fetch("http://localhost:5000/topic")
+            .then(res => res.json())
+            .then(json => this.setState({ topic_array: json }));
+        console.log("topic array --> ", this.state.topic_array);
+    }
+
+    /// image add
+    handleQues_figure = (image) => {
+        this.setState({ques_figure: image});
+        this.state.ques_figure = image;
+        console.log("Ques Figure --> ", this.state.ques_figure);
+    }
+
+    handleAns_figure = (image) => {
+        this.setState({ans_figure: image});
+        this.state.ans_figure = image;
+        console.log("Ans Figure --> ", this.state.ans_figure);
+    }
+
+    handleExp_figure = (image) => {
+        this.setState({exp_figure: image});
+        this.state.exp_figure = image;
+        console.log("Explanation Figure --> ", this.state.exp_figure);
+    }
+
+    
+
     createNewQues = () => {
-        this.setState({create_new_ques: true});
-        this.state.create_new_ques = true;
+        if(this.state.topic != 'Topic'
+            && this.state.subtopic != 'Subtopic'
+            && this.state.category != 'Category'
+            && this.state.difficulty_level != 'Difficulty Level'
+            && this.state.Ques_type != 'Question Type') {
+            this.setState({create_new_ques: true});
+            this.state.create_new_ques = true;
+        }
     }
 
     saveQues = () => {
         console.log("Saving Question..");
-        const Question = {
-            ques_type: this.state.Ques_type,
-            ques_text: this.state.ques_text,
-            option1: this.state.option1, 
-            option2: this.state.option2,
-            option3: this.state.option3,
-            option4: this.state.option4,
-            ans_text: this.state.correct_option,
-            explanation: this.state.explanation
-        }
-        console.log(Question);
+        if(this.state.Ques_type == 'MCQ' && this.state.ques_text != '') {
+            var Question = {
+                ques_type: this.state.Ques_type,
+                ques_text: this.state.ques_text,
+                option1: this.state.option1, 
+                option2: this.state.option2,
+                option3: this.state.option3,
+                option4: this.state.option4,
+                ans_text: this.state.correct_option,
+                explanation: this.state.explanation,
+                topic: this.state.topic,
+                subtopic: this.state.subtopic,
+                category: this.state.category,
+                difficulty_level: this.state.difficulty_level
+            }
+            console.log(Question);
 
-        axios.post(`http://localhost:5000/uploadQues`, { Question })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
+            axios.post(`http://localhost:5000/uploadQues`, { Question })
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                Question = [];
+                console.log("Question cleared? ", Question);
+            })
+        }
 
 
         this.setState({create_new_ques: false});
         this.state.create_new_ques = false;
+        this.setState({topic: "Topic"});
+        this.state.topic = "Topic";
+        this.setState({subtopic: "Subtopic"});
+        this.state.subtopic = "Subtopic";
+        this.setState({category: "Category"});
+        this.state.category = "Category";
+        this.setState({difficulty_level: "Difficulty Level"});
+        this.state.difficulty_level = "Difficulty Level";
+        this.setState({ques_type: "Question Type"});
+        this.state.ques_type = "Question Type";
     }
 
     handleTopic = (e) => {
         this.setState({topic: e});
         this.state.topic = e;
         console.log("topic --> ", this.state.topic);
+        const topicName = this.state.topic;
+
+        if(topicName != 'Topic' && topicName != "") {
+            axios.get(`http://localhost:5000/subtopics_instructor`,  { params: { topic_name: topicName } })
+            .then(res => {
+                console.log(res.data);
+                this.setState({subtopic_array: res.data});
+                this.state.subtopic_array = res.data;
+                if(res.data == 0) {
+                    this.setState({subtopic: "Subtopic"});
+                    this.state.subtopic = "Subtopic";
+                }
+            })
+        }
     }
 
     handleSubtopic = (e) => {
         this.setState({subtopic: e});
         this.state.subtopic = e;
         console.log("subtopic --> ", this.state.subtopic);
+
+        const subtopicName = this.state.subtopic;
+        if(subtopicName != 'Subtopic' && subtopicName != "") {
+            axios.get(`http://localhost:5000/category_instructor`,  { params: { subtopic_name: subtopicName } })
+            .then(res => {
+                console.log(res.data);
+                this.setState({category_array: res.data});
+                this.state.category_array = res.data;
+                if(res.data == 0) {
+                    this.setState({category: "Category"});
+                    this.state.category = "Category";
+                }
+            })
+        }
     }
 
     handleCategory = (e) => {
@@ -100,6 +239,12 @@ class PracticeProblem extends Component {
         this.setState({Ques_type: e});
         this.state.Ques_type = e;
         console.log("ques type --> ", this.state.Ques_type);
+    }
+
+    handleDifficulty = (e) => {
+        this.setState({difficulty_level: e});
+        this.state.difficulty_level = e;
+        console.log("difficulty level --> ", this.state.difficulty_level);
     }
 
     handleQuesText = (e) => {
@@ -154,6 +299,8 @@ class PracticeProblem extends Component {
     render() {
         // console.log("Creating short practice questions!")
         // console.log("button create new ques: ", this.state.create_new_ques);
+        
+
         return (
             <div>
                 {this.state.create_new_ques==false?
@@ -166,9 +313,11 @@ class PracticeProblem extends Component {
                         style={{ marginLeft: '38%', marginTop: '10%', maxHeight: '3em'}}
                         onSelect={this.handleTopic}
                         >
-                        <Dropdown.Item eventKey="Geometry">Geometry</Dropdown.Item>
-                        <Dropdown.Item eventKey="Algebra">Algebra</Dropdown.Item>
-                        <Dropdown.Item eventKey="Trigonometry">Trigonometry</Dropdown.Item>
+                        
+                        {this.state.topic_array.map((topics) => (
+                            <Dropdown.Item eventKey={topics.topic_name}>{topics.topic_name}</Dropdown.Item>
+                        ))}
+
                     </DropdownButton>
 
                     <DropdownButton
@@ -178,9 +327,11 @@ class PracticeProblem extends Component {
                         style={{ marginLeft: '38%', marginTop: '2%', maxHeight: '3em'}}
                         onSelect={this.handleSubtopic}
                         >
-                        <Dropdown.Item eventKey="Geometry">Geometry</Dropdown.Item>
-                        <Dropdown.Item eventKey="Algebra">Algebra</Dropdown.Item>
-                        <Dropdown.Item eventKey="Trigonometry">Trigonometry</Dropdown.Item>
+                        
+                        {this.state.subtopic_array.map((subtopic_name) => (
+                            <Dropdown.Item eventKey={subtopic_name}>{subtopic_name}</Dropdown.Item>
+                        ))}
+
                     </DropdownButton>
 
                     <DropdownButton
@@ -190,9 +341,11 @@ class PracticeProblem extends Component {
                         style={{ marginLeft: '38%', marginTop: '2%', maxHeight: '3em'}}
                         onSelect={this.handleCategory}
                         >
-                        <Dropdown.Item eventKey="Geometry">Geometry</Dropdown.Item>
-                        <Dropdown.Item eventKey="Algebra">Algebra</Dropdown.Item>
-                        <Dropdown.Item eventKey="Trigonometry">Trigonometry</Dropdown.Item>
+                        
+                        {this.state.category_array.map((category_name) => (
+                            <Dropdown.Item eventKey={category_name}>{category_name}</Dropdown.Item>
+                        ))}
+
                     </DropdownButton>
 
                     <DropdownButton
@@ -207,6 +360,21 @@ class PracticeProblem extends Component {
                         <Dropdown.Item eventKey="True/False">True/False</Dropdown.Item>
                     </DropdownButton>
 
+                    <DropdownButton
+                        menuAlign="right"
+                        title={this.state.difficulty_level}
+                        id="dropdown-menu-align-right"
+                        style={{ marginLeft: '38%', marginTop: '2%', maxHeight: '3em'}}
+                        onSelect={this.handleDifficulty}
+                        >
+                        <Dropdown.Item eventKey="1">1</Dropdown.Item>
+                        <Dropdown.Item eventKey="2">2</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">3</Dropdown.Item>
+                        <Dropdown.Item eventKey="4">4</Dropdown.Item>
+                        <Dropdown.Item eventKey="5">5</Dropdown.Item>
+                        
+                    </DropdownButton>
+
                     <Button variant="primary" size="sm" style={{ marginLeft: '39%', marginTop: '2%', maxWidth: '5em', maxHeight: '3em'}}
                         onClick={this.createNewQues}
                         >
@@ -219,7 +387,7 @@ class PracticeProblem extends Component {
                         <div style={{ marginLeft: '30%', marginTop: '8%' }}>
 
                             <Textfield label = "Enter Question" setText = {this.handleQuesText} Ques_type='MCQ'/>
-                            <Imageup />
+                            <Imageup setFigure={this.handleQues_figure}/>
 
                             <br></br><br></br>
 
@@ -258,7 +426,7 @@ class PracticeProblem extends Component {
 
                             <br></br><br></br>
                             <Textfield label = "Enter Explanation" setExplanation = {this.handleExplanation} Ques_type='MCQ'/>
-                            <Imageup />
+                            <Imageup setFigure={this.handleExp_figure}/>
                         </div>
                     :
                         <div>

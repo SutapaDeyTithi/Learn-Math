@@ -20,7 +20,9 @@ const {
 } = require("./handlers/student");
 
 const {
-    uploadQues
+    uploadQues,
+    getSubtopic_from_a_topic,
+    getCategory_from_a_subtopic
 } = require("./handlers/instructor");
 
 // COMMON
@@ -35,6 +37,8 @@ app.get('/mcq', getMCQ);
 
 
 // INSTRUCTOR
+app.get('/subtopics_instructor', getSubtopic_from_a_topic);
+app.get('/category_instructor', getCategory_from_a_subtopic);
 app.post('/uploadQues', uploadQues);
 
 // MODERATOR

@@ -217,7 +217,9 @@ else {
           style={{ marginTop: 10 }}
           /> */}
           <br></br>
-          <Textfield label="Enter Question Text" />
+          <div>
+          <Textfield label="Enter Question Text"/>
+          </div>
           <ImageUp />
           <br/>
           {/* <input

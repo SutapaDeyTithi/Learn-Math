@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '70vh',
+      minWidth: '10vh'
     },
   },
 }));
@@ -66,6 +67,7 @@ export default function MultilineTextFields(props) {
             name: 'title',
             id: "outlined-multiline-flexible",
           }}
+          style={{minWidth: '10vh'}}
         />
       </div>
     </form>

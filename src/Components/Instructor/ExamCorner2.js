@@ -43,7 +43,9 @@ class ExamCorner2 extends React.Component {
                           <div>
                             <h3 className="card-title">Question Paper Outline</h3>
                             {console.log("nav_selected --> ", this.state.nav_selected)}
-                            <Dynamicaddques />
+                            <div style={{maxWidth: '90%', marginRight: '5%'}}>
+                              <Dynamicaddques />
+                            </div>
                           </div>
                           
                       {/* <input type="submit" id="submit" className="submit" onClick={this.handleLangChange}/>  */}
