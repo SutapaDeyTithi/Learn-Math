@@ -12,9 +12,10 @@ exports.uploadQues = async(req, res) => {
         option4: req.body.Question.option4,
         ans_text: req.body.Question.ans_text,
         explanation: req.body.Question.explanation,
-        category: req.body.Question.category
+        category: req.body.Question.category, 
+        // ques_fig: req.body.Question.ques_figure
     }
-    console.log(Question);
+    console.log(Question.ques_fig);
     const options = [Question.option1, Question.option2, Question.option3, Question.option4];
 
     try {   
@@ -154,4 +155,23 @@ exports.getCategory_from_a_subtopic = async(req, res) => {
     } catch (error) { 
         console.log(error);       
     }
+}
+
+
+// image upload
+var multiparty = require('multiparty');
+
+exports.uploadImage = async(req, res) => {
+    console.log("Uploading image..");  
+    console.log(req.files);    
+
+    // parse a file upload
+    var form = new multiparty.Form();
+    form.parse(req, function(err, fields, files) {
+        // fields fields fields
+        console.log("err --> ", err);
+        console.log("fields --> ", fields);
+        console.log("files --> ", files);
+    });
+    return res.json("OK");
 }

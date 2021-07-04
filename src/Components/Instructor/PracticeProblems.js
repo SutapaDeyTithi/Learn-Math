@@ -9,49 +9,6 @@ import axios from "axios";
 import Textfield from "../UIToolsInstructor/textField";
 import Imageup from "../UIToolsInstructor/imageUploadGeeks";
 
-// const categorization = [
-//     {
-//         topic: "Geometry",
-//         subtopic: ["Circle", "Square"],
-//         catefory: ["Area",
-//     },
-//     {
-//         topic: "Geometry",
-//         subtopic: "Circle",
-//         catefory: "Radius"
-//     },
-//     {
-//         topic: "Geometry",
-//         subtopic: "Square",
-//         catefory: "Area"
-//     },
-//     {
-//         topic: "Geometry",
-//         subtopic: "Square",
-//         catefory: "Formula"
-//     },
-//     {
-//         topic: "Algebra",
-//         subtopic: "Equation",
-//         catefory: "2 variables"
-//     },
-//     {
-//         topic: "Algebra",
-//         subtopic: "Equation",
-//         catefory: "3 variables"
-//     },
-//     {
-//         topic: "Algebra",
-//         subtopic: "Power",
-//         catefory: "Basics"
-//     },
-//     {
-//         topic: "Algebra",
-//         subtopic: "Power",
-//         catefory: "Complex"
-//     },
-    
-// ]
 
 class PracticeProblem extends Component {
     constructor(props) {
@@ -119,6 +76,19 @@ class PracticeProblem extends Component {
         this.setState({ques_figure: image});
         this.state.ques_figure = image;
         console.log("Ques Figure --> ", this.state.ques_figure);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        // axios.post(`http://localhost:5000/uploadImage`, image, config)
+        //     .then(res => {
+        //         console.log(res);
+        //         console.log(res.data);
+        //     })
+
     }
 
     handleAns_figure = (image) => {
@@ -144,6 +114,11 @@ class PracticeProblem extends Component {
             this.setState({create_new_ques: true});
             this.state.create_new_ques = true;
         }
+
+
+        // APATOTO, FOR EASE
+        this.setState({create_new_ques: true});
+            this.state.create_new_ques = true;
     }
 
     saveQues = () => {
@@ -161,7 +136,8 @@ class PracticeProblem extends Component {
                 topic: this.state.topic,
                 subtopic: this.state.subtopic,
                 category: this.state.category,
-                difficulty_level: this.state.difficulty_level
+                difficulty_level: this.state.difficulty_level,
+                // ques_figure: this.state.ques_figure
             }
             console.log(Question);
 

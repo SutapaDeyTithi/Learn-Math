@@ -359,3 +359,18 @@ create table "ExamQuestion"
     downvote           integer,
     created_by         integer
 );
+
+
+-- temp image table
+create table "Images"
+(
+	id serial not null,
+	image oid
+);
+
+create unique index images_id_uindex
+	on "Images" (id);
+
+alter table "Images"
+	add constraint images_pk
+		primary key (id);

@@ -6,6 +6,15 @@ app.use(cors());
 app.use(express.json());
 // const pool=require("./utils/db");
 
+// image upload
+// const fileUpload = require('express-fileupload');
+// const FileType = require('file-type');
+// const formidable = require('express-formidable');
+// app.use(formidable());
+
+
+// app.use(fileUpload());
+
 // IMPORT MODULES
 const {
     signUp,
@@ -22,7 +31,8 @@ const {
 const {
     uploadQues,
     getSubtopic_from_a_topic,
-    getCategory_from_a_subtopic
+    getCategory_from_a_subtopic,
+    uploadImage
 } = require("./handlers/instructor");
 
 // COMMON
@@ -40,6 +50,7 @@ app.get('/mcq', getMCQ);
 app.get('/subtopics_instructor', getSubtopic_from_a_topic);
 app.get('/category_instructor', getCategory_from_a_subtopic);
 app.post('/uploadQues', uploadQues);
+app.post('/uploadImage', uploadImage);
 
 // MODERATOR
 

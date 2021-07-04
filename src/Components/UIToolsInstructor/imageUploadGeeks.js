@@ -24,7 +24,7 @@ class Image extends Component {
 			const formData = new FormData();
 			// Update the formData object
 			formData.append(
-				"myFile",
+				"figure",
 				this.state.selectedFile,
 				this.state.selectedFile.name
 			);
@@ -89,3 +89,6 @@ class Image extends Component {
 }
 
 export default Image;
+
+
+// https://www.positronx.io/react-file-upload-tutorial-with-node-express-and-multer/
