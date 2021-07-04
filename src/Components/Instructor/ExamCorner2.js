@@ -56,23 +56,13 @@ class ExamCorner2 extends React.Component {
 
               :
 
-              <div id="ques_container">
-                <div className="card ques_card2 border-dark" style={{minWidth: '80%'}}>
-                      <div className="card-body">
+              <div id="grade">     
+                <h5>Grade Answer Paper</h5>
+                {console.log("nav_selected --> ", this.state.nav_selected)}
+                  <Gradenew />
+              </div>
 
-                      <div>
-                        <h3 className="card-title">Grade Answer Paper</h3>
-                        {console.log("nav_selected --> ", this.state.nav_selected)}
-                          <Gradenew />
-                      </div>
-
-                      </div>
-                  </div>
-              </div>  
-
-              }
-   
-                      
+              }          
           </div>
       );
     

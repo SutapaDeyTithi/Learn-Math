@@ -19,3 +19,13 @@
     min-height: 100vh;
   }
   
+  #grade{
+    margin-left: 15%;
+    padding-top: 7%;
+    text-align: center;
+    /* min-width: 100rem; */
+    /* border-radius: 10px;
+    border-style: outset; */
+    /* background-color: lightslategray; */
+    min-height: 100vh;
+  }
