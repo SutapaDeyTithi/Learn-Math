@@ -161,8 +161,8 @@ class PracticeProblem extends Component {
         this.state.category = "Category";
         this.setState({difficulty_level: "Difficulty Level"});
         this.state.difficulty_level = "Difficulty Level";
-        this.setState({ques_type: "Question Type"});
-        this.state.ques_type = "Question Type";
+        this.setState({Ques_type: "Question Type"});
+        this.state.Ques_type = "Question Type";
     }
 
     handleTopic = (e) => {
