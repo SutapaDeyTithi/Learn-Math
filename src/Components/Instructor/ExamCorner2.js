@@ -12,6 +12,8 @@ import Dynamicaddques from "../UIToolsInstructor/dynamic_ques_add";
 import Gradenew from "../UIToolsInstructor/GradeNew";
 import "./ExamCorner2.css";
 import Popupwindow from "../UIToolsInstructor/ExamCorner1_1";
+import create_exam from "../../Resources/ImagesInstructor/create_exam.png";
+
 
 class ExamCorner2 extends React.Component {
   constructor(props) {
@@ -68,17 +70,35 @@ class ExamCorner2 extends React.Component {
                       <Popupwindow setNav={this.handleSelected}/>
                     </div>
                   :
+                  <div>
+
+                  {this.state.nav_selected=="Grade Submissions/New"?
                     <div id="grade">     
                       <h5>Grade Answer Paper</h5>
                       {console.log("nav_selected --> ", this.state.nav_selected)}
                         <Gradenew />
                     </div>
+                    :
+                    <div>
 
+                      <div id="grade">    
+                        <img
+                                className="welcome-img mx-left"
+                                src={create_exam}
+                            /> 
+                        <h5>Create Quality Contents.</h5>
+                        <h5>And Grade Anywhere, Anytime.</h5>
+                        {console.log("nav_selected --> ", this.state.nav_selected)}
+                      </div>
+
+                    </div>
                   }
 
-              </div>
+                  </div>
+                  }
 
-              
+
+              </div>           
               }          
           </div>
       );
