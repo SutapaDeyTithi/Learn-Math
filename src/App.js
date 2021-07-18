@@ -149,7 +149,7 @@ class App extends Component {
                           </div>
                     </Switch>
     
-                    <Footer />
+                    {/* <Footer /> */}
                 </div>
             </BrowserRouter>
         );

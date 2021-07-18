@@ -1,31 +1,18 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem } from 'reactstrap';
-import i18n from "i18next";
 import Textfield from "../UIToolsInstructor/textField";
 import Checkbox from "../UIToolsInstructor/checkBox";
 import Htmleditor from "../UIToolsInstructor/htmlEditor";
-import Dropdown from "../UIToolsInstructor/dropdwon";
+// import Dropdown from "../UIToolsInstructor/dropdwon";
 // import Button from "../UIToolsInstructor/button";
 import Videoup from "../UIToolsInstructor/videoUp";
 import Imageup from "../UIToolsInstructor/imageUploadGeeks";
 import Button from 'react-bootstrap/Button';
-
-
-import "./CreateTutorials.css";
-
 import Box from '@material-ui/core/Box';
-// import welcome from "";
+import "./CreateTutorials.css";
+import axios from "axios";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 // import from materials-ui
 const defaultProps = {
@@ -38,6 +25,93 @@ const defaultProps = {
 
 
 class CreateTutorial extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            create_new_tutorial: false,
+            topic: "Topic",
+            subtopic: "Subtopic",
+            title: "Title",
+            short_desc: "Short Description",
+            tutorial_type: "Tutorial Type",
+            tutorial_text: '',
+            tutorial_video: null,
+            tutorial_image: null,
+
+            topic_array: [],
+            subtopic_array: [],
+        }
+        // this.createNewTutorial = this.createNewTutorial.bind(this);
+        // this.saveTutorial = this.saveTutorial.bind(this);
+
+        this.handleTopic = this.handleTopic.bind(this);
+        this.handleSubtopic = this.handleSubtopic.bind(this);
+        this.handleTitle = this.handleTitle.bind(this);
+        this.handleShortDesc = this.handleShortDesc.bind(this);
+    }
+
+    componentDidMount() {
+
+        fetch("http://localhost:5000/topic")
+            .then(res => res.json())
+            .then(json => this.setState({ topic_array: json }));
+        console.log("topic array --> ", this.state.topic_array);
+    }
+
+    handleTopic = (e) => {
+        this.setState({topic: e});
+        this.state.topic = e;
+        console.log("topic --> ", this.state.topic);
+        const topicName = this.state.topic;
+
+        if(topicName != 'Topic' && topicName != "") {
+            axios.get(`http://localhost:5000/subtopics_instructor`,  { params: { topic_name: topicName } })
+            .then(res => {
+                console.log(res.data);
+                this.setState({subtopic_array: res.data});
+                this.state.subtopic_array = res.data;
+                if(res.data == 0) {
+                    this.setState({subtopic: "Subtopic"});
+                    this.state.subtopic = "Subtopic";
+                }
+            })
+        }
+    }
+
+    handleSubtopic = (e) => {
+        this.setState({subtopic: e});
+        this.state.subtopic = e;
+        console.log("subtopic --> ", this.state.subtopic);
+
+        const subtopicName = this.state.subtopic;
+        // if(subtopicName != 'Subtopic' && subtopicName != "") {
+        //     axios.get(`http://localhost:5000/category_instructor`,  { params: { subtopic_name: subtopicName } })
+        //     .then(res => {
+        //         console.log(res.data);
+        //         this.setState({category_array: res.data});
+        //         this.state.category_array = res.data;
+        //         if(res.data == 0) {
+        //             this.setState({category: "Category"});
+        //             this.state.category = "Category";
+        //         }
+        //     })
+        // }
+    }
+
+    handleTitle = (e) => {
+        this.setState({title: e});
+        this.state.title = e;
+        console.log("tutorial title --> ", this.state.title);
+    }
+
+    handleShortDesc = (e) => {
+        this.setState({short_desc: e});
+        this.state.short_desc = e;
+        console.log("short desc --> ", this.state.short_desc);
+    }
+
+
+
     render() {
             return (
                 <>
@@ -46,17 +120,60 @@ class CreateTutorial extends Component {
                         <div className="container-fluid">
                        
                             {/* <Box borderRadius="50%" {...defaultProps} /> */}
-                            <h3> 
+                            {/* <h3> 
                                 Create a New Tutorial!
-                            </h3>
-                            <Dropdown />
-                            <Textfield label = "Title of the Tutorial"/>
-                            <Textfield label = "Short Description about the Context"/>
+                            </h3> */}
+
+
+                            {/* <Dropdown /> */}
+                            <DropdownButton
+                                menuAlign="left"
+                                title={this.state.topic}
+                                id="dropdown-menu-align-left"
+                                style={{ 
+                                    marginLeft: '-25%', 
+                                    marginTop: '2%', maxHeight: '3em'
+                                    , maxWidth: '70%'
+                                }}
+                                onSelect={this.handleTopic}
+                                >
+                                
+                                {this.state.topic_array.map((topics) => (
+                                    <Dropdown.Item eventKey={topics.topic_name}>{topics.topic_name}</Dropdown.Item>
+                                ))}
+
+                            </DropdownButton>
+
+                            <DropdownButton
+                                menuAlign="left"
+                                title={this.state.subtopic}
+                                id="dropdown-menu-align-left"
+                                style={{ 
+                                    marginLeft: '-25%', 
+                                    marginTop: '2%', 
+                                    maxHeight: '3em'
+                                    , maxWidth: '70%'
+                                }}
+                                onSelect={this.handleSubtopic}
+                                >
+                                
+                                {this.state.subtopic_array.map((subtopic_name) => (
+                                    <Dropdown.Item eventKey={subtopic_name}>{subtopic_name}</Dropdown.Item>
+                                ))}
+
+                            </DropdownButton>
+
+                            <br></br>
+
+                            <Textfield label = "Title of the Tutorial" setText={this.handleTitle} type='text'/>
+                            <Textfield label = "Short Description about the Context" setText={this.handleShortDesc} type='text'/>
+
                             <div className="checkbox">
                                 <Checkbox />
                             </div>
                             {/* <Videoup /> */}
                             <Imageup /> 
+                            
                             <Box borderRadius={4} {...defaultProps}>
                             <Htmleditor />
                             </Box>

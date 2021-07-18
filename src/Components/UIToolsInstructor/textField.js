@@ -46,9 +46,11 @@ export default function MultilineTextFields(props) {
       else if(props.label == "Enter Option 4") {
         props.setoption4(event.target.value)
       }
-      else if(props.label == "Enter Explanation") {
-        props.setExplanation(event.target.value)
-      }
+    }
+
+    if(props.type == 'text') {
+      console.log("Text --> ", event.target.value);
+      props.setText(event.target.value)
     }
   };
 

@@ -20,6 +20,7 @@ class PracticeProblem extends Component {
             category: "Category",
             Ques_type: "Question Type",
             ques_text: '',
+            ques_text2: '',
             option1: '',
             option2: '',
             option3: '',
@@ -46,6 +47,7 @@ class PracticeProblem extends Component {
 
         this.handleQuesType = this.handleQuesType.bind(this);
         this.handleQuesText = this.handleQuesText.bind(this);
+        this.handleQuesText2 = this.handleQuesText2.bind(this);
         this.handleMCQOptions_correct = this.handleMCQOptions_correct.bind(this);
 
         this.setoption1 = this.setoption1.bind(this);
@@ -123,8 +125,9 @@ class PracticeProblem extends Component {
 
     saveQues = () => {
         console.log("Saving Question..");
+        var Question = null;
         if(this.state.Ques_type == 'MCQ' && this.state.ques_text != '') {
-            var Question = {
+            var ques = {
                 ques_type: this.state.Ques_type,
                 ques_text: this.state.ques_text,
                 option1: this.state.option1, 
@@ -139,8 +142,38 @@ class PracticeProblem extends Component {
                 difficulty_level: this.state.difficulty_level,
                 // ques_figure: this.state.ques_figure
             }
-            console.log(Question);
-
+            Question = ques; 
+        }
+        else if(this.state.Ques_type == 'Matching' && this.state.ques_text != '' && this.state.ques_text2 != '') {
+            var ques = {
+                ques_type: this.state.Ques_type,
+                ques_text1: this.state.ques_text,
+                ques_text2: this.state.ques_text2,
+                explanation: this.state.explanation,
+                topic: this.state.topic,
+                subtopic: this.state.subtopic,
+                category: this.state.category,
+                difficulty_level: this.state.difficulty_level,
+                // ques_figure: this.state.ques_figure
+            }
+            Question = ques;
+        }
+        else if(this.state.Ques_type == 'True/False' && this.state.ques_text != '') {
+            var ques = {
+                ques_type: this.state.Ques_type,
+                ques_text: this.state.ques_text,
+                is_true: this.state.is_true,
+                explanation: this.state.explanation,
+                topic: this.state.topic,
+                subtopic: this.state.subtopic,
+                category: this.state.category,
+                difficulty_level: this.state.difficulty_level,
+                // ques_figure: this.state.ques_figure
+            }
+            Question = ques;
+        }
+        console.log(Question);
+        if(ques != null) {
             axios.post(`http://localhost:5000/uploadQues`, { Question })
             .then(res => {
                 console.log(res);
@@ -149,6 +182,8 @@ class PracticeProblem extends Component {
                 console.log("Question cleared? ", Question);
             })
         }
+
+        
 
 
         this.setState({create_new_ques: false});
@@ -229,6 +264,12 @@ class PracticeProblem extends Component {
         console.log("Question text --> ", this.state.ques_text);
     }
 
+    handleQuesText2 = (e) => {
+        this.setState({ques_text2: e});
+        this.state.ques_text2 = e;
+        console.log("Question text 2 --> ", this.state.ques_text2);
+    }
+
     handleMCQOptions_correct = (e) => {
       //  console.log("corrent ans: e --> ", e);
         this.setState({correct_option: e});
@@ -269,7 +310,7 @@ class PracticeProblem extends Component {
     handleExplanation = (e) => {
         this.setState({explanation: e});
         this.state.explanation = e;
-        console.log("True Or False --> ", this.state.explanation);
+        console.log("Explanation --> ", this.state.explanation);
     }
 
     render() {
@@ -401,14 +442,14 @@ class PracticeProblem extends Component {
                             </RadioGroup>
 
                             <br></br><br></br>
-                            <Textfield label = "Enter Explanation" setExplanation = {this.handleExplanation} Ques_type='MCQ'/>
+                            <Textfield label = "Enter Explanation" setText = {this.handleExplanation} type='text'/>
                             <Imageup setFigure={this.handleExp_figure}/>
                         </div>
                     :
                         <div>
                              {this.state.Ques_type == 'True/False'?
                                 <div  style={{ marginLeft: '30%', marginTop: '8%' }}>
-                                    <Textfield label = "Enter Statement"/>
+                                    <Textfield label = "Enter Statement" setText={this.handleQuesText} type='text'/>
                                     <Imageup />
 
                                     <br></br><br></br>
@@ -429,7 +470,7 @@ class PracticeProblem extends Component {
                                     </RadioGroup>
 
                                     <br></br><br></br>
-                                    <Textfield label = "Enter Explanation"/>
+                                    <Textfield label = "Enter Explanation" setText = {this.handleExplanation} type='text'/>
                                     <Imageup />
 
                                 </div>
@@ -438,13 +479,13 @@ class PracticeProblem extends Component {
 
                                     {this.state.Ques_type == 'Matching'?
                                         <div  style={{ marginLeft: '30%', marginTop: '8%' }}>
-                                            <Textfield label = "Enter Statement 1"/>
+                                            <Textfield label = "Enter Statement 1" setText={this.handleQuesText} type='text'/>
                                             <br></br>
-                                            <Textfield label = "Enter Statement 2"/>  
+                                            <Textfield label = "Enter Statement 2" setText={this.handleQuesText2} type='text'/>  
                                             <Imageup />    
 
                                             <br></br><br></br>
-                                            <Textfield label = "Enter Explanation"/>
+                                            <Textfield label = "Enter Explanation" setText = {this.handleExplanation} type='text'/>
                                             <Imageup />                              
                                         </div>
                                     :

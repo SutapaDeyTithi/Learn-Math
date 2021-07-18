@@ -61,6 +61,12 @@ class sideNav extends React.Component {
                 </NavText>
             </NavItem>
 
+            <NavItem eventKey="New Exam/Modify Content">
+                <NavText>
+                Modify Content
+                </NavText>
+            </NavItem>
+
         </NavItem>
     
         <NavItem eventKey="Grade Submissions">

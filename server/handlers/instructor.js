@@ -2,7 +2,11 @@ const pool = require("../utils/db");
 
 exports.uploadQues = async(req, res) => {
     console.log("Uploading Ques..");
-    // console.log(req.body.Question);
+    console.log(req.body.Question);
+
+    if(req.body.Question.ques_type != 'MCQ')
+        return res.json("not inserting other than MCQ");
+
     const Question = {
         ques_type: req.body.Question.ques_type,
         ques_text: req.body.Question.ques_text,
@@ -15,7 +19,7 @@ exports.uploadQues = async(req, res) => {
         category: req.body.Question.category, 
         // ques_fig: req.body.Question.ques_figure
     }
-    console.log(Question.ques_fig);
+    // console.log(Question.ques_fig);
     const options = [Question.option1, Question.option2, Question.option3, Question.option4];
 
     try {   
@@ -173,5 +177,11 @@ exports.uploadImage = async(req, res) => {
         console.log("fields --> ", fields);
         console.log("files --> ", files);
     });
+    return res.json("OK");
+}
+
+exports.uploadTutorial = async(req, res) => {
+    console.log("Uploading Tutorial..");
+    console.log(req.body);
     return res.json("OK");
 }

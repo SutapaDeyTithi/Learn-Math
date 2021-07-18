@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {EditorState} from "draft-js";
 import {Editor} from "react-draft-wysiwyg";
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import {draftToHtml} from 'draftjs-to-html';
 import {convertFromRaw, convertToRaw} from 'draft-js';   
 //import Meteor from 'meteor'; 
 // import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
@@ -17,10 +18,12 @@ class htmlEditor extends Component{
         uploadedImages: []
     };
     this._uploadImageCallBack = this._uploadImageCallBack.bind(this);
+    // this.onEditorStateChange = this.onEditorStateChange.bind(this);
 }
   
-    onEditorStateChange: Function = (editorState) => {
-      // console.log(editorState)
+onEditorStateChange = editorState => {
+      console.log(editorState.getCurrentContent().getPlainText());
+      // console.log('as HTML:', draftToHtml(editorState));
       this.setState({
         editorState,
       });
@@ -77,3 +80,5 @@ class htmlEditor extends Component{
   }
 
   export default htmlEditor;
+
+  // https://github.com/jpuri/react-draft-wysiwyg/issues/545
