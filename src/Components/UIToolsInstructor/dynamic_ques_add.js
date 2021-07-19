@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FloatingActionButtonZoom() {
+export default function FloatingActionButtonZoom(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -217,9 +217,7 @@ else {
           style={{ marginTop: 10 }}
           /> */}
           <br></br>
-          <div>
           <Textfield label="Enter Question Text"/>
-          </div>
           <ImageUp />
           <br/>
           {/* <input
@@ -265,7 +263,7 @@ else {
     
 
   <br></br> 
-  <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '85%'}}>Save Outline</Link>
+  <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '85%'}} onClick={props.setSaved}>Save Outline</Link>
   <br></br> 
     
   </div>   

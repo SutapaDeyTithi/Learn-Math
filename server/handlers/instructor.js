@@ -4,71 +4,199 @@ exports.uploadQues = async(req, res) => {
     console.log("Uploading Ques..");
     console.log(req.body.Question);
 
-    if(req.body.Question.ques_type != 'MCQ')
-        return res.json("not inserting other than MCQ");
+    // if(req.body.Question.ques_type != 'MCQ')
+    //     return res.json("not inserting other than MCQ");
 
-    const Question = {
-        ques_type: req.body.Question.ques_type,
-        ques_text: req.body.Question.ques_text,
-        option1: req.body.Question.option1, 
-        option2: req.body.Question.option2,
-        option3: req.body.Question.option3,
-        option4: req.body.Question.option4,
-        ans_text: req.body.Question.ans_text,
-        explanation: req.body.Question.explanation,
-        category: req.body.Question.category, 
-        // ques_fig: req.body.Question.ques_figure
-    }
-    // console.log(Question.ques_fig);
-    const options = [Question.option1, Question.option2, Question.option3, Question.option4];
-
-    try {   
-        pool.query("SELECT * FROM \"Category\" WHERE category_name = $1",
-        [Question.category], (err, result) => {
-            if (err) {
-                console.error('Error executing query', err.stack);
-                return res.json("error");
-            }
-            else {
-                const id = result.rows[0].category_id;
-
-                pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
-                [1, id, 0], (err, result) => {
-                    if (err) {
-                        console.error('Error executing query', err.stack);
-                    }
-                    else {
-                        const id = result.rows[0].question_id;
-
-                        pool.query("Insert into \"MCQ\"(question_id, ques_text, options) VALUES($1, $2, $3)",
-                                [id, Question.ques_text, options], (err, result) => {
-                                    if (err) {
-                                        console.error('Error executing query', err.stack);
-                                        return res.json("error");
+    if(req.body.Question.ques_type == 'MCQ') {
+        const Question = {
+            ques_type: req.body.Question.ques_type,
+            ques_text: req.body.Question.ques_text,
+            option1: req.body.Question.option1, 
+            option2: req.body.Question.option2,
+            option3: req.body.Question.option3,
+            option4: req.body.Question.option4,
+            ans_text: req.body.Question.ans_text,
+            explanation: req.body.Question.explanation,
+            category: req.body.Question.category, 
+            // ques_fig: req.body.Question.ques_figure
+        }
+        // console.log(Question.ques_fig);
+        const options = [Question.option1, Question.option2, Question.option3, Question.option4];
+    
+        try {   
+            pool.query("SELECT * FROM \"Category\" WHERE category_name = $1",
+            [Question.category], (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("error");
+                }
+                else {
+                    const id = result.rows[0].category_id;
+    
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
+                    [1, id, 0], (err, result) => {
+                        if (err) {
+                            console.error('Error executing query', err.stack);
+                        }
+                        else {
+                            const id = result.rows[0].question_id;
+    
+                            pool.query("Insert into \"MCQ\"(question_id, ques_text, options) VALUES($1, $2, $3)",
+                                    [id, Question.ques_text, options], (err, result) => {
+                                        if (err) {
+                                            console.error('Error executing query', err.stack);
+                                            return res.json("error");
+                                        }
+                                        else {
+                                            pool.query("Insert into \"Answer\"(question_id, ans_text) VALUES($1, $2)",
+                                            [id, Question.ans_text], (err, result) => {
+                                                if (err) {
+                                                    console.error('Error executing query', err.stack);
+                                                    return res.json("error");
+                                                }
+                                                else {
+                                                    return res.json("Inserted MCQ");
+                                                }
+                                        });
                                     }
-                                    else {
-                                        pool.query("Insert into \"Answer\"(question_id, ans_text) VALUES($1, $2)",
-                                        [id, Question.ans_text], (err, result) => {
-                                            if (err) {
-                                                console.error('Error executing query', err.stack);
-                                                return res.json("error");
-                                            }
-                                            else {
-                                                return res.json("Inserted MCQ");
-                                            }
-                                    });
                                 }
-                            }
-                        );
+                            );
+                        }
+                    });
+    
+                }
+            });
+    
+            
+        } catch (error) {  
+            return res.json("error");      
+        }
+    }
+    else if(req.body.Question.ques_type == 'Matching') {
+        const Question = {
+            ques_type: req.body.Question.ques_type,
+            ques_text1: req.body.Question.ques_text1,
+            ques_text2: req.body.Question.ques_text2,
+            ans_text: 'matching',
+            explanation: req.body.Question.explanation,
+            category: req.body.Question.category, 
+            // ques_fig: req.body.Question.ques_figure
+        }
+        console.log(Question);
+
+        try {   
+            pool.query("SELECT * FROM \"Category\" WHERE category_name = $1",
+            [Question.category], (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("error");
+                }
+                else {
+                    const id = result.rows[0].category_id;
+    
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
+                    [1, id, 0], (err, result) => {
+                        if (err) {
+                            console.error('Error executing query', err.stack);
+                        }
+                        else {
+                            const id = result.rows[0].question_id;
+
+                            pool.query("Insert into \"Match\"(question_id, ques_left, ques_right) VALUES($1, $2, $3)",
+                                    [id, Question.ques_text1, Question.ques_text2], (err, result) => {
+                                        if (err) {
+                                            console.error('Error executing query', err.stack);
+                                            return res.json("error");
+                                        }
+                                        else {
+                                            pool.query("Insert into \"Answer\"(question_id, ans_text) VALUES($1, $2)",
+                                            [id, Question.ans_text], (err, result) => {
+                                                if (err) {
+                                                    console.error('Error executing query', err.stack);
+                                                    return res.json("error");
+                                                }
+                                                else {
+                                                    return res.json("Inserted Match");
+                                                }
+                                        });
+                                    }
+                                }
+                            );
+                        }
                     }
-                });
+                    );
+                }
+            });
+    
+            
+        } catch (error) {  
+            return res.json("error");      
+        }
+                        
+    }
+    else if(req.body.Question.ques_type == 'True/False') {
+        const Question = {
+            ques_type: req.body.Question.ques_type,
+            ques_text: req.body.Question.ques_text,
+            ans_text: req.body.Question.is_true,
+            explanation: req.body.Question.explanation,
+            category: req.body.Question.category, 
+            // ques_fig: req.body.Question.ques_figure
+        }
+        console.log(Question);
 
-            }
-        });
+        try {   
+            pool.query("SELECT * FROM \"Category\" WHERE category_name = $1",
+            [Question.category], (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("error");
+                }
+                else {
+                    const id = result.rows[0].category_id;
+    
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
+                    [1, id, 0], (err, result) => {
+                        if (err) {
+                            console.error('Error executing query', err.stack);
+                        }
+                        else {
+                            const id = result.rows[0].question_id;
 
-        
-    } catch (error) {  
-        return res.json("error");      
+                            const options = ['0', '1'];
+                            pool.query("Insert into \"True_False\"(question_id, ques_text, options) VALUES($1, $2, $3)",
+                                    [id, Question.ques_text, options], (err, result) => {
+                                        if (err) {
+                                            console.error('Error executing query', err.stack);
+                                            return res.json("error");
+                                        }
+                                        else {
+                                            pool.query("Insert into \"Answer\"(question_id, ans_text) VALUES($1, $2)",
+                                            [id, Question.ans_text], (err, result) => {
+                                                if (err) {
+                                                    console.error('Error executing query', err.stack);
+                                                    return res.json("error");
+                                                }
+                                                else {
+                                                    return res.json("Inserted True/False");
+                                                }
+                                        });
+                                    }
+                                }
+                            );
+                        }
+                    }
+                    );
+                }
+            });
+    
+            
+        } catch (error) {  
+            return res.json("error");      
+        }
+    }
+    else {
+        return res.json("Invalid Question Type");
     }
 }
 

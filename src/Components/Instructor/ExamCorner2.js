@@ -4,8 +4,9 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import '@fortawesome/react-fontawesome'
-import '@fortawesome/free-solid-svg-icons'
+import '@fortawesome/react-fontawesome';
+import '@fortawesome/free-solid-svg-icons';
+import Button from 'react-bootstrap/Button';
  
 import Sidenav from "../UIToolsInstructor/sideNav";
 import Dynamicaddques from "../UIToolsInstructor/dynamic_ques_add";
@@ -19,9 +20,25 @@ class ExamCorner2 extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        nav_selected: ''
+        nav_selected: '',
+        popup: true,
+        saved: false,
+        exam_paper: {
+          title: '',
+          type: '',
+          level: '',
+          question_array: []
+        }
       }
       this.handleSelected = this.handleSelected.bind(this);
+      this.handlePopup = this.handlePopup.bind(this);
+      this.handleSave = this.handleSave.bind(this);
+      this.newQues = this.newQues.bind(this);
+
+      this.setTitle = this.setTitle.bind(this);
+      this.setType = this.setType.bind(this);
+      this.setLevel = this.setLevel.bind(this);
+      this.setQuesArray = this.setQuesArray.bind(this);
   }
 
   handleSelected = (selected) => {
@@ -31,6 +48,38 @@ class ExamCorner2 extends React.Component {
     
     //console.log("nav_selected: ", selected);
   }
+
+  handlePopup = (e) => {
+    this.setState({popup: e});
+    this.state.popup = e;
+  }
+
+  handleSave = () => {
+    this.setState({saved: true});
+    this.state.saved = true;
+  }
+
+  newQues = () => {
+    this.setState({saved: false, popup: true});
+    this.state.popup = true;
+    this.state.saved = false;
+  }
+
+  setTitle = (e) => {
+
+  }
+
+  setType = (e) => {
+    
+  }
+
+  setLevel = (e) => {
+    
+  }
+
+  setQuesArray = (e) => {
+    
+  }
       
   render() { 
       return (
@@ -38,8 +87,13 @@ class ExamCorner2 extends React.Component {
               <Sidenav setNav={this.handleSelected} currentValue={this.state.nav_selected}/>
 
               {this.state.nav_selected=="New Exam/Create Outline"?
-                
 
+              <div>
+                {this.state.popup && <Popupwindow setNav={this.handleSelected} popup={this.handlePopup} 
+                  setTitle={this.setTitle} setType={this.setType} setLevel={this.setLevel}
+                />}
+                
+                {!this.state.popup && !this.state.saved && 
                 <div id="ques_container">
                 <div className="card ques_card2 border-dark" style={{minWidth: '80%'}}>
                       <div className="card-body">
@@ -48,7 +102,7 @@ class ExamCorner2 extends React.Component {
                             <h3 className="card-title">Question Paper Outline</h3>
                             {console.log("nav_selected --> ", this.state.nav_selected)}
                             <div style={{maxWidth: '90%', marginRight: '5%'}}>
-                              <Dynamicaddques />
+                              <Dynamicaddques setSaved={this.handleSave}/>
                             </div>
                           </div>
                           
@@ -56,7 +110,20 @@ class ExamCorner2 extends React.Component {
                                           
                       </div>
                     </div>
-                </div>   
+                </div>  
+                } 
+
+                {this.state.saved && 
+                <div id="grade" style={{ marginTop: '15%'}}>
+                  <h3>Thank you for your contribution.</h3>
+                  <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
+                        onClick={this.newQues}
+                        >
+                        New Question Outline 
+                  </Button>
+                </div>}
+
+                </div>
 
               :
 
@@ -85,9 +152,11 @@ class ExamCorner2 extends React.Component {
                         <img
                                 className="welcome-img mx-left"
                                 src={create_exam}
+                                style={{minHeight: '40%', minWidth: '40%'}}
                             /> 
-                        <h5>Create Quality Contents.</h5>
-                        <h5>And Grade Anywhere, Anytime.</h5>
+                        <br/><br/>
+                        <h3>Create Quality Contents.</h3>
+                        <h3>And Grade Anywhere, Anytime.</h3>
                         {console.log("nav_selected --> ", this.state.nav_selected)}
                       </div>
 

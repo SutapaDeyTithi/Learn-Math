@@ -37,6 +37,7 @@ class popup extends React.Component {
     handleClose = () => {
         this.state.open = false;
         this.setState({open: false});
+        this.props.popup(false);
     }
 
     handleNext = () => {
@@ -51,6 +52,8 @@ class popup extends React.Component {
         // this.setState({examTile: value});
         this.state.examTile = value;
         console.log("exam title: ", this.state.examTile);
+
+        this.props.setTitle(value);
     }
     
     handleDifficulty_level = (e) => {
@@ -58,18 +61,22 @@ class popup extends React.Component {
         this.setState({difficulty_level: e});
         this.state.difficulty_level = e;
         console.log("difficulty level: ", this.state.difficulty_level);
+
+        this.props.setLevel(e);
     }
 
     handleExam_type = (e) => {
         this.setState({exam_type: e});
         this.state.exam_type = e;;
         console.log("Exam type: ", this.state.exam_type);
+
+        this.props.setType(e);
     }
         
 
     render() {
         return (
-            <div id="first2">
+            <div id="first2" style={{ marginTop: '10%'}}>
                 {this.state.open == true?
 
                 <div className="card signin_card2 border-dark" >

@@ -49,11 +49,11 @@ class sideNav extends React.Component {
                 New Exam
             </NavText>
 
-            <NavItem eventKey="New Exam/Exam Settings">
+            {/* <NavItem eventKey="New Exam/Exam Settings">
                 <NavText>
                 Exam Settings
                 </NavText>
-            </NavItem>
+            </NavItem> */}
 
             <NavItem eventKey="New Exam/Create Outline">
                 <NavText>
