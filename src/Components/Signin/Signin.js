@@ -55,7 +55,7 @@ class first extends Component {
 
         // must delete this line later
         // auto sign up
-        // this.props.onRouteChange("signedin");
+         this.props.onRouteChange("signedin");
 
         fetch('http://localhost:5000/login', {
             method: 'POST',

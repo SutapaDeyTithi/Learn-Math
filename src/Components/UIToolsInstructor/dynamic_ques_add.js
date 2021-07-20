@@ -96,12 +96,12 @@ export default function FloatingActionButtonZoom(props) {
   const OpenRubrik = (quesNo) => {
     setRubrik(true);
     handleChangeRubrikQuesNo(quesNo);
-    console.log("Rubrik: ", rubrik);
+    console.log("Rubrik: ", rubrikList[rubrikQuesNo]["rubrik"]);
   }
 
   const CloaseRubrik = () => {
     setRubrik(false);
-    console.log("Rubrik: ", rubrik);
+    // console.log("Rubrik: ", rubrik);
   }
 
  
@@ -109,7 +109,8 @@ export default function FloatingActionButtonZoom(props) {
   // handle input change
   const handleRubrikChange = (e, index, type, quesNo) => {
     const list = [...rubrikList];
-    list[quesNo]["rubrik"].push({ breakpoint: "", marks: ""});
+   if(list[quesNo]["rubrik"][index] == null )
+   list[quesNo]["rubrik"].push({ breakpoint: "", marks: ""});
     list[quesNo]["rubrik"][index][type] = e;
     setRubrikList(list);
     console.log("rubrik list --> ", rubrikList);
@@ -118,13 +119,19 @@ export default function FloatingActionButtonZoom(props) {
    // handle click event of the Remove button
    const handleRemoveClick_rubrik = index => {
     const list = [...rubrikList];
-    list.splice(index, 1);
+    // list.splice(index, 1);
+    list[rubrikQuesNo]["rubrik"].splice(index, 1);
     setRubrikList(list);
   };
   
   // handle click event of the Add button
   const handleAddClick_rubrik = () => {
-    setRubrikList([...rubrikList, { breakpoint: "", marks: "", ques_no: "" }]);
+    console.log("Rubrik before: ", rubrikList[rubrikQuesNo]["rubrik"]);
+    // setRubrikList([...rubrikList[rubrikQuesNo]["rubrik"][i], { breakpoint: "", marks: ""}]);
+    const list = [...rubrikList];
+    list[rubrikQuesNo]["rubrik"].push({ breakpoint: "", marks: ""});
+    console.log("Rubrik after: ", rubrikList[rubrikQuesNo]["rubrik"]);
+    setRubrikList(list);
   };
 
   const submitRubrik = () => {
@@ -143,7 +150,7 @@ export default function FloatingActionButtonZoom(props) {
     list[index]["index"] = index;
 
     setInputList(list);
-    console.log(inputList);
+    console.log("ques list --> ", inputList);
   };
   
   // handle click event of the Remove button
@@ -166,11 +173,11 @@ export default function FloatingActionButtonZoom(props) {
   return(
     <div>
     <br></br> <br></br>
-    {rubrikList.map((x, i) => {
+    {rubrikList[rubrikQuesNo]["rubrik"].map((x, i) => {
     return (
       <form className="box">
         <label >
-        {console.log("rubrik x -> ", x)}
+        {/* {console.log("rubrik x -> ", x)} */}
           <Textfield label="Enter Rubrik Breakpoint" rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='breakpoint' quesNo={rubrikQuesNo}/>
         </label>
 
@@ -179,7 +186,7 @@ export default function FloatingActionButtonZoom(props) {
         </label>
 
 
-        {rubrikList.length !== 1 &&
+        {rubrikList[rubrikQuesNo]["rubrik"].length !== 1 &&
             <Button variant="primary" size="sm" 
             style={{ 
               marginTop: 10, maxWidth: '5em', maxHeight: '3em', 
@@ -191,7 +198,7 @@ export default function FloatingActionButtonZoom(props) {
         }
 
 
-        {rubrikList.length - 1 === i &&
+        {rubrikList[rubrikQuesNo]["rubrik"].length - 1 === i &&
             <Button variant="primary" size="sm" 
                 onClick={handleAddClick_rubrik} 
                 style={{ 
@@ -234,7 +241,7 @@ else {
           <ImageUp />
           {/* https://www.geeksforgeeks.org/file-uploading-in-react-js/ */}
 
-        {console.log("ques x --> ", x)}
+        {/* {console.log("ques x --> ", x)} */}
 
           <div className="btn-box" style={{ marginTop: 10 }}>
             <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
