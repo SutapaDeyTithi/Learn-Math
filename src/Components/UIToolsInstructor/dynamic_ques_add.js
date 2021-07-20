@@ -1,18 +1,7 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Zoom from '@material-ui/core/Zoom';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
 
@@ -20,11 +9,8 @@ import './Dynamicaddques.css';
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
 
-// new imports
-// import ImageUp from "./imageUp";
 import ImageUp from "./imageUploadGeeks";
 import Textfield from "./textField";
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 
@@ -50,13 +36,6 @@ TabPanel.propTypes = {
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
 };
-
-function a11yProps(index) {
-  return {
-    id: `action-tab-${index}`,
-    'aria-controls': `action-tabpanel-${index}`,
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,19 +67,83 @@ export default function FloatingActionButtonZoom(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const handleChangeIndex = (index) => {
     setValue(index);
   };
 
-  const [inputList, setInputList] = useState([{ question: "", answer: "" }]);
+  // rubrik
+  const [rubrikQuesNo, setRubrikQuesNo] = React.useState(0);
+  const [rubrikList, setRubrikList] = useState([
+    {
+      quesNo: "", 
+      rubrik: [{ breakpoint: "", marks: ""}]
+    }
+  ]);
 
-    // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
+  const handleChangeRubrikQuesNo = (index) => {
+    setRubrikQuesNo(index);
+    console.log("Setting rubrik for ques no: ", index);
+
+    // set ques no
+    // const list = [...rubrikList];
+    // list[index][type] = e;
+    // setRubrikList(list);
+    // console.log(rubrikList);
+  };
+
+  const [rubrik, setRubrik] = React.useState(false);
+
+  const OpenRubrik = (quesNo) => {
+    setRubrik(true);
+    handleChangeRubrikQuesNo(quesNo);
+    console.log("Rubrik: ", rubrik);
+  }
+
+  const CloaseRubrik = () => {
+    setRubrik(false);
+    console.log("Rubrik: ", rubrik);
+  }
+
+ 
+
+  // handle input change
+  const handleRubrikChange = (e, index, type, quesNo) => {
+    const list = [...rubrikList];
+    list[quesNo]["rubrik"].push({ breakpoint: "", marks: ""});
+    list[quesNo]["rubrik"][index][type] = e;
+    setRubrikList(list);
+    console.log("rubrik list --> ", rubrikList);
+  };
+
+   // handle click event of the Remove button
+   const handleRemoveClick_rubrik = index => {
+    const list = [...rubrikList];
+    list.splice(index, 1);
+    setRubrikList(list);
+  };
+  
+  // handle click event of the Add button
+  const handleAddClick_rubrik = () => {
+    setRubrikList([...rubrikList, { breakpoint: "", marks: "", ques_no: "" }]);
+  };
+
+  const submitRubrik = () => {
+      CloaseRubrik();
+  }
+
+
+
+
+  // ques & ans
+  const [inputList, setInputList] = useState([{question: "", answer: "", index: ""}]);
+
+  const handleInputChange = (e, index, type) => {
     const list = [...inputList];
-    list[index][name] = value;
+    list[index][type] = e;
+    list[index]["index"] = index;
+
     setInputList(list);
+    console.log(inputList);
   };
   
   // handle click event of the Remove button
@@ -112,76 +155,48 @@ export default function FloatingActionButtonZoom(props) {
   
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([...inputList, { question: "", answer: "" }]);
+    setInputList([...inputList, { question: "", answer: "", index: "" }]);
   };
 
-  // dropdown   
-  const options = [
-    'Written', 'MCQ', 'Fill in the Blank', 'True/False', "Drag & Drop"
-  ];
 
-  // const defaultOption = options[0];
-  // rubrik
-  const [rubrik, setRubrik] = React.useState(false);
-
-  const OpenRubrik = () => {
-    setRubrik(true);
-    console.log("Rubrik: ", rubrik);
-  }
-
-  const CloaseRubrik = () => {
-    setRubrik(false);
-    console.log("Rubrik: ", rubrik);
-  }
-
-  const [rubrikList, setRubrikList] = useState([{ breakpoint: "", marks: "" }]);
-
-   // handle click event of the Remove button
-   const handleRemoveClick_rubrik = index => {
-    const list = [...rubrikList];
-    list.splice(index, 1);
-    setRubrikList(list);
-  };
   
-  // handle click event of the Add button
-  const handleAddClick_rubrik = () => {
-    setRubrikList([...rubrikList, { breakpoint: "", marks: "" }]);
-  };
-
-  const submitRubrik = () => {
-      CloaseRubrik();
-  }
+    
 
   if(rubrik == true) {
-  //  <div >
   return(
     <div>
     <br></br> <br></br>
     {rubrikList.map((x, i) => {
     return (
-      <form>
+      <form className="box">
         <label >
-        Enter Rubrik Breakpoint: 
-          <input type="text" name="breakpoint" style={{ marginLeft: "1%", maxWidth: "50%", minWidth: "50%"}}/>
+        {console.log("rubrik x -> ", x)}
+          <Textfield label="Enter Rubrik Breakpoint" rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='breakpoint' quesNo={rubrikQuesNo}/>
         </label>
 
         <label >
-        Enter Marks: 
-          <input type="text" name="marks" style={{ marginLeft: "3%", maxWidth: "15%"}} />
+          <Textfield label="Enter Marks" rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='marks' quesNo={rubrikQuesNo}/>
         </label>
-
-        
 
 
         {rubrikList.length !== 1 &&
-            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em', marginLeft: "85%" }}
-                onClick={() => handleRemoveClick_rubrik(i)}>
+            <Button variant="primary" size="sm" 
+            style={{ 
+              marginTop: 10, maxWidth: '5em', maxHeight: '3em', 
+              marginLeft: "50%" 
+            }}
+              onClick={() => handleRemoveClick_rubrik(i)}>
                   Remove
             </Button>
         }
+
+
         {rubrikList.length - 1 === i &&
             <Button variant="primary" size="sm" 
-                onClick={handleAddClick_rubrik} style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em', marginLeft: "85%" }}>
+                onClick={handleAddClick_rubrik} 
+                style={{ 
+                marginTop: 10, maxWidth: '5em', maxHeight: '3em', 
+                marginLeft: "50%" }}>
                   Add
             </Button>
         }
@@ -189,8 +204,15 @@ export default function FloatingActionButtonZoom(props) {
       </form>
     );
     })}
-    <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-    <input type="submit" value="Save Rubrik" style={{ marginLeft: "85%"}} onClick={submitRubrik}/>
+   
+    <Button variant="primary" size="sm"  
+    style={{ 
+          marginTop: 30, maxWidth: '8em', maxHeight: '3em', 
+          marginLeft: "10%" 
+        }} 
+          onClick={submitRubrik}>
+          Save Rubrik
+    </Button>
     </div>
   ) 
 }
@@ -201,42 +223,22 @@ else {
     {inputList.map((x, i) => {
       return (
         <div className="box" style={{ marginTop: 20 }}>
-          {/* onChange={this._onSelect} */}
-          {/* value={defaultOption} */}
+        
 
-          {/* ------------- Exam e shudhu written ques e thake, tai ei drop down unnecessary ----------------- */}
-          {/* <div className="dropdown">
-          <Dropdown options={options}  placeholder="Question Type"/>
-          </div> */}
-
-          {/* <input
-          name="question"
-          placeholder="Enter Question Text"
-          value={x.question}
-          onChange={e => handleInputChange(e, i)}
-          style={{ marginTop: 10 }}
-          /> */}
           <br></br>
-          <Textfield label="Enter Question Text"/>
+          <Textfield label="Enter Question Text" writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='question'/>
           <ImageUp />
           <br/>
-          {/* <input
-            className="ml10"
-            name="answer"
-            placeholder="Enter Answer Text"
-            value={x.answer}
-            onChange={e => handleInputChange(e, i)}
-            style={{ marginTop: 10 }}
-          /> */}
-          <Textfield label="Enter Answer Text" />
+         
+          <Textfield label="Enter Answer Text"  writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='answer'/>
           <ImageUp />
           {/* https://www.geeksforgeeks.org/file-uploading-in-react-js/ */}
 
-        
+        {console.log("ques x --> ", x)}
 
           <div className="btn-box" style={{ marginTop: 10 }}>
             <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
-             onClick={OpenRubrik}>
+             onClick={() => OpenRubrik(x.index)}>
               Rubrik
             </Button>
 
@@ -258,7 +260,7 @@ else {
         </div>
       );
     })}
-    {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
+
   </div>
     
 
