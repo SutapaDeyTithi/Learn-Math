@@ -290,27 +290,10 @@ exports.getCategory_from_a_subtopic = async(req, res) => {
 }
 
 
-// image upload
-var multiparty = require('multiparty');
-
-exports.uploadImage = async(req, res) => {
-    console.log("Uploading image..");  
-    console.log(req.files);    
-
-    // parse a file upload
-    var form = new multiparty.Form();
-    form.parse(req, function(err, fields, files) {
-        // fields fields fields
-        console.log("err --> ", err);
-        console.log("fields --> ", fields);
-        console.log("files --> ", files);
-    });
-    return res.json("OK");
-}
-
 exports.uploadTutorial = async(req, res) => {
     console.log("Uploading Tutorial..");
     console.log(req.body);
+    console.log(JSON.stringify(req.body.text));
     return res.json("OK");
 }
 
@@ -381,3 +364,10 @@ exports.uploadWrittenQues = async(req, res) => {
 
 // Insert into "ExamQuestion"(ques_text, ans_text, rubrik) 
 // Values('question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation"},{"marks": 2.3}]');
+
+// uploading file
+var path = require('path');
+var multer  = require('multer');
+
+exports.uploadFile = async(req, res) => {
+}

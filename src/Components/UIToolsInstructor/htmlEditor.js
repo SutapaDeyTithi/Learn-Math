@@ -4,7 +4,8 @@ import { render } from 'react-dom';
 import {EditorState} from "draft-js";
 import {Editor} from "react-draft-wysiwyg";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {draftToHtml} from 'draftjs-to-html';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs'; 
 import {convertFromRaw, convertToRaw} from 'draft-js';   
 //import Meteor from 'meteor'; 
 // import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
@@ -23,10 +24,13 @@ class htmlEditor extends Component{
   
 onEditorStateChange = editorState => {
       console.log(editorState.getCurrentContent().getPlainText());
-      // console.log('as HTML:', draftToHtml(editorState));
+      const rawContentState = draftToHtml(convertToRaw(editorState.getCurrentContent()));  
+      //convertToRaw(editorState.getCurrentContent());
+      console.log('as HTML:', rawContentState);
       this.setState({
         editorState,
       });
+     this.props.setHTML(rawContentState);
     };
 
     _uploadImageCallBack(file) {
@@ -82,3 +86,5 @@ onEditorStateChange = editorState => {
   export default htmlEditor;
 
   // https://github.com/jpuri/react-draft-wysiwyg/issues/545
+
+  // https://stackoverflow.com/questions/57492751/how-do-i-submit-values-from-the-text-box-as-an-html-string 

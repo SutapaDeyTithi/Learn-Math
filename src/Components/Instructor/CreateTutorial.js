@@ -34,9 +34,11 @@ class CreateTutorial extends Component {
             title: "Title",
             short_desc: "Short Description",
             tutorial_type: "Tutorial Type",
-            tutorial_text: '',
+            tutorial_text: {
+                "html_text": ""
+            },
             tutorial_video: null,
-            tutorial_image: null,
+            tutorial_figure: null,
 
             topic_array: [],
             subtopic_array: [],
@@ -48,6 +50,9 @@ class CreateTutorial extends Component {
         this.handleSubtopic = this.handleSubtopic.bind(this);
         this.handleTitle = this.handleTitle.bind(this);
         this.handleShortDesc = this.handleShortDesc.bind(this);
+
+        this.handleTutorial = this.handleTutorial.bind(this);
+        this.handleTutorial_figure = this.handleTutorial_figure.bind(this);
     }
 
     componentDidMount() {
@@ -110,7 +115,56 @@ class CreateTutorial extends Component {
         console.log("short desc --> ", this.state.short_desc);
     }
 
+    /// image add
+    handleTutorial_figure = (image) => {
+        this.setState({tutorial_figure: image});
+        this.state.tutorial_figure = image;
+        console.log("tutorial_figure --> ", this.state.tutorial_figure);
 
+        // const config = {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // }
+
+        // axios.post(`http://localhost:5000/uploadImage2`, image, config)
+        //     .then(res => {
+        //         console.log(res);
+        //         console.log(res.data);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+
+    }
+
+    handleTutorial = (e) => {
+        // this.setState({tutorial_text: e});
+        this.state.tutorial_text.html_text = e;
+        console.log("tutorial_text --> ", this.state.tutorial_text);
+    }
+
+    onFileUpload = () => {
+        const Tutorial ={
+            topic: this.state.topic,
+            subtopic: this.state.subtopic,
+            title: this.state.title,
+            about: this.state.short_desc,
+            type: this.state.tutorial_type,
+            text: this.state.tutorial_text,
+            image: this.state.tutorial_figure,
+            video: this.state.tutorial_video
+        }
+
+        axios.post(`http://localhost:5000/uploadTutorial`, Tutorial)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     render() {
             return (
@@ -175,7 +229,7 @@ class CreateTutorial extends Component {
                             <Imageup /> 
                             
                             <Box borderRadius={4} {...defaultProps}>
-                            <Htmleditor />
+                            <Htmleditor setHTML={this.handleTutorial}/>
                             </Box>
                             
                             <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}

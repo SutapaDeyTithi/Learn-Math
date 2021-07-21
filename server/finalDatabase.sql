@@ -145,7 +145,7 @@ Create Table "Tutorial"(
             references "Subtopic"
             on update cascade on delete cascade,
     tutorial_name varchar(255),
-    tutorial_text text,
+    tutorial_text   json,
     figures oid[],
     link varchar(255),
     video oid[],
@@ -154,6 +154,7 @@ Create Table "Tutorial"(
 	downvote integer,
 	created_by integer
 );
+
 
 Create Table "Question"(
 	question_id serial not null unique
@@ -379,22 +380,24 @@ create table "ExamAnswer"
 );
 
 
+Insert into "Tutorial"(subtopic_id, tutorial_text) Values(1, '{"html_text":"<p>bnbvn</p>\n"}');
 
 
 
 
 
 
+------------ trash ------------------------
 -- temp image table
-create table "Images"
-(
-	id serial not null,
-	image oid
-);
+-- create table "Images"
+-- (
+-- 	id serial not null,
+-- 	image oid
+-- );
 
-create unique index images_id_uindex
-	on "Images" (id);
+-- create unique index images_id_uindex
+-- 	on "Images" (id);
 
-alter table "Images"
-	add constraint images_pk
-		primary key (id);
+-- alter table "Images"
+-- 	add constraint images_pk
+-- 		primary key (id);

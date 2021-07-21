@@ -24,9 +24,8 @@ class Image extends Component {
 			const formData = new FormData();
 			// Update the formData object
 			formData.append(
-				"figure",
-				this.state.selectedFile,
-				this.state.selectedFile.name
+				"file",
+				this.state.selectedFile
 			);
 			
 			// Details of the uploaded file

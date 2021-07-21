@@ -85,11 +85,14 @@ class PracticeProblem extends Component {
             }
         }
 
-        // axios.post(`http://localhost:5000/uploadImage`, image, config)
-        //     .then(res => {
-        //         console.log(res);
-        //         console.log(res.data);
-        //     })
+        axios.post(`http://localhost:5000/uploadImage2`, image, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     }
 
