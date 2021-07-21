@@ -73,16 +73,18 @@ export default function FloatingActionButtonZoom(props) {
 
   // rubrik
   const [rubrikQuesNo, setRubrikQuesNo] = React.useState(0);
+  const [rubrikEmpty, setRubrikEmpty] = React.useState(0);
+
   const [rubrikList, setRubrikList] = useState([
     {
       quesNo: "", 
-      rubrik: [{ breakpoint: "", marks: ""}]
+      rubrik: [{ breakpoint: "", marks: "", index: "", empty: "false"}]
     }
   ]);
 
   const handleChangeRubrikQuesNo = (index) => {
     setRubrikQuesNo(index);
-    console.log("Setting rubrik for ques no: ", index);
+    //console.log("Setting rubrik for ques no: ", index);
 
     // set ques no
     // const list = [...rubrikList];
@@ -95,11 +97,21 @@ export default function FloatingActionButtonZoom(props) {
 
   const OpenRubrik = (quesNo) => {
     setRubrik(true);
+    // if(quesNo == "")
+    //   quesNo = 0;
     handleChangeRubrikQuesNo(quesNo);
-    console.log("Rubrik: ", rubrikList[rubrikQuesNo]["rubrik"]);
+    if(rubrikList[quesNo] == null) {
+      // const list = [...rubrikList];
+      setRubrikList([...rubrikList, {
+        quesNo: "", 
+        rubrik: [{ breakpoint: "", marks: "", index: "", empty: "false"}],
+      }]);
+    }
+    //console.log("Rubrik: ", rubrikList);
   }
 
   const CloaseRubrik = () => {
+    setRubrikEmpty(0);
     setRubrik(false);
     // console.log("Rubrik: ", rubrik);
   }
@@ -110,10 +122,12 @@ export default function FloatingActionButtonZoom(props) {
   const handleRubrikChange = (e, index, type, quesNo) => {
     const list = [...rubrikList];
    if(list[quesNo]["rubrik"][index] == null )
-   list[quesNo]["rubrik"].push({ breakpoint: "", marks: ""});
+   list[quesNo]["rubrik"].push({ breakpoint: "", marks: "", index: "", empty: ""});
     list[quesNo]["rubrik"][index][type] = e;
+    list[quesNo]["rubrik"][index]["index"] = index;
+    list[quesNo]["quesNo"] = quesNo;
     setRubrikList(list);
-    console.log("rubrik list --> ", rubrikList);
+    // console.log("rubrik list --> ", rubrikList);
   };
 
    // handle click event of the Remove button
@@ -126,16 +140,26 @@ export default function FloatingActionButtonZoom(props) {
   
   // handle click event of the Add button
   const handleAddClick_rubrik = () => {
-    console.log("Rubrik before: ", rubrikList[rubrikQuesNo]["rubrik"]);
+    //console.log("Rubrik before: ", rubrikList[rubrikQuesNo]["rubrik"]);
     // setRubrikList([...rubrikList[rubrikQuesNo]["rubrik"][i], { breakpoint: "", marks: ""}]);
     const list = [...rubrikList];
-    list[rubrikQuesNo]["rubrik"].push({ breakpoint: "", marks: ""});
-    console.log("Rubrik after: ", rubrikList[rubrikQuesNo]["rubrik"]);
+    list[rubrikQuesNo]["rubrik"].push({ breakpoint: "", marks: "", index: "", empty: "false"});
+    //console.log("Rubrik after: ", rubrikList[rubrikQuesNo]["rubrik"]);
     setRubrikList(list);
   };
 
   const submitRubrik = () => {
-      CloaseRubrik();
+      // console.log("submitting rubrik --> ");
+      var isEmpty = false;
+      rubrikList[rubrikQuesNo]["rubrik"].forEach(item => {
+        // console.log(item);
+        if(item.breakpoint == "" || item.marks == "") {
+            setRubrikEmpty(1);
+            isEmpty = true;
+        }
+      });
+      if(!isEmpty)
+        CloaseRubrik();
   }
 
 
@@ -143,14 +167,19 @@ export default function FloatingActionButtonZoom(props) {
 
   // ques & ans
   const [inputList, setInputList] = useState([{question: "", answer: "", index: ""}]);
+  const [quesEmpty, setQuesEmpty] = React.useState(0);
+  const [quesNoRubrik, setQuesNoRubrik] = React.useState(0);
 
   const handleInputChange = (e, index, type) => {
+    setQuesEmpty(0);
+    setQuesNoRubrik(0);
+    
     const list = [...inputList];
     list[index][type] = e;
     list[index]["index"] = index;
 
     setInputList(list);
-    console.log("ques list --> ", inputList);
+    // console.log("ques list --> ", inputList);
   };
   
   // handle click event of the Remove button
@@ -165,9 +194,55 @@ export default function FloatingActionButtonZoom(props) {
     setInputList([...inputList, { question: "", answer: "", index: "" }]);
   };
 
+  const submitQuesPaper = () => {
+    console.log("submitting ques paper --> ");
+    var isEmpty = false;
+    inputList.forEach(item => {
+      // console.log(item);
+      // || item.index == ""
+      if(item.question == "" || item.answer == "") {
+          setQuesEmpty(1);
+          isEmpty = true;
+      }
+    });
 
-  
-    
+    if(!isEmpty) {
+      var question_paper = [];
+      inputList.some(item => {
+        question_paper.push({
+          ques_text: item.question,
+          ans_text: item.answer,
+          rubrik: rubrikList[item.index]["rubrik"]
+        });
+
+        console.log("rubrik length --> ", rubrikList[item.index]["rubrik"].length);
+
+        if(rubrikList[item.index]["rubrik"].length == 1) {
+          console.log("rubrik --> ", rubrikList[item.index]["rubrik"]);
+            if(rubrikList[item.index]["rubrik"][0].breakpoint == "" || rubrikList[item.index]["rubrik"][0].marks == "") {
+              console.log("rubrik empty");
+              isEmpty = true;
+              setQuesNoRubrik(1);
+              // return true;
+            }
+        }
+      });
+
+      
+
+      if(!isEmpty) {
+        console.log("final question paper --> ", question_paper);
+        setQuesEmpty(0);
+        setQuesNoRubrik(0);
+        props.setSaved();
+      }
+      else
+        console.log("could not submit final question paper");
+    }
+  }
+
+
+   
 
   if(rubrik == true) {
   return(
@@ -176,13 +251,18 @@ export default function FloatingActionButtonZoom(props) {
     {rubrikList[rubrikQuesNo]["rubrik"].map((x, i) => {
     return (
       <form className="box">
+
         <label >
         {/* {console.log("rubrik x -> ", x)} */}
-          <Textfield label="Enter Rubrik Breakpoint" rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='breakpoint' quesNo={rubrikQuesNo}/>
+          <Textfield label="Enter Rubrik Breakpoint" 
+          value={x.breakpoint}
+          rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='breakpoint' quesNo={rubrikQuesNo}/>
         </label>
 
         <label >
-          <Textfield label="Enter Marks" rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='marks' quesNo={rubrikQuesNo}/>
+          <Textfield label="Enter Marks" 
+          value={x.marks}
+          rubrikNo={i} setRubrik={handleRubrikChange} type='rubrik' fieldType='marks' quesNo={rubrikQuesNo}/>
         </label>
 
 
@@ -192,10 +272,11 @@ export default function FloatingActionButtonZoom(props) {
               marginTop: 10, maxWidth: '5em', maxHeight: '3em', 
               marginLeft: "50%" 
             }}
-              onClick={() => handleRemoveClick_rubrik(i)}>
+              onClick={() => handleRemoveClick_rubrik(x.index)}>
                   Remove
             </Button>
         }
+
 
 
         {rubrikList[rubrikQuesNo]["rubrik"].length - 1 === i &&
@@ -212,6 +293,12 @@ export default function FloatingActionButtonZoom(props) {
     );
     })}
    
+   {
+     rubrikEmpty == 1 ? 
+     <h6 style={{color: 'red', marginTop: 20, marginLeft: 50}}> Your Rubrik field is empty. Cannot save. </h6>
+     :
+     <div></div>
+   }
     <Button variant="primary" size="sm"  
     style={{ 
           marginTop: 30, maxWidth: '8em', maxHeight: '3em', 
@@ -233,21 +320,31 @@ else {
         
 
           <br></br>
-          <Textfield label="Enter Question Text" writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='question'/>
+          <Textfield label="Enter Question Text" 
+          value={x.question}
+          writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='question'/>
           <ImageUp />
           <br/>
          
-          <Textfield label="Enter Answer Text"  writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='answer'/>
+          <Textfield label="Enter Answer Text"  
+          value={x.answer}
+          writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='answer'/>
           <ImageUp />
           {/* https://www.geeksforgeeks.org/file-uploading-in-react-js/ */}
 
         {/* {console.log("ques x --> ", x)} */}
 
           <div className="btn-box" style={{ marginTop: 10 }}>
+            
+            {x.question != "" && x.answer != "" && 
             <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
              onClick={() => OpenRubrik(x.index)}>
               Rubrik
             </Button>
+            } 
+            {x.question == "" || x.answer == "" &&
+            <h6 style={{color: 'red'}}> Your Question/Answer field is empty. Rubrik is not available. </h6>
+            }
 
             <br></br>
 
@@ -271,8 +368,22 @@ else {
   </div>
     
 
+  {
+    quesEmpty == 1 ? 
+    <h6 style={{color: 'red', marginTop: 20, marginLeft: 50}}> Your Question/Answer field is empty. Cannot submit. </h6>
+    :
+    <div></div>
+  }
+
+{
+    quesNoRubrik == 1 ? 
+    <h6 style={{color: 'red', marginTop: 20, marginLeft: 50}}> You haven't set any rubrik. Cannot submit. </h6>
+    :
+    <div></div>
+  }
+
   <br></br> 
-  <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '85%'}} onClick={props.setSaved}>Save Outline</Link>
+  <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '5%', marginTop: 10}} onClick={submitQuesPaper}>Submit Question Paper</Link>
   <br></br> 
     
   </div>   

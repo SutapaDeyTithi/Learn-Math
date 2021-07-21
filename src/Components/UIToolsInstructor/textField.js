@@ -73,7 +73,9 @@ export default function MultilineTextFields(props) {
           multiline
           // fullWidth
           // rowsMax={rowMax.rowMax}
-          value={state.title}
+          value={props.type == "rubrik" ? props.value : 
+                (props.type == "WrittenQues" ? props.value :
+                state.title)}
           onChange={handleChange}
           variant="outlined"
           inputProps={{
