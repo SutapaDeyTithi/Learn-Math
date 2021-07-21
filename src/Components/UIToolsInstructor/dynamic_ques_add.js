@@ -173,7 +173,7 @@ export default function FloatingActionButtonZoom(props) {
   const handleInputChange = (e, index, type) => {
     setQuesEmpty(0);
     setQuesNoRubrik(0);
-    
+
     const list = [...inputList];
     list[index][type] = e;
     list[index]["index"] = index;
@@ -232,6 +232,8 @@ export default function FloatingActionButtonZoom(props) {
 
       if(!isEmpty) {
         console.log("final question paper --> ", question_paper);
+        props.setQuesArray(question_paper);
+
         setQuesEmpty(0);
         setQuesNoRubrik(0);
         props.setSaved();
@@ -241,6 +243,9 @@ export default function FloatingActionButtonZoom(props) {
     }
   }
 
+  const discardQuesPaper = () => {
+      props.setSaved();
+  }
 
    
 
@@ -385,6 +390,10 @@ else {
   <br></br> 
   <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '5%', marginTop: 10}} onClick={submitQuesPaper}>Submit Question Paper</Link>
   <br></br> 
+
+  <br></br> 
+  <Link to="/examCorner" className="btn btn-primary" style={{marginLeft: '5%', marginTop: 10}} onClick={discardQuesPaper}>Discard Question Paper</Link>
+  <br></br>
     
   </div>   
   );

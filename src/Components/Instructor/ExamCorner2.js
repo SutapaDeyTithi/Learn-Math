@@ -1,6 +1,5 @@
 import React from 'react';
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
-
+import axios from "axios";
 
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
@@ -23,6 +22,9 @@ class ExamCorner2 extends React.Component {
         nav_selected: '',
         popup: true,
         saved: false,
+        exam_title: '',
+        exam_type: '',
+        exam_level: '',
         exam_paper: {
           title: '',
           type: '',
@@ -42,7 +44,7 @@ class ExamCorner2 extends React.Component {
   }
 
   handleSelected = (selected) => {
-   console.log("selected: ", selected);
+  //  console.log("selected: ", selected);
    this.setState({nav_selected: selected});
     this.state.nav_selected = selected;
     
@@ -66,19 +68,46 @@ class ExamCorner2 extends React.Component {
   }
 
   setTitle = (e) => {
-
+    this.setState({exam_title: e});
+    // console.log("setting title --> ", this.state);
+    this.state.exam_title = e;
+    this.state.exam_paper.title = e;
   }
 
   setType = (e) => {
-    
+    this.setState({exam_type: e});
+    // console.log("setting exam_type --> ", this.state);
+    this.state.exam_type = e;
+    this.state.exam_paper.type = e;
   }
 
   setLevel = (e) => {
-    
+    this.setState({exam_level: e});
+    // console.log("setting exam_level --> ", this.state);
+    this.state.exam_level = e;
+    this.state.exam_paper.level = e;
   }
 
   setQuesArray = (e) => {
-    
+    this.setState({exam_paper: e});
+    // console.log("setting exam_level --> ", this.state);
+    this.state.exam_paper = e;
+    // ---------------- submit here
+    console.log("will submit this --> ", this.state);
+
+    if(this.state.exam_paper != null) {
+      var Question = this.state.exam_paper;
+      axios.post(`http://localhost:5000/uploadWrittenQues`, { Question })
+      .then(res => {
+          console.log(res);
+          console.log(res.data);
+
+          this.setState({exam_paper: []});
+          this.state.exam_paper = [];
+          Question = this.state.exam_paper;
+          console.log("Question cleared? ", Question);
+      })
+  }
   }
       
   render() { 
@@ -100,9 +129,9 @@ class ExamCorner2 extends React.Component {
                       
                           <div>
                             <h3 className="card-title">Question Paper Outline</h3>
-                            {console.log("nav_selected --> ", this.state.nav_selected)}
+                            {/* {console.log("nav_selected --> ", this.state.nav_selected)} */}
                             <div style={{maxWidth: '90%', marginRight: '5%'}}>
-                              <Dynamicaddques setSaved={this.handleSave}/>
+                              <Dynamicaddques setSaved={this.handleSave}  setQuesArray={this.setQuesArray}/>
                             </div>
                           </div>
                           
@@ -142,7 +171,7 @@ class ExamCorner2 extends React.Component {
                   {this.state.nav_selected=="Grade Submissions/New"?
                     <div id="grade">     
                       <h5>Grade Answer Paper</h5>
-                      {console.log("nav_selected --> ", this.state.nav_selected)}
+                      {/* {console.log("nav_selected --> ", this.state.nav_selected)} */}
                         <Gradenew />
                     </div>
                     :
@@ -157,7 +186,7 @@ class ExamCorner2 extends React.Component {
                         <br/><br/>
                         <h3>Create Quality Contents.</h3>
                         <h3>And Grade Anywhere, Anytime.</h3>
-                        {console.log("nav_selected --> ", this.state.nav_selected)}
+                        {/* {console.log("nav_selected --> ", this.state.nav_selected)} */}
                       </div>
 
                     </div>

@@ -313,3 +313,11 @@ exports.uploadTutorial = async(req, res) => {
     console.log(req.body);
     return res.json("OK");
 }
+
+
+exports.uploadWrittenQues = async(req, res) => {
+    console.log("Uploading Written Question Paper..");
+    console.log(req.body);
+    console.log(req.Question.rubrik);
+    return res.json("OK");
+}

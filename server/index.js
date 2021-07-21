@@ -33,7 +33,8 @@ const {
     getSubtopic_from_a_topic,
     getCategory_from_a_subtopic,
     uploadImage,
-    uploadTutorial
+    uploadTutorial,
+    uploadWrittenQues
 } = require("./handlers/instructor");
 
 // COMMON
@@ -53,6 +54,7 @@ app.get('/category_instructor', getCategory_from_a_subtopic);
 app.post('/uploadQues', uploadQues);
 app.post('/uploadImage', uploadImage);
 app.post('/uploadTutorial', uploadTutorial);
+app.post('/uploadWrittenQues', uploadWrittenQues);
 
 // MODERATOR
 

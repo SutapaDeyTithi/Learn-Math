@@ -13,7 +13,8 @@ class popup extends React.Component {
             open: true,
             examTile: '',
             difficulty_level: 'Difficulty Level',
-            exam_type: 'Exam Type'
+            exam_type: 'Exam Type',
+            empty: false
         }
         this.handleTextvalue = this.handleTextvalue.bind(this);
         this.handleDifficulty_level = this.handleDifficulty_level.bind(this);
@@ -35,42 +36,63 @@ class popup extends React.Component {
     }
 
     handleClose = () => {
-        this.state.open = false;
-        this.setState({open: false});
-        this.props.popup(false);
+        if(this.state.examTile == "" || (this.state.exam_type == "" || this.state.exam_type == "Exam Type") 
+        || (this.state.difficulty_level == "" || this.state.difficulty_level == "Difficulty Level"))
+        {
+            this.setState({empty: true});
+            this.state.empty = true;
+        }
+        else {
+            this.setState({empty: false});
+            this.state.empty = false;
+
+            this.state.open = false;
+            this.setState({open: false});
+            this.props.popup(false);
+        }
+        
     }
 
     handleNext = () => {
-        console.log("text field: ", this.state.examTile);
-        console.log("open: ", this.state.open);
-        this.props.setNav("New Exam/Create Outline");
+        // console.log("text field: ", this.state.examTile);
+        // console.log("open: ", this.state.open);
+        // this.props.setNav("New Exam/Create Outline");
         this.setState({open: false});
       }
     
     handleTextvalue = (event) => {
         const { value } = event.target;
-        // this.setState({examTile: value});
+        this.setState({examTile: value});
         this.state.examTile = value;
-        console.log("exam title: ", this.state.examTile);
+        // console.log("exam title: ", this.state.examTile);
 
         this.props.setTitle(value);
+
+        this.setState({empty: false});
+        this.state.empty = false;
     }
     
     handleDifficulty_level = (e) => {
         // const { value } = event.target;
         this.setState({difficulty_level: e});
         this.state.difficulty_level = e;
-        console.log("difficulty level: ", this.state.difficulty_level);
+        // console.log("difficulty level: ", this.state.difficulty_level);
 
         this.props.setLevel(e);
+
+        this.setState({empty: false});
+        this.state.empty = false;
     }
 
     handleExam_type = (e) => {
         this.setState({exam_type: e});
         this.state.exam_type = e;;
-        console.log("Exam type: ", this.state.exam_type);
+        // console.log("Exam type: ", this.state.exam_type);
 
         this.props.setType(e);
+
+        this.setState({empty: false});
+        this.state.empty = false;
     }
         
 
@@ -131,10 +153,20 @@ class popup extends React.Component {
 
 
 
-                        <br></br>
+                        {/* <br></br> */}
+                        {
+                            this.state.empty == true ? 
+                            <div>
+                            <h7 style={{color: 'red', marginTop: 20}}> Empty field. Cannot save. </h7>
+                            <br/>
+                            </div>
+                            :
+                            <div></div>
+                        }
+                        {/* <br></br> */}
                        
                         {/* <Link to="/createExam" className="btn btn-primary " onClick={this.handleNext}>Next</Link> */}
-                        <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+                        <Button variant="primary" size="sm" style={{ marginTop: 15, maxWidth: '5em', maxHeight: '3em' }}
                             onClick={this.handleClose}
                             >
                             Save

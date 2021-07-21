@@ -18,7 +18,7 @@ class sideNav extends React.Component {
   }
 
   handleSelected = (selected) => {
-    console.log("Event: selected: ", selected);
+    // console.log("Event: selected: ", selected);
     this.state.nav_selected = selected;
     this.props.setNav(selected);
   }
