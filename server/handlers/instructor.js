@@ -316,10 +316,21 @@ exports.uploadTutorial = async(req, res) => {
 
 
 exports.uploadWrittenQues = async(req, res) => {
-    console.log("Uploading Written Question Paper..");
+    console.log("Uploading Written Question Paper..", req.body);
     try {
-        console.log(req.body);
-        console.log(req.question_array);
+        const Question = req.body;
+        console.log("req body --> ", Question);
+        console.log("\n ---------- start ---------- ");
+        console.log("details --> ");
+        for(var i = 0; i<Question.question_array.length; i++) {
+            console.log("Question --> ", Question.question_array[i]);
+            console.log("Rubrik");
+
+            for(var j=0; j<Question.question_array[i].rubrik.length; j++){
+                console.log(Question.question_array[i].rubrik[j]);
+            }
+        }
+        console.log(" ---------- end ---------- ");
         return res.json("OK");
     } catch (error) { 
         console.log(error);    

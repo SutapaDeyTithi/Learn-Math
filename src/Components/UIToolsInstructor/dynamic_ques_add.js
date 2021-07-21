@@ -207,26 +207,49 @@ export default function FloatingActionButtonZoom(props) {
     });
 
     if(!isEmpty) {
+      
+
       var question_paper = [];
-      inputList.some(item => {
+      inputList.forEach(item => {    
+
+      if(rubrikList[item.index] == null) {
+        console.log("rubrik empty");
+        isEmpty = true;
+        setQuesNoRubrik(1);
+      }
+      else if(rubrikList[item.index]["rubrik"].length == 1) {
+        // console.log("rubrik --> ", rubrikList[item.index]["rubrik"]);
+          if(rubrikList[item.index]["rubrik"][0].breakpoint == "" || rubrikList[item.index]["rubrik"][0].marks == "") {
+            console.log("rubrik empty");
+            isEmpty = true;
+            setQuesNoRubrik(1);
+            // return true;
+          }
+      }
+
+      if(!isEmpty) {
+        console.log("rubrik length --> ", rubrikList[item.index]["rubrik"].length);
         question_paper.push({
           ques_text: item.question,
           ans_text: item.answer,
-          rubrik: rubrikList[item.index]["rubrik"].slice()
+          rubrik: rubrikList[item.index]["rubrik"].map(obj => ({...obj}))
         });
-
-        console.log("rubrik length --> ", rubrikList[item.index]["rubrik"].length);
-
-        if(rubrikList[item.index]["rubrik"].length == 1) {
-          console.log("rubrik --> ", rubrikList[item.index]["rubrik"]);
-            if(rubrikList[item.index]["rubrik"][0].breakpoint == "" || rubrikList[item.index]["rubrik"][0].marks == "") {
-              console.log("rubrik empty");
-              isEmpty = true;
-              setQuesNoRubrik(1);
-              // return true;
-            }
-        }
+      } 
+        
+        
       });
+
+      // inputList.some(item => {
+      //   rubrikList[item.index]["rubrik"].forEach(element => {
+      //     question_paper[item.index].rubrik.push({
+      //       breakpoint: element.breakpoint,
+      //       marks: element.marks
+      //     })
+      //   });
+
+       
+
+      // });
 
       
 
