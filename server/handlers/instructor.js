@@ -317,7 +317,12 @@ exports.uploadTutorial = async(req, res) => {
 
 exports.uploadWrittenQues = async(req, res) => {
     console.log("Uploading Written Question Paper..");
-    console.log(req.body);
-    console.log(req.Question.rubrik);
-    return res.json("OK");
+    try {
+        console.log(req.body);
+        console.log(req.question_array);
+        return res.json("OK");
+    } catch (error) { 
+        console.log(error);    
+        return res.json("ERROR");   
+    }
 }

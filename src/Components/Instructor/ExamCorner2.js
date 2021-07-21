@@ -89,23 +89,24 @@ class ExamCorner2 extends React.Component {
   }
 
   setQuesArray = (e) => {
-    this.setState({exam_paper: e});
+    // this.setState({exam_paper.question_array: e});
     // console.log("setting exam_level --> ", this.state);
-    this.state.exam_paper = e;
+    this.state.exam_paper.question_array = e;
+    this.setState({exam_paper: this.state.exam_paper});
     // ---------------- submit here
-    console.log("will submit this --> ", this.state);
+    console.log("will submit this --> ", this.state.exam_paper.question_array);
 
     if(this.state.exam_paper != null) {
       var Question = this.state.exam_paper;
-      axios.post(`http://localhost:5000/uploadWrittenQues`, { Question })
+      axios.post(`http://localhost:5000/uploadWrittenQues`, Question)
       .then(res => {
           console.log(res);
           console.log(res.data);
 
           this.setState({exam_paper: []});
           this.state.exam_paper = [];
-          Question = this.state.exam_paper;
-          console.log("Question cleared? ", Question);
+          // Question = this.state.exam_paper;
+          // console.log("Question cleared? ", Question);
       })
   }
   }

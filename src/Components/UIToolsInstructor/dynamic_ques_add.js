@@ -212,7 +212,7 @@ export default function FloatingActionButtonZoom(props) {
         question_paper.push({
           ques_text: item.question,
           ans_text: item.answer,
-          rubrik: rubrikList[item.index]["rubrik"]
+          rubrik: rubrikList[item.index]["rubrik"].slice()
         });
 
         console.log("rubrik length --> ", rubrikList[item.index]["rubrik"].length);
