@@ -366,6 +366,24 @@ create table "ExamQuestion"
 Insert into "ExamQuestion"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) 
 Values('Circle', 'Regular Exam', 'level 3', 'question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation"},{"marks": 2.3}]');
 
+create table "ExamAnswer"
+(
+    question_id        serial not null,
+    exam_id            serial not null,
+    answer_id          serial not null primary key,
+    answer             oid,
+    answer_status      integer,
+    submitted_by       integer,
+    rubrik             json,
+    evaluated_by       integer
+);
+
+
+
+
+
+
+
 
 -- temp image table
 create table "Images"
