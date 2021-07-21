@@ -316,24 +316,68 @@ exports.uploadTutorial = async(req, res) => {
 
 
 exports.uploadWrittenQues = async(req, res) => {
-    console.log("Uploading Written Question Paper..", req.body);
+    console.log("Uploading Written Question Paper..");
     try {
         const Question = req.body;
         console.log("req body --> ", Question);
         console.log("\n ---------- start ---------- ");
-        console.log("details --> ");
-        for(var i = 0; i<Question.question_array.length; i++) {
-            console.log("Question --> ", Question.question_array[i]);
-            console.log("Rubrik");
+        console.log("inserting question paper into database --> ");
 
-            for(var j=0; j<Question.question_array[i].rubrik.length; j++){
-                console.log(Question.question_array[i].rubrik[j]);
+        var exam_id;
+
+        // insert question paper into database
+        exam_id = await pool.query("Insert into \"ExamQuestion\"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) VALUES($1, $2, $3, $4, $5, $6) RETURNING exam_id",
+        [Question.title, Question.type, Question.level, Question.question_array[0].ques_text, Question.question_array[0].ans_text, JSON.stringify(Question.question_array[0].rubrik)], 
+        (err, result) => {
+            if (err) {
+                console.error('Error executing query', err.stack);
+            }
+            else {
+                exam_id = result.rows[0].exam_id;
+                console.log("new exam id --> ", exam_id);
+
+                for(var i = 1; i<Question.question_array.length; i++) {
+                    // console.log("Question --> ", Question.question_array[i]);
+                    //  console.log("Rubrik");
+                    // console.log("Rubrik --> ", Question.question_array[i].rubrik);
+        
+                    // for(var j=0; j<Question.question_array[i].rubrik.length; j++){
+                    //     // console.log(Question.question_array[i].rubrik[j]);
+                    // }
+        
+                    // insert question paper into database
+                    pool.query("Insert into \"ExamQuestion\"(exam_id, exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) VALUES($1, $2, $3, $4, $5, $6, $7)",
+                    [exam_id, Question.title, Question.type, Question.level, Question.question_array[i].ques_text, Question.question_array[i].ans_text, JSON.stringify(Question.question_array[i].rubrik)], 
+                    (err, result) => {
+                        if (err) {
+                            console.error('Error executing query', err.stack);
+                        }
+                        else {
+                            // exam_id = result.rows[0].exam_id;
+                            console.log("current exam id --> ", exam_id);
+                        }
+                    }
+                    );
+                }
+
+
             }
         }
+        );
+
+       
         console.log(" ---------- end ---------- ");
+
+
+        
+
+
         return res.json("OK");
     } catch (error) { 
         console.log(error);    
         return res.json("ERROR");   
     }
 }
+
+// Insert into "ExamQuestion"(ques_text, ans_text, rubrik) 
+// Values('question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation"},{"marks": 2.3}]');

@@ -78,7 +78,7 @@ export default function FloatingActionButtonZoom(props) {
   const [rubrikList, setRubrikList] = useState([
     {
       quesNo: "", 
-      rubrik: [{ breakpoint: "", marks: "", index: "", empty: "false"}]
+      rubrik: [{ breakpoint: "", marks: "", index: ""}]
     }
   ]);
 
@@ -104,7 +104,7 @@ export default function FloatingActionButtonZoom(props) {
       // const list = [...rubrikList];
       setRubrikList([...rubrikList, {
         quesNo: "", 
-        rubrik: [{ breakpoint: "", marks: "", index: "", empty: "false"}],
+        rubrik: [{ breakpoint: "", marks: "", index: ""}],
       }]);
     }
     //console.log("Rubrik: ", rubrikList);
@@ -122,7 +122,7 @@ export default function FloatingActionButtonZoom(props) {
   const handleRubrikChange = (e, index, type, quesNo) => {
     const list = [...rubrikList];
    if(list[quesNo]["rubrik"][index] == null )
-   list[quesNo]["rubrik"].push({ breakpoint: "", marks: "", index: "", empty: ""});
+   list[quesNo]["rubrik"].push({ breakpoint: "", marks: "", index: ""});
     list[quesNo]["rubrik"][index][type] = e;
     list[quesNo]["rubrik"][index]["index"] = index;
     list[quesNo]["quesNo"] = quesNo;
@@ -143,7 +143,7 @@ export default function FloatingActionButtonZoom(props) {
     //console.log("Rubrik before: ", rubrikList[rubrikQuesNo]["rubrik"]);
     // setRubrikList([...rubrikList[rubrikQuesNo]["rubrik"][i], { breakpoint: "", marks: ""}]);
     const list = [...rubrikList];
-    list[rubrikQuesNo]["rubrik"].push({ breakpoint: "", marks: "", index: "", empty: "false"});
+    list[rubrikQuesNo]["rubrik"].push({ breakpoint: "", marks: "", index: ""});
     //console.log("Rubrik after: ", rubrikList[rubrikQuesNo]["rubrik"]);
     setRubrikList(list);
   };

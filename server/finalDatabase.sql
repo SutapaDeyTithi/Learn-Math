@@ -344,21 +344,27 @@ create table "ExamQuestion"
 (
     question_id        serial not null primary key,
     exam_id            serial not null,
+    exam_title         text not null,
+    exam_type          text not null,
+    exam_level         text not null,
     ques_text          text   not null,
     ans_text           text   not null,
     explanation        text,
     figure_ques        oid,
     figure_ans         oid,
     figure_explanation oid,
-    column_9           integer,
     ques_status        integer,
     level              integer,
-    attempt            integer,
-    success            integer,
-    upvote             integer,
-    downvote           integer,
-    created_by         integer
+    attempt            integer DEFAULT 0,
+    success            integer DEFAULT 0,
+    upvote             integer DEFAULT 0,
+    downvote           integer DEFAULT 0,
+    created_by         integer,
+    rubrik             json
 );
+
+Insert into "ExamQuestion"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) 
+Values('Circle', 'Regular Exam', 'level 3', 'question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation"},{"marks": 2.3}]');
 
 
 -- temp image table
