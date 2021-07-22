@@ -292,9 +292,48 @@ exports.getCategory_from_a_subtopic = async(req, res) => {
 
 exports.uploadTutorial = async(req, res) => {
     console.log("Uploading Tutorial..");
-    console.log(req.body);
-    console.log(JSON.stringify(req.body.text));
-    return res.json("OK");
+    const Tutorial = {
+        subtopic_name: req.body.subtopic,
+        title: req.body.title,
+        about: req.body.about,
+        type: req.body.type,
+        text: req.body.text
+    };
+
+    console.log(Tutorial);
+    console.log(JSON.stringify(Tutorial.text));
+
+    pool.query("SELECT subtopic_id FROM \"Subtopic\" WHERE subtopic_name = $1",
+    [Tutorial.subtopic_name], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            return res.json("error");
+        }
+        else {
+            const subtopic_id = result.rows[0].subtopic_id;
+            console.log("subtopic id = ", subtopic_id);
+
+            // insert question paper into database
+            var tutorial_id;
+            pool.query("Insert into \"Tutorial\"(subtopic_id, tutorial_title, about, tutorial_text) VALUES($1, $2, $3, $4) RETURNING tutorial_id",
+            [subtopic_id, Tutorial.title, Tutorial.about, JSON.stringify(Tutorial.text)], 
+            (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("ERROR");
+                }
+                else {
+                    tutorial_id = result.rows[0].tutorial_id;
+                    console.log("new tutorial_id --> ", tutorial_id);
+                    return res.json(tutorial_id);
+                }
+            }
+            );
+           
+        }
+    })
+
+
 }
 
 

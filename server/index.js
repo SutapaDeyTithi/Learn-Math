@@ -39,7 +39,9 @@ const {
 } = require("./handlers/instructor");
 
 const {
-    neww
+    answerImage,
+    TutorialIamge,
+    TutorialVideo
 } = require("./utils/fileUploader")
 
 // COMMON
@@ -87,7 +89,9 @@ app.use(express.static('public'));
 //     return res.json({ status: 'OK', uploaded: req.files.length });
 //   });
 
-app.post('/uploadImage2', neww);
+// app.post('/uploadImage2', answerImage);
+app.post('/uploadTutorialImage/:id', TutorialIamge);
+app.post('/uploadTutorialVideo/:id', TutorialVideo);
 
 // MODERATOR
 

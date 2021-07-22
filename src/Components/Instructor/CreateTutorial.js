@@ -50,9 +50,11 @@ class CreateTutorial extends Component {
         this.handleSubtopic = this.handleSubtopic.bind(this);
         this.handleTitle = this.handleTitle.bind(this);
         this.handleShortDesc = this.handleShortDesc.bind(this);
+        // this.handleType = this.handleType.bind(this);
 
         this.handleTutorial = this.handleTutorial.bind(this);
         this.handleTutorial_figure = this.handleTutorial_figure.bind(this);
+        this.handleTutorial_video = this.handleTutorial_video.bind(this);
     }
 
     componentDidMount() {
@@ -119,7 +121,7 @@ class CreateTutorial extends Component {
     handleTutorial_figure = (image) => {
         this.setState({tutorial_figure: image});
         this.state.tutorial_figure = image;
-        console.log("tutorial_figure --> ", this.state.tutorial_figure);
+        // console.log("tutorial_figure --> ", this.state.tutorial_figure);
 
         // const config = {
         //     headers: {
@@ -136,6 +138,12 @@ class CreateTutorial extends Component {
         //         console.log(error);
         //     });
 
+    }
+
+    // video upload
+    handleTutorial_video = (video) => {
+        this.setState({tutorial_video: video});
+        this.state.tutorial_video = video;
     }
 
     handleTutorial = (e) => {
@@ -159,7 +167,60 @@ class CreateTutorial extends Component {
         axios.post(`http://localhost:5000/uploadTutorial`, Tutorial)
             .then(res => {
                 console.log(res);
-                console.log(res.data);
+
+                const tutorial_id = res.data;
+                console.log("new tutorial id --> ", tutorial_id);
+
+                // upload image/video
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    },
+                }
+
+                if(this.state.tutorial_figure != null) {
+                    // Create an object of formData
+                    const formData = new FormData();
+                    // Update the formData object
+                    formData.append(
+                        "file",
+                        this.state.tutorial_figure,
+                    );
+
+                    // "?" + (new URLSearchParams({id: tutorial_id})).toString()
+                    axios.post(`http://localhost:5000/uploadTutorialImage/`+ tutorial_id 
+                    , formData, config)
+                        .then(res => {
+                            console.log("Tutorial Image");
+                            console.log(res.data);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+
+                if(this.state.tutorial_video != null) {
+                    // Create an object of formData
+                    const formData = new FormData();
+                    // Update the formData object
+                    formData.append(
+                        "file",
+                        this.state.tutorial_video,
+                    );
+
+                    // "?" + (new URLSearchParams({id: tutorial_id})).toString()
+                    axios.post(`http://localhost:5000/uploadTutorialVideo/`+ tutorial_id 
+                    , formData, config)
+                        .then(res => {
+                            console.log("Tutorial Video");
+                            console.log(res.data);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -222,19 +283,21 @@ class CreateTutorial extends Component {
                             <Textfield label = "Title of the Tutorial" setText={this.handleTitle} type='text'/>
                             <Textfield label = "Short Description about the Context" setText={this.handleShortDesc} type='text'/>
 
-                            <div className="checkbox">
+                            {/* <div className="checkbox">
                                 <Checkbox />
-                            </div>
+                            </div> */}
                             {/* <Videoup /> */}
-                            <Imageup /> 
+                            <Imageup setFigure={this.handleTutorial_video}  buttonName="Upload Video" type="tutorial"/> 
                             
                             <Box borderRadius={4} {...defaultProps}>
                             <Htmleditor setHTML={this.handleTutorial}/>
                             </Box>
+
+                            <Imageup setFigure={this.handleTutorial_figure}  buttonName="Upload Image" type="tutorial"/>
                             
-                            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+                            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '10em', maxHeight: '3em' }}
                                 onClick={this.onFileUpload}>
-                                Upload
+                                Submit Tutorial
                             </Button>
 
                         </div>

@@ -144,15 +144,16 @@ Create Table "Tutorial"(
 	    constraint fk_subtopic
             references "Subtopic"
             on update cascade on delete cascade,
-    tutorial_name varchar(255),
+    tutorial_title  varchar(255),
     tutorial_text   json,
-    figures oid[],
-    link varchar(255),
-    video oid[],
-    tutorial_status integer,
-	upvote integer,
-	downvote integer,
-	created_by integer
+    figure          text,
+    link            varchar(255),
+    video           text,
+    tutorial_status integer DEFAULT 0,
+    upvote          integer DEFAULT 0,
+    downvote        integer DEFAULT 0,
+    created_by      integer,
+    about           text
 );
 
 

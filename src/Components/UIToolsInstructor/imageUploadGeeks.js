@@ -21,17 +21,18 @@ class Image extends Component {
 	onFileUpload = () => {
 		if(this.state.selectedFile != null) {
 			// Create an object of formData
-			const formData = new FormData();
-			// Update the formData object
-			formData.append(
-				"file",
-				this.state.selectedFile
-			);
+			// const formData = new FormData();
+			// // Update the formData object
+			// formData.append(
+			// 	"file",
+			// 	this.state.selectedFile
+			// );
 			
 			// Details of the uploaded file
 			console.log(this.state.selectedFile);
 			console.log("Adding the image to the Ques..")
-			this.props.setFigure(formData);
+			// this.props.setFigure(formData);
+			this.props.setFigure(this.state.selectedFile);
 		}
 	
 	
@@ -76,9 +77,12 @@ class Image extends Component {
 				<input type="file" onChange={this.onFileChange} style={{ marginLeft: 20, marginTop: 10, maxWidth: '15em', maxHeight: '3em' }}
                 />
                 <br></br>
-				<Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '5em', maxHeight: '3em' }}
+				<Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '10em', maxHeight: '3em' }}
                  onClick={this.onFileUpload}>
-				Upload
+				{this.props.type == "tutorial" ?
+				 this.props.buttonName
+				: <p>Upload</p>}
+				
 				</Button>
 			</div>
 		{this.fileData()}
