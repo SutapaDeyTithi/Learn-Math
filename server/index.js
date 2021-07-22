@@ -43,7 +43,9 @@ const {
 const {
     answerImage,
     TutorialIamge,
-    TutorialVideo
+    TutorialVideo,
+    MCQexplnImage,
+    MCQquesImage
 } = require("./utils/fileUploader")
 
 // COMMON
@@ -75,6 +77,8 @@ app.use(express.static('public'));
 
 app.post('/uploadTutorialImage/:id', TutorialIamge);
 app.post('/uploadTutorialVideo/:id', TutorialVideo);
+app.post('/uploadImageMCQques/:id', MCQquesImage);
+app.post('/uploadImageMCQexpln/:id', MCQexplnImage);
 
 app.get('/answerPapers', getAnswerPapers);
 app.get('/loadQues/:id', loadQues);

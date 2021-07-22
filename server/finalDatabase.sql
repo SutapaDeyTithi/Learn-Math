@@ -185,7 +185,8 @@ CREATE TABLE "MCQ" (
             references "Question"
             on update cascade on delete cascade,
     ques_text text,
-    figures oid[],
+    figure_ques text,
+    figure_explanation text,
     options varchar(255)[4]
 );
 

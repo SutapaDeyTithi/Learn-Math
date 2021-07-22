@@ -99,20 +99,20 @@ class PracticeProblem extends Component {
         this.state.ques_figure = image;
         console.log("Ques Figure --> ", this.state.ques_figure);
 
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
+        // const config = {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // }
 
-        axios.post(`http://localhost:5000/uploadImage2`, image, config)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        // axios.post(`http://localhost:5000/uploadImage2`, image, config)
+        //     .then(res => {
+        //         console.log(res);
+        //         console.log(res.data);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
 
     }
 
@@ -177,7 +177,8 @@ class PracticeProblem extends Component {
                 subtopic: this.state.subtopic,
                 category: this.state.category,
                 difficulty_level: this.state.difficulty_level,
-                // ques_figure: this.state.ques_figure
+                ques_figure: this.state.ques_figure,
+                exp_figure: this.state.exp_figure
             }
             Question = ques; 
         }
@@ -197,7 +198,8 @@ class PracticeProblem extends Component {
                 subtopic: this.state.subtopic,
                 category: this.state.category,
                 difficulty_level: this.state.difficulty_level,
-                // ques_figure: this.state.ques_figure
+                ques_figure: this.state.ques_figure,
+                exp_figure: this.state.exp_figure
             }
             Question = ques;
         }
@@ -217,7 +219,8 @@ class PracticeProblem extends Component {
                 subtopic: this.state.subtopic,
                 category: this.state.category,
                 difficulty_level: this.state.difficulty_level,
-                // ques_figure: this.state.ques_figure
+                ques_figure: this.state.ques_figure,
+                exp_figure: this.state.exp_figure
             }
             Question = ques;
         }
@@ -231,38 +234,106 @@ class PracticeProblem extends Component {
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                Question = null;
-                console.log("Question cleared? ", Question);
 
-                this.setState({
-                    create_new_ques: false,
-                    topic: "Topic",
-                    subtopic: "Subtopic",
-                    category: "Category",
-                    Ques_type: "Question Type",
-                    ques_text: '',
-                    ques_text2: '',
-                    option1: '',
-                    option2: '',
-                    option3: '',
-                    option4: '',
-                    correct_option: '',
-                    is_true: '',
-                    explanation: '',
-                    difficulty_level: "Difficulty Level",
-        
-                    category_array: [],
-                    topic_array: [],
-                    subtopic_array: [],
-        
-                    ques_figure: null,
-                    ans_figure: null,
-                    exp_figure: null,
-        
-                    emptyCategorisation: false,
-                    incorrectFields: false
-                });
-                this.componentDidMount();
+                const ques_id = res.data;
+
+                // upload image/video
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    },
+                }
+
+                if(Question.ques_figure != null && this.state.Ques_type == 'MCQ') {
+                    // Create an object of formData
+                    const formData = new FormData();
+                    // Update the formData object
+                    formData.append(
+                        "file",
+                        Question.ques_figure,
+                    );
+
+                    // "?" + (new URLSearchParams({id: tutorial_id})).toString()
+                    axios.post(`http://localhost:5000/uploadImageMCQques/`+ ques_id 
+                    , formData, config)
+                        .then(res => {
+                            console.log("MCQ Ques Image");
+                            console.log(res.data);
+
+                            Question = null;
+                            console.log("Question cleared? ", Question);
+
+                            this.setState({
+                                create_new_ques: false,
+                                topic: "Topic",
+                                subtopic: "Subtopic",
+                                category: "Category",
+                                Ques_type: "Question Type",
+                                ques_text: '',
+                                ques_text2: '',
+                                option1: '',
+                                option2: '',
+                                option3: '',
+                                option4: '',
+                                correct_option: '',
+                                is_true: '',
+                                explanation: '',
+                                difficulty_level: "Difficulty Level",
+                    
+                                category_array: [],
+                                topic_array: [],
+                                subtopic_array: [],
+                    
+                                ques_figure: null,
+                                ans_figure: null,
+                                exp_figure: null,
+                    
+                                emptyCategorisation: false,
+                                incorrectFields: false
+                            });
+                            this.componentDidMount();
+
+
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+                else {
+                    Question = null;
+                    console.log("Question cleared? ", Question);
+
+                    this.setState({
+                        create_new_ques: false,
+                        topic: "Topic",
+                        subtopic: "Subtopic",
+                        category: "Category",
+                        Ques_type: "Question Type",
+                        ques_text: '',
+                        ques_text2: '',
+                        option1: '',
+                        option2: '',
+                        option3: '',
+                        option4: '',
+                        correct_option: '',
+                        is_true: '',
+                        explanation: '',
+                        difficulty_level: "Difficulty Level",
+            
+                        category_array: [],
+                        topic_array: [],
+                        subtopic_array: [],
+            
+                        ques_figure: null,
+                        ans_figure: null,
+                        exp_figure: null,
+            
+                        emptyCategorisation: false,
+                        incorrectFields: false
+                    });
+                    this.componentDidMount();
+                }
+                
             })
             .catch((error) => {
                 console.log(error);

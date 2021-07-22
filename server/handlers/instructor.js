@@ -55,7 +55,7 @@ exports.uploadQues = async(req, res) => {
                                                     return res.json("error");
                                                 }
                                                 else {
-                                                    return res.json("Inserted MCQ");
+                                                    return res.json(id);
                                                 }
                                         });
                                     }
@@ -116,7 +116,7 @@ exports.uploadQues = async(req, res) => {
                                                     return res.json("error");
                                                 }
                                                 else {
-                                                    return res.json("Inserted Match");
+                                                    return res.json(id);
                                                 }
                                         });
                                     }
@@ -178,7 +178,7 @@ exports.uploadQues = async(req, res) => {
                                                     return res.json("error");
                                                 }
                                                 else {
-                                                    return res.json("Inserted True/False");
+                                                    return res.json(id);
                                                 }
                                         });
                                     }
