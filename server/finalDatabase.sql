@@ -373,13 +373,15 @@ create table "ExamAnswer"
     question_id        serial not null,
     exam_id            serial not null,
     answer_id          serial not null primary key,
-    answer             oid,
-    answer_status      integer,
+    answer             text,
+    answer_status      integer DEFAULT 0,
     submitted_by       integer,
     rubrik             json,
     evaluated_by       integer
 );
 
+Insert into "ExamAnswer"(question_id, exam_id, answer) Values(5, 4, "public/files/answers/biis.jpg");
+Insert into "ExamAnswer"(question_id, exam_id, answer) Values(6, 4, "public/files/answers/2.jpg");
 
 Insert into "Tutorial"(subtopic_id, tutorial_text) Values(1, '{"html_text":"<p>bnbvn</p>\n"}');
 
