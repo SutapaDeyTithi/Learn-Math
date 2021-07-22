@@ -32,10 +32,9 @@ const {
     uploadQues,
     getSubtopic_from_a_topic,
     getCategory_from_a_subtopic,
-    // uploadImage,
     uploadTutorial,
     uploadWrittenQues,
-    uploadFile
+    getAnswerPapers
 } = require("./handlers/instructor");
 
 const {
@@ -59,30 +58,10 @@ app.get('/mcq', getMCQ);
 app.get('/subtopics_instructor', getSubtopic_from_a_topic);
 app.get('/category_instructor', getCategory_from_a_subtopic);
 app.post('/uploadQues', uploadQues);
-// app.post('/uploadImage', uploadImage);
 app.post('/uploadTutorial', uploadTutorial);
 app.post('/uploadWrittenQues', uploadWrittenQues);
-app.post('/uploadFile', uploadFile);
 
-// image upload
 //file upload
-const multer = require('multer');
-const uuid = require('uuid').v4; //adds a hash with the filename; didn't use it 
-const path =  require('path');
-const fs = require('fs');
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'public/files/answers')
-  },
-  filename: (req, file, cb) => {
-      const { originalname } = file;
-      const filePath = `public/files/answers/${originalname}`;
-      console.log(filePath);
-      cb(null, originalname);
-  }
-})
-
-const upload = multer({ storage }); 
 app.use(express.static('public'));
 
 // app.post('/uploadImage2', upload.single('file'), (req, res) => {
@@ -90,8 +69,11 @@ app.use(express.static('public'));
 //   });
 
 // app.post('/uploadImage2', answerImage);
+
 app.post('/uploadTutorialImage/:id', TutorialIamge);
 app.post('/uploadTutorialVideo/:id', TutorialVideo);
+
+app.get('/answerPapers', getAnswerPapers)
 
 // MODERATOR
 

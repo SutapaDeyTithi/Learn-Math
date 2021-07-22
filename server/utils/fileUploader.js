@@ -4,6 +4,7 @@ const path =  require('path');
 const fs = require('fs');
 const pool = require("./db");
 
+/// not used this (tithi)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, 'public/files/answers')
@@ -33,7 +34,7 @@ const storageTutorial = multer.diskStorage({
     filename: (req, file, cb) => {
         const { originalname } = file;
         const filePath = `public/files/tutorials/${originalname}`;
-        filePathTutorial = filePath;
+        filePathTutorial = filePath.replace('public/','');
         cb(null, originalname);
     }
   })
@@ -73,7 +74,7 @@ const storageTutorialVideo = multer.diskStorage({
     filename: (req, file, cb) => {
         const { originalname } = file;
         const filePath = `public/files/tutorials/${originalname}`;
-        filePathTutorialVideo = filePath;
+        filePathTutorialVideo = filePath.replace('public/','');;
         cb(null, originalname);
     }
   })

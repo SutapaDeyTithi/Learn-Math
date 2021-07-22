@@ -401,12 +401,26 @@ exports.uploadWrittenQues = async(req, res) => {
     }
 }
 
-// Insert into "ExamQuestion"(ques_text, ans_text, rubrik) 
-// Values('question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation"},{"marks": 2.3}]');
+exports.getAnswerPapers = async(req, res) => {
+    console.log("Request for answer papers");
 
-// uploading file
-var path = require('path');
-var multer  = require('multer');
-
-exports.uploadFile = async(req, res) => {
+    const status = 0;
+    try {
+            pool.query("SELECT * FROM \"ExamAnswer\" WHERE answer_status = $1",
+            [status], (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("error");
+                }
+                else {
+                    // search for subtopics under this topic id
+                    const papers = result.rows;
+                    console.log("answer papers --> ", papers);
+                    return res.json(papers);
+                }
+            });
+    } catch (error) { 
+        console.log(error);  
+        return res.json(error);     
+    }
 }
