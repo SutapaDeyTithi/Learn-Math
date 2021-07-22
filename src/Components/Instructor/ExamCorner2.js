@@ -30,7 +30,10 @@ class ExamCorner2 extends React.Component {
           type: '',
           level: '',
           question_array: []
-        }
+        },
+
+        modContentShown: false,
+        forwardedQ: null
       }
       this.handleSelected = this.handleSelected.bind(this);
       this.handlePopup = this.handlePopup.bind(this);
@@ -41,6 +44,9 @@ class ExamCorner2 extends React.Component {
       this.setType = this.setType.bind(this);
       this.setLevel = this.setLevel.bind(this);
       this.setQuesArray = this.setQuesArray.bind(this);
+
+      this.showContents = this.showContents.bind(this);
+      this.hideContents = this.hideContents.bind(this);
   }
 
   handleSelected = (selected) => {
@@ -119,6 +125,33 @@ class ExamCorner2 extends React.Component {
       })
   }
   }
+
+  showContents = () => {
+    console.log("will load contents");
+    
+
+    // ask server to send contents that require modifications
+    axios.get(`http://localhost:5000/loadForwaredQues`)
+      .then(res => {
+          this.setState({forwardedQ: res.data});
+          this.state.forwardedQ = res.data;
+          console.log("forwarded Ques --> ", this.state.forwardedQ);
+
+          this.setState({modContentShown: true});
+          this.state.modContentShown = true;
+
+      })
+      .catch((error) => {
+        console.log(error);
+    });
+
+  }
+
+  hideContents = () => {
+    console.log("will hide contents");
+    this.setState({modContentShown: false});
+    this.state.modContentShown = false;
+  }
       
   render() { 
       return (
@@ -169,12 +202,59 @@ class ExamCorner2 extends React.Component {
 
               <div>
 
-                  {this.state.nav_selected=="New Exam/Exam Settings"?
-                    <div className="container-fluid" style={{marginLeft: '10%', marginTop: '7%'}}>
-                      {/* <h3> 
-                          Create a New Exam Question.
-                      </h3> */}
-                      <Popupwindow setNav={this.handleSelected}/>
+                  {this.state.nav_selected=="New Exam/Modify Content"?
+                    <div id="grade" style={{ marginTop: '5%'}}>
+                      <h4> 
+                          Contents here require modifications.
+                      </h4>
+
+                      {
+                        this.state.modContentShown &&
+                        <div>
+                          <Button variant="primary" size="sm" style={{ 
+                            // marginLeft: '39%', 
+                            marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
+                            onClick={this.hideContents}
+                            >
+                            Hide Contents
+                          </Button>
+
+                          <ul>
+                           
+                            { this.state.forwardedQ.map((listItems)=>{
+                              return (
+                                <div>
+                                    <li>Question ID: {listItems.question_id}</li>
+
+                                    <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                                        // onClick={ () => {
+                                        //     this.gradeNow(listItems)
+                                        // }}
+                                        >
+                                        Revise
+                                    </Button>
+
+                                </div>
+                              )
+                              })
+                            }
+
+                          </ul>
+                        </div>
+                      }
+
+
+                      {
+                        !this.state.modContentShown &&
+                        <Button variant="primary" size="sm" style={{ 
+                          // marginLeft: '39%', 
+                          marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
+                          onClick={this.showContents}
+                          >
+                          Show Contents
+                        </Button>
+                      }
+                      
                     </div>
                   :
                   <div>

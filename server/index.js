@@ -36,7 +36,8 @@ const {
     uploadWrittenQues,
     getAnswerPapers,
     loadQues,
-    gradeAns
+    gradeAns,
+    loadForwaredQues
 } = require("./handlers/instructor");
 
 const {
@@ -75,9 +76,10 @@ app.use(express.static('public'));
 app.post('/uploadTutorialImage/:id', TutorialIamge);
 app.post('/uploadTutorialVideo/:id', TutorialVideo);
 
-app.get('/answerPapers', getAnswerPapers)
-app.get('/loadQues/:id', loadQues)
-app.post('/gradeAns', gradeAns)
+app.get('/answerPapers', getAnswerPapers);
+app.get('/loadQues/:id', loadQues);
+app.post('/gradeAns', gradeAns);
+app.get('/loadForwaredQues', loadForwaredQues);
 
 // MODERATOR
 

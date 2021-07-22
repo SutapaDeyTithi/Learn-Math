@@ -356,7 +356,6 @@ create table "ExamQuestion"
     figure_ans         oid,
     figure_explanation oid,
     ques_status        integer,
-    level              integer,
     attempt            integer DEFAULT 0,
     success            integer DEFAULT 0,
     upvote             integer DEFAULT 0,

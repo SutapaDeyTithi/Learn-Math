@@ -473,3 +473,27 @@ exports.gradeAns = async(req, res) => {
         return res.json("error");     
     }
 }
+
+exports.loadForwaredQues = async(req, res) => {
+    console.log("loading forwarded questions");
+
+    const status = 2;
+    try {
+        pool.query("SELECT * FROM \"ExamQuestion\" WHERE ques_status = $1",
+        [status], (err, result) => {
+            if (err) {
+                console.error('Error executing query', err.stack);
+                return res.json("error");
+            }
+            else {
+                // search for subtopics under this topic id
+                const ques = result.rows;
+                console.log("forwarded questions --> ", ques);
+                return res.json(ques);
+            }
+        });
+    } catch (error) { 
+        console.log(error);  
+        return res.json(error);     
+    }
+}
