@@ -448,3 +448,28 @@ exports.loadQues = async(req, res) => {
         return res.json(error);     
     }
 }
+
+
+exports.gradeAns = async(req, res) => {
+    const answer_id = req.body.answer_id;
+    const rubrik = req.body.rubrik;
+    console.log("inserting grades for answer id ", answer_id);
+    console.log("grades --> ", rubrik);
+
+    const status = 1;
+    try {
+            pool.query("UPDATE \"ExamAnswer\" SET rubrik=$1, answer_status=$2 WHERE answer_id = $3",
+            [JSON.stringify(rubrik), status, answer_id], (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("error");
+                }
+                else {
+                    return res.json("OK");
+                }
+            });
+    } catch (error) { 
+        console.log(error);  
+        return res.json("error");     
+    }
+}

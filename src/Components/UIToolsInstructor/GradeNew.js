@@ -16,57 +16,15 @@ class gradeNew extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        // unchecked: ["Answer Paper 1","Answer Paper 2","Answer Paper 3","Answer Paper 4","Answer Paper 5"],
-        // answer_title: ["Answer No 1","Answer No 2","Answer No 3","Answer No 4","Answer No 5"],
         unchecked: [],
-        answer_title: [],
-        rubriks_1: [{title: "Formula is correct.",
-                     marks: 1},
-                     {title: "figure is correct",
-                     marks: 2.5},
-                     {title: "Answer is correct.",
-                     marks: 1},
-                     {title: "Calculation is shown.",
-                     marks: 5.5}],
         grading_one: false,
-        // answer_papers: [
-        //     {
-        //     ans_image: ans1,
-        //     rubriks: [{title: "Formula is correct.",
-        //             marks: 1},
-        //             {title: "figure is correct",
-        //             marks: 2.5},
-        //             {title: "Answer is correct.",
-        //             marks: 1},
-        //             {title: "Calculation is shown.",
-        //             marks: 5.5}],
-        //     total_marks: ''
-        //     },
-        //     {
-        //         ans_image: ans2,
-        //         rubriks: [{title: "Formula is correct.",
-        //                 marks: 3},
-        //                 {title: "Answer is correct.",
-        //                 marks: 3},
-        //                 {title: "Calculation is shown.",
-        //                 marks: 4}],
-        //         total_marks: ''
-        //     },
-        //     {
-        //         ans_image: ans3,
-        //         rubriks: [{title: "Formula is correct.",
-        //                 marks: 2},
-        //                 {title: "Calculation is shown.",
-        //                 marks: 5.5},
-        //                 {title: "Answer is correct.",
-        //                 marks: 1}],
-        //         total_marks: ''
-        //     }
-        // ],
+       
         answer_papers: [],
         question_paper: null,
+        answer_paper: null,
         current_ans: 0,
-        show_ques: false
+        show_ques: false,
+        nonnumber: false
         } 
         // this.updatedList = this.updatedList.bind(this);
         this.gradeNow = this.gradeNow.bind(this);
@@ -129,13 +87,32 @@ class gradeNew extends React.Component {
 
     }
 
-    handleRubrik = () => {
+    handleRubrik = (marks, index) => {
         console.log("I am handle rubrik")
+        this.setState({nonnumber: false});
+        this.state.nonnumber = false;
+
+        if(this.state.answer_paper != null) {
+            if(this.state.answer_paper.rubrik != null) {
+                for(var i=0; i<this.state.answer_paper.rubrik.length; i++) {
+                    if(this.state.answer_paper.rubrik[i].index == index) {
+                        this.state.answer_paper.rubrik[i].marks = marks;
+                        console.log("rubrik index ", index, "-->", marks)
+                        break;
+                    }
+                }
+            }
+        }
     }
 
-    gradeNow = (question_id) => {
+    gradeNow = (item) => {
         this.setState({grading_one: true});
         this.state.grading_one = true;
+        const question_id = item.question_id;
+
+
+        this.setState({answer_paper: item});
+        this.state.answer_paper = item;
 
         console.log("grade now clicked!");
         console.log("question_id --> ", question_id);
@@ -149,6 +126,7 @@ class gradeNew extends React.Component {
                 console.log(res.data);
                 
                 this.setState({question_paper: res.data})
+                this.state.answer_paper.rubrik = res.data.rubrik.map(a => {return {...a}});
             })
             .catch((error) => {
                 console.log(error);
@@ -207,17 +185,60 @@ class gradeNew extends React.Component {
     }
 
     saveGrades = () => {
-        this.setState({grading_one: false});
-        this.setState({current_ans: 0});
-        this.state.grading_one = false;
-
         // save grading
+        if(this.state.answer_paper != null)
+        {
+            console.log("graded ans --> ", this.state.answer_paper);
+            const re = /^[0-9\b]+$/;
+
+            for(var i=0; i<this.state.answer_paper.rubrik.length; i++) {
+                const marks = this.state.answer_paper.rubrik[i].marks;
+                if(re.test(marks) == false || marks == '') {
+                    this.setState({nonnumber: true});
+                    this.state.nonnumber = true;
+                    break;
+                }
+            }
+
+            if(this.state.nonnumber == false) {
+                axios.post(`http://localhost:5000/gradeAns`, this.state.answer_paper)
+                .then(res => {
+                    console.log("answer graded");
+                    console.log(res.data);
+
+                    this.setState({grading_one: false});
+                    this.setState({current_ans: 0});
+                    this.state.grading_one = false;
+
+                    this.setState({
+                        unchecked: [],
+                        grading_one: false,
+                       
+                        answer_papers: [],
+                        question_paper: null,
+                        answer_paper: null,
+                        current_ans: 0,
+                        show_ques: false,
+                        nonnumber: false
+                        } );
+
+                    this.componentDidMount();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+                }
+        }
+       
     }
 
     discardGrades = () => {
         this.setState({grading_one: false});
         this.setState({current_ans: 0});
         this.state.grading_one = false;
+
+        this.setState({nonnumber: false});
+        this.state.nonnumber = false;
         // don't save any changes
     }
         
@@ -238,7 +259,7 @@ class gradeNew extends React.Component {
 
                                             <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
                                                 onClick={ () => {
-                                                    this.gradeNow(listItems.question_id)
+                                                    this.gradeNow(listItems)
                                                 }}
                                                 >
                                                 Grade Now
@@ -261,7 +282,9 @@ class gradeNew extends React.Component {
                                 
                                 {!this.state.show_ques &&
                                     <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
-                                        onClick={this.showQues}
+                                        onClick={() => 
+                                            {this.showQues()}
+                                        }
                                     >
                                         Show Question
                                     </Button>
@@ -269,7 +292,7 @@ class gradeNew extends React.Component {
                                 
                                 {this.state.show_ques &&
                                     <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
-                                        onClick={this.hideQues}
+                                        onClick={() => {this.hideQues()}}
                                     >
                                         Hide Question
                                     </Button>
@@ -334,14 +357,17 @@ class gradeNew extends React.Component {
                                                 </p>
                                             </li>
 
-                                            <label >
+                                            {/* <label >
                                             Enter Marks: 
                                                 <input type="text" name="marks" style={{ marginLeft: "3%", maxWidth: "15%"}} 
                                                 onChange={() => 
-                                                {this.handleRubrik()}}
+                                                {this.handleRubrik(liteItems.index)}}
                                                 />
-                                            </label>
-                                            {/* <Textfield label = "Enter Marks" setText={this.handleRubrik} type='text'/> */}
+                                            </label> */}
+                                            <div style={{maxWidth: '5vh', marginLeft: "60vh"}}>
+                                                <Textfield label = "Enter Marks" setText={this.handleRubrik} type='rubrik_ans' index={listItems.index}/>
+                                            </div>
+                                            
                                         </div>
                                     );
                                 })
@@ -374,6 +400,10 @@ class gradeNew extends React.Component {
                         } */}
 
                         {/* <br /><br /> */}
+
+                        {this.state.nonnumber &&
+                            <h6 style={{color: 'red'}}> Marks cannot be empty/non-number. Cannot save. </h6>
+                        }
 
                         <Button variant="primary" size="sm" style={{ marginTop: 25, maxWidth: '10em', maxHeight: '3em' }}
                             onClick={this.saveGrades}

@@ -63,6 +63,11 @@ export default function MultilineTextFields(props) {
       // console.log("rubrik", props.fieldType, "--->", event.target.value);
       props.setRubrik(event.target.value, props.rubrikNo, props.fieldType, props.quesNo)
     }
+
+    if(props.type == 'rubrik_ans') {
+      // console.log("rubrik", props.fieldType, "--->", event.target.value);
+      props.setText(event.target.value, props.index)
+    }
   };
 
   return (
