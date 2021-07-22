@@ -74,6 +74,7 @@ export default function FloatingActionButtonZoom(props) {
   // rubrik
   const [rubrikQuesNo, setRubrikQuesNo] = React.useState(0);
   const [rubrikEmpty, setRubrikEmpty] = React.useState(0);
+  const [rubrikMarksNumber, setRubrikMarksNumber] = React.useState(1);
 
   const [rubrikList, setRubrikList] = useState([
     {
@@ -153,8 +154,13 @@ export default function FloatingActionButtonZoom(props) {
       var isEmpty = false;
       rubrikList[rubrikQuesNo]["rubrik"].forEach(item => {
         // console.log(item);
+        const re = /^[0-9\b]+$/;
         if(item.breakpoint == "" || item.marks == "") {
             setRubrikEmpty(1);
+            isEmpty = true;
+        }
+        else if(re.test(item.marks) == false) {
+            setRubrikMarksNumber(0);
             isEmpty = true;
         }
       });
@@ -327,6 +333,14 @@ export default function FloatingActionButtonZoom(props) {
      :
      <div></div>
    }
+
+  {
+     rubrikMarksNumber == 0 ? 
+     <h6 style={{color: 'red', marginTop: 20, marginLeft: 50}}> Rubrik marks field must be number. Cannot save. </h6>
+     :
+     <div></div>
+   }
+
     <Button variant="primary" size="sm"  
     style={{ 
           marginTop: 30, maxWidth: '8em', maxHeight: '3em', 
