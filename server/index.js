@@ -34,7 +34,8 @@ const {
     getCategory_from_a_subtopic,
     uploadTutorial,
     uploadWrittenQues,
-    getAnswerPapers
+    getAnswerPapers,
+    loadQues
 } = require("./handlers/instructor");
 
 const {
@@ -74,6 +75,7 @@ app.post('/uploadTutorialImage/:id', TutorialIamge);
 app.post('/uploadTutorialVideo/:id', TutorialVideo);
 
 app.get('/answerPapers', getAnswerPapers)
+app.get('/loadQues/:id', loadQues)
 
 // MODERATOR
 

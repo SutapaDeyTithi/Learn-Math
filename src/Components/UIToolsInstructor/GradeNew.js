@@ -2,6 +2,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from "axios";
+import Typography from '@material-ui/core/Typography';
+import Textfield from "../UIToolsInstructor/textField";
 
 import Image from 'react-bootstrap/Image'
 
@@ -62,15 +64,22 @@ class gradeNew extends React.Component {
         //     }
         // ],
         answer_papers: [],
-        current_ans: 0
+        question_paper: null,
+        current_ans: 0,
+        show_ques: false
         } 
         // this.updatedList = this.updatedList.bind(this);
         this.gradeNow = this.gradeNow.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
         this.prevQuestion = this.prevQuestion.bind(this);
         this.saveGrades = this.saveGrades.bind(this);
+        this.discardGrades = this.discardGrades.bind(this);
 
         this.setUnchecked =this.setUnchecked.bind(this);
+
+        this.showQues = this.showQues.bind(this);
+        this.hideQues = this.hideQues.bind(this);
+        this.handleRubrik = this.handleRubrik.bind(this);
     }
 
     // const list = props.menuitems;
@@ -111,6 +120,8 @@ class gradeNew extends React.Component {
             console.log("answer_papers array --> ", res.data.length);
             this.setUnchecked(res.data)
         });
+
+        this.setState({question_paper: null})
         // .then(res => {
         //     this.setState({answer_papers: []});
         //     this.state.answer_papers = [];
@@ -118,23 +129,96 @@ class gradeNew extends React.Component {
 
     }
 
-    gradeNow = () => {
+    handleRubrik = () => {
+        console.log("I am handle rubrik")
+    }
+
+    gradeNow = (question_id) => {
         this.setState({grading_one: true});
         this.state.grading_one = true;
+
+        console.log("grade now clicked!");
+        console.log("question_id --> ", question_id);
+        // load the question paper of the current answer
+        // const question_id = this.state.answer_papers[this.state.current_ans].question_id;
+        // = ques_id;
+        // this.state.answer_papers[this.state.current_ans].question_id;
+        axios.get(`http://localhost:5000/loadQues/`+ question_id)
+            .then(res => {
+                console.log("Loaded question for an answer");
+                console.log(res.data);
+                
+                this.setState({question_paper: res.data})
+            })
+            .catch((error) => {
+                console.log(error);
+                this.setState({question_paper: null})
+            });
     }
 
     nextQuestion = () => {
-        this.setState({current_ans: (this.state.current_ans+1)});
+        const new_current_ans = (this.state.current_ans+1);
+        this.setState({current_ans: new_current_ans});
+        this.state.current_ans = new_current_ans;
+
+        // load the question paper of the current answer
+        const question_id = this.state.answer_papers[this.state.current_ans].question_id;
+        axios.get(`http://localhost:5000/loadQues/`+ question_id)
+            .then(res => {
+                console.log("Loaded question for an answer");
+                console.log(res.data);
+                
+                this.setState({question_paper: res.data})
+                this.state.question_paper = res.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     prevQuestion = () => {
-        this.setState({current_ans: (this.state.current_ans-1)});
+        const new_current_ans = (this.state.current_ans-1);
+        this.setState({current_ans: new_current_ans});
+        this.state.current_ans = new_current_ans;
+
+        // load the question paper of the current answer
+        const question_id = this.state.answer_papers[this.state.current_ans].question_id;
+        axios.get(`http://localhost:5000/loadQues/`+ question_id)
+            .then(res => {
+                console.log("Loaded question for an answer");
+                console.log(res.data);
+                
+                this.setState({question_paper: res.data})
+                this.state.question_paper = res.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    showQues = () => {
+        this.setState({show_ques: true});
+        this.state.show_ques = true;
+    }
+
+    hideQues = () => {
+        this.setState({show_ques: false});
+        this.state.show_ques = false;
     }
 
     saveGrades = () => {
         this.setState({grading_one: false});
         this.setState({current_ans: 0});
         this.state.grading_one = false;
+
+        // save grading
+    }
+
+    discardGrades = () => {
+        this.setState({grading_one: false});
+        this.setState({current_ans: 0});
+        this.state.grading_one = false;
+        // don't save any changes
     }
         
     render() {
@@ -143,17 +227,25 @@ class gradeNew extends React.Component {
                 {!this.state.grading_one?
                     <div>
     
-                    <ul>{  
-                    this.state.unchecked.map((listItems)=>{
+                    <ul>{  this.state.answer_papers != null &&
+                    this.state.answer_papers.map((listItems)=>{
                         return (
                             <div>
-                                    <li>Answer Paper ID: {listItems.answer_id}</li>
+                                    {
+                                        listItems.answer_status == 0 && 
+                                        <div>
+                                            <li>Answer Paper ID: {listItems.answer_id}</li>
 
-                                    <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
-                                        onClick={this.gradeNow}
-                                        >
-                                        Grade Now
-                                    </Button>
+                                            <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                                                onClick={ () => {
+                                                    this.gradeNow(listItems.question_id)
+                                                }}
+                                                >
+                                                Grade Now
+                                            </Button>
+                                        </div>
+                                    }
+                                    
                             </div>
                         );
                     })
@@ -163,30 +255,80 @@ class gradeNew extends React.Component {
                     :
 
                     <div>
+                        {/* border="warning" */}
+                        <Card style={{ minWidth: '60%',  marginLeft: '20%'}}>
+                            <Card.Header>
+                                
+                                {!this.state.show_ques &&
+                                    <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                                        onClick={this.showQues}
+                                    >
+                                        Show Question
+                                    </Button>
+                                }
+                                
+                                {this.state.show_ques &&
+                                    <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                                        onClick={this.hideQues}
+                                    >
+                                        Hide Question
+                                    </Button>
+                                }
+                                
+                            
+                            </Card.Header>
+                            <Card.Body>
+                            {/* <Card.Text>  */}
+                                {
+                                    this.state.show_ques &&
+                                    <div>
+                                        <Typography>
+                                            Exam Title: {this.state.question_paper.exam_title}
+                                        </Typography>
+                                        <Typography>
+                                            Exam Type: {this.state.question_paper.exam_type}
+                                        </Typography>
+                                        <Typography>
+                                            Difficulty Level: {this.state.question_paper.exam_level}
+                                        </Typography>
+                                        <br></br>
+                                        <Typography>
+                                            Question Text: <br></br>{this.state.question_paper.ques_text}
+                                        </Typography>
+                                        <Typography>
+                                            Question Figure: <br></br>{this.state.question_paper.figure_ques}
+                                        </Typography>
+                                        <br></br>
+                                        <Typography>
+                                            Answer Text: <br></br>{this.state.question_paper.ans_text}
+                                        </Typography>
+                                        <Typography>
+                                            Answer Figure: <br></br>{this.state.question_paper.figure_ans}
+                                        </Typography>
+                                        
+                                    </div>
+                                }
 
-                        <Card border="warning" style={{ minWidth: '60%',  marginLeft: '20%'}}>
-                            <Card.Header>{this.state.answer_papers[this.state.current_ans].question_id}</Card.Header>
-                            {/* <Card.Body>
-                            <Card.Text> */}
-
-                            {/* </Card.Body> */}
+                            </Card.Body>
+                            <h4>Student's submitted answer is below.</h4>
                             {/* <Image src={this.state.answer_papers[this.state.current_ans].ans_image} fluid /> */}
-                            <Card.Img variant="bottom" src={'http://localhost:5000/'+this.state.answer_papers[this.state.current_ans].answer} />
+                            <Card.Img variant="bottom" style={{width: '80%', height: '80%', marginLeft: '10%', marginBottom: '1%'}}
+                            src={'http://localhost:5000/' + this.state.answer_papers[this.state.current_ans].answer} />
                         </Card>
                         <br />
 
 
 
-                        {this.state.answer_papers[this.state.current_ans].rubrik != null &&
+                        {(this.state.question_paper != null) &&
 
                             <ul>{  
-                                this.state.answer_papers[this.state.current_ans].rubrik.map((listItems)=>{
+                                this.state.question_paper.rubrik.map((listItems)=>{
                                     return (
                                         <div>
                                             <br /><br />
                                             <li>
                                                 <p>
-                                                    Breakpoint: {listItems.title}
+                                                    Breakpoint: {listItems.breakpoint}
                                                     <br />
                                                     Marks: {listItems.marks}
                                                 </p>
@@ -194,8 +336,12 @@ class gradeNew extends React.Component {
 
                                             <label >
                                             Enter Marks: 
-                                                <input type="text" name="marks" style={{ marginLeft: "3%", maxWidth: "15%"}} />
+                                                <input type="text" name="marks" style={{ marginLeft: "3%", maxWidth: "15%"}} 
+                                                onChange={() => 
+                                                {this.handleRubrik()}}
+                                                />
                                             </label>
+                                            {/* <Textfield label = "Enter Marks" setText={this.handleRubrik} type='text'/> */}
                                         </div>
                                     );
                                 })
@@ -204,11 +350,10 @@ class gradeNew extends React.Component {
                                                 
                     }
 
-                        <br /><br />
 
 
 
-                        {this.state.current_ans > 0 ? 
+                        {/* {this.state.current_ans > 0 ? 
                             <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
                                 onClick={this.prevQuestion}
                                 >
@@ -226,14 +371,20 @@ class gradeNew extends React.Component {
                             </Button>
                         :
                             <div></div>
-                        }
+                        } */}
 
-                        <br /><br />
+                        {/* <br /><br /> */}
 
-                        <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                        <Button variant="primary" size="sm" style={{ marginTop: 25, maxWidth: '10em', maxHeight: '3em' }}
                             onClick={this.saveGrades}
                             >
                             Save Grades
+                        </Button>
+
+                        <Button variant="primary" size="sm" style={{ marginTop: 25, maxWidth: '10em', maxHeight: '3em', marginLeft: '2em' }}
+                            onClick={this.discardGrades}
+                            >
+                            Discard Changes
                         </Button>
                     </div>
                 }

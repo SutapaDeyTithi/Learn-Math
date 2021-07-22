@@ -424,3 +424,27 @@ exports.getAnswerPapers = async(req, res) => {
         return res.json(error);     
     }
 }
+
+exports.loadQues = async(req, res) => {
+    const question_id = req.params.id;
+    console.log("loading the question no ", question_id);
+
+    try {
+        pool.query("SELECT * FROM \"ExamQuestion\" WHERE question_id = $1",
+        [question_id], (err, result) => {
+            if (err) {
+                console.error('Error executing query', err.stack);
+                return res.json("error");
+            }
+            else {
+                // search for subtopics under this topic id
+                const ques = result.rows[0];
+                console.log("answer papers --> ", ques);
+                return res.json(ques);
+            }
+        });
+    } catch (error) { 
+        console.log(error);  
+        return res.json(error);     
+    }
+}

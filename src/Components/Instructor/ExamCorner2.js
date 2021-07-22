@@ -180,7 +180,7 @@ class ExamCorner2 extends React.Component {
 
                   {this.state.nav_selected=="Grade Submissions/New"?
                     <div id="grade">     
-                      <h5>Grade Answer Paper</h5>
+                      {/* <h5>Grade Answer Paper</h5> */}
                       {/* {console.log("nav_selected --> ", this.state.nav_selected)} */}
                         <Gradenew />
                     </div>
