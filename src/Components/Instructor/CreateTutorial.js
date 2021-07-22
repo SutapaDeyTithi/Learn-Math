@@ -387,7 +387,7 @@ class CreateTutorial extends Component {
 
 
                             {this.state.submitted && 
-                                <div id="grade" style={{ marginTop: '15%'}}>
+                                <div style={{ marginTop: '5%'}}>
                                     <h3>Thank you for your contribution.</h3>
                                     <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
                                         onClick={this.newTutorial}
@@ -398,8 +398,9 @@ class CreateTutorial extends Component {
                             }
 
                             {this.state.discarded && 
-                                <div id="grade" style={{ marginTop: '15%'}}>
-                                    <h3>Create a new tutorial.</h3>
+                                <div  style={{ marginTop: '5%'}}>
+                                    <h3>Thank you.</h3>
+                                    <h3>Contribute by creating new tutorial.</h3>
                                     <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
                                         onClick={this.newTutorial}
                                         >

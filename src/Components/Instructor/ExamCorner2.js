@@ -154,7 +154,8 @@ class ExamCorner2 extends React.Component {
 
                 {this.state.saved && 
                 <div id="grade" style={{ marginTop: '15%'}}>
-                  <h3>Thank you for your contribution.</h3>
+                  <h3>Thank you.</h3>
+                  <h3>Contribute by creating new question!</h3>
                   <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
                         onClick={this.newQues}
                         >

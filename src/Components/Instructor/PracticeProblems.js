@@ -26,7 +26,7 @@ class PracticeProblem extends Component {
             option3: '',
             option4: '',
             correct_option: '',
-            is_true: '0',
+            is_true: '',
             explanation: '',
             difficulty_level: "Difficulty Level",
 
@@ -36,7 +36,10 @@ class PracticeProblem extends Component {
 
             ques_figure: null,
             ans_figure: null,
-            exp_figure: null
+            exp_figure: null,
+
+            emptyCategorisation: false,
+            incorrectFields: false
         }
         this.createNewQues = this.createNewQues.bind(this);
         this.saveQues = this.saveQues.bind(this);
@@ -64,6 +67,21 @@ class PracticeProblem extends Component {
         this.handleAns_figure = this.handleAns_figure.bind(this);
         this.handleExp_figure = this.handleExp_figure.bind(this);
 
+        this.clearWarning = this.clearWarning.bind(this);
+        this.setIncorrectFields = this.setIncorrectFields.bind(this);
+    }
+
+    clearWarning = () => {
+        this.setState({emptyCategorisation: false});
+        this.state.emptyCategorisation = false;
+
+        this.setState({incorrectFields: false});
+        this.state.incorrectFields = false;
+    }
+
+    setIncorrectFields = () => {
+        this.setState({incorrectFields: true});
+        this.state.incorrectFields = true;
     }
 
     componentDidMount() {
@@ -75,6 +93,8 @@ class PracticeProblem extends Component {
 
     /// image add
     handleQues_figure = (image) => {
+        this.clearWarning();
+
         this.setState({ques_figure: image});
         this.state.ques_figure = image;
         console.log("Ques Figure --> ", this.state.ques_figure);
@@ -97,27 +117,36 @@ class PracticeProblem extends Component {
     }
 
     handleAns_figure = (image) => {
+        this.clearWarning();
+
         this.setState({ans_figure: image});
         this.state.ans_figure = image;
         console.log("Ans Figure --> ", this.state.ans_figure);
     }
 
     handleExp_figure = (image) => {
+        this.clearWarning();
+
         this.setState({exp_figure: image});
         this.state.exp_figure = image;
         console.log("Explanation Figure --> ", this.state.exp_figure);
     }
 
-    
-
     createNewQues = () => {
+        this.clearWarning();
+
         if(this.state.topic != 'Topic'
             && this.state.subtopic != 'Subtopic'
             && this.state.category != 'Category'
             && this.state.difficulty_level != 'Difficulty Level'
-            && this.state.Ques_type != 'Question Type') {
-            this.setState({create_new_ques: true});
-            this.state.create_new_ques = true;
+            && this.state.Ques_type != 'Question Type') 
+            {
+                this.setState({create_new_ques: true});
+                this.state.create_new_ques = true;
+            }
+        else {
+            this.setState({emptyCategorisation: true});
+            this.state.emptyCategorisation = true;
         }
 
 
@@ -127,9 +156,14 @@ class PracticeProblem extends Component {
     }
 
     saveQues = () => {
+        this.clearWarning();
+
         console.log("Saving Question..");
         var Question = null;
-        if(this.state.Ques_type == 'MCQ' && this.state.ques_text != '') {
+        if(this.state.Ques_type == 'MCQ' && this.state.ques_text != ''
+        && this.state.option1 != '' && this.state.option2 != '' && this.state.option3 != '' && this.state.option4 != ''
+        && this.state.correct_option != '' && this.state.explanation != ''
+        ) {
             var ques = {
                 ques_type: this.state.Ques_type,
                 ques_text: this.state.ques_text,
@@ -147,7 +181,13 @@ class PracticeProblem extends Component {
             }
             Question = ques; 
         }
-        else if(this.state.Ques_type == 'Matching' && this.state.ques_text != '' && this.state.ques_text2 != '') {
+        else {
+            this.setIncorrectFields();
+        }
+        
+        if(this.state.Ques_type == 'Matching' && this.state.ques_text != '' && this.state.ques_text2 != ''
+        && this.state.explanation != ''
+        ) {
             var ques = {
                 ques_type: this.state.Ques_type,
                 ques_text1: this.state.ques_text,
@@ -161,7 +201,13 @@ class PracticeProblem extends Component {
             }
             Question = ques;
         }
-        else if(this.state.Ques_type == 'True/False' && this.state.ques_text != '') {
+        else {
+            this.setIncorrectFields();
+        }
+        
+        if(this.state.Ques_type == 'True/False' && this.state.ques_text != ''
+        && this.state.explanation != '' && this.state.is_true != ''
+        ) {
             var ques = {
                 ques_type: this.state.Ques_type,
                 ques_text: this.state.ques_text,
@@ -175,32 +221,54 @@ class PracticeProblem extends Component {
             }
             Question = ques;
         }
+        else {
+            this.setIncorrectFields();
+        }
+
         console.log(Question);
-        if(ques != null) {
+        if(Question != null) {
             axios.post(`http://localhost:5000/uploadQues`, { Question })
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                Question = [];
+                Question = null;
                 console.log("Question cleared? ", Question);
+
+                this.setState({
+                    create_new_ques: false,
+                    topic: "Topic",
+                    subtopic: "Subtopic",
+                    category: "Category",
+                    Ques_type: "Question Type",
+                    ques_text: '',
+                    ques_text2: '',
+                    option1: '',
+                    option2: '',
+                    option3: '',
+                    option4: '',
+                    correct_option: '',
+                    is_true: '',
+                    explanation: '',
+                    difficulty_level: "Difficulty Level",
+        
+                    category_array: [],
+                    topic_array: [],
+                    subtopic_array: [],
+        
+                    ques_figure: null,
+                    ans_figure: null,
+                    exp_figure: null,
+        
+                    emptyCategorisation: false,
+                    incorrectFields: false
+                });
+                this.componentDidMount();
             })
+            .catch((error) => {
+                console.log(error);
+            });
         }
 
-        
-
-
-        this.setState({create_new_ques: false});
-        this.state.create_new_ques = false;
-        this.setState({topic: "Topic"});
-        this.state.topic = "Topic";
-        this.setState({subtopic: "Subtopic"});
-        this.state.subtopic = "Subtopic";
-        this.setState({category: "Category"});
-        this.state.category = "Category";
-        this.setState({difficulty_level: "Difficulty Level"});
-        this.state.difficulty_level = "Difficulty Level";
-        this.setState({Ques_type: "Question Type"});
-        this.state.Ques_type = "Question Type";
     }
 
     handleTopic = (e) => {
@@ -221,9 +289,12 @@ class PracticeProblem extends Component {
                 }
             })
         }
+        this.clearWarning();
     }
 
     handleSubtopic = (e) => {
+        this.clearWarning();
+
         this.setState({subtopic: e});
         this.state.subtopic = e;
         console.log("subtopic --> ", this.state.subtopic);
@@ -244,36 +315,48 @@ class PracticeProblem extends Component {
     }
 
     handleCategory = (e) => {
+        this.clearWarning();
+
         this.setState({category: e});
         this.state.category = e;
         console.log("category --> ", this.state.category);
     }
 
     handleQuesType = (e) => {
+        this.clearWarning();
+
         this.setState({Ques_type: e});
         this.state.Ques_type = e;
         console.log("ques type --> ", this.state.Ques_type);
     }
 
     handleDifficulty = (e) => {
+        this.clearWarning();
+
         this.setState({difficulty_level: e});
         this.state.difficulty_level = e;
         console.log("difficulty level --> ", this.state.difficulty_level);
     }
 
     handleQuesText = (e) => {
+        this.clearWarning();
+
         this.setState({ques_text: e});
         this.state.ques_text = e;
         console.log("Question text --> ", this.state.ques_text);
     }
 
     handleQuesText2 = (e) => {
+        this.clearWarning();
+
         this.setState({ques_text2: e});
         this.state.ques_text2 = e;
         console.log("Question text 2 --> ", this.state.ques_text2);
     }
 
     handleMCQOptions_correct = (e) => {
+        this.clearWarning();
+
       //  console.log("corrent ans: e --> ", e);
         this.setState({correct_option: e});
         this.state.correct_option = e;
@@ -281,36 +364,48 @@ class PracticeProblem extends Component {
     }
 
     setoption1 = (e) => {
+        this.clearWarning();
+
         this.setState({option1: e});
         this.state.option1 = e;
         console.log("option1 --> ", this.state.option1);
     }
 
     setoption2 = (e) => {
+        this.clearWarning();
+
         this.setState({option2: e});
         this.state.option2 = e;
         console.log("option2 --> ", this.state.option2);
     }
 
     setoption3 = (e) => {
+        this.clearWarning();
+
         this.setState({option3: e});
         this.state.option3 = e;
         console.log("option3 --> ", this.state.option3);
     }
 
     setoption4 = (e) => {
+        this.clearWarning();
+
         this.setState({option4: e});
         this.state.option4 = e;
         console.log("option4 --> ", this.state.option4);
     }
 
     handleTrueFalse = (e) => {
+        this.clearWarning();
+
         this.setState({is_true: e});
         this.state.is_true = e;
         console.log("True Or False --> ", this.state.is_true);
     }
 
     handleExplanation = (e) => {
+        this.clearWarning();
+
         this.setState({explanation: e});
         this.state.explanation = e;
         console.log("Explanation --> ", this.state.explanation);
@@ -394,6 +489,11 @@ class PracticeProblem extends Component {
                         <Dropdown.Item eventKey="5">5</Dropdown.Item>
                         
                     </DropdownButton>
+
+                    {
+                        this.state.emptyCategorisation &&
+                        <h6 style={{color: 'red', marginTop: '5vh', marginLeft: '75vh'}}> Categorization is incomplete. Cannot proceed. </h6>
+                    }
 
                     <Button variant="primary" size="sm" style={{ marginLeft: '39%', marginTop: '2%', maxWidth: '5em', maxHeight: '3em'}}
                         onClick={this.createNewQues}
@@ -501,6 +601,16 @@ class PracticeProblem extends Component {
                             }
                         </div>
                     }
+
+                    {
+                        this.state.incorrectFields ? 
+                        <h6 style={{color: 'red', marginTop: '5vh', marginLeft: '70vh'}}> 
+                            Some of your fields are not correctly set. Cannot submit. 
+                        </h6>
+                        :
+                        <div></div>
+                    }
+
                     <Button variant="primary" size="sm" style={{ marginLeft: '39%', marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
                         onClick={this.saveQues}
                         >
