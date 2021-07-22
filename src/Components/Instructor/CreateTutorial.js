@@ -42,6 +42,11 @@ class CreateTutorial extends Component {
 
             topic_array: [],
             subtopic_array: [],
+
+            submitted: false,
+            warning: false,
+            discard: false,
+            discarded: false
         }
         // this.createNewTutorial = this.createNewTutorial.bind(this);
         // this.saveTutorial = this.saveTutorial.bind(this);
@@ -55,6 +60,21 @@ class CreateTutorial extends Component {
         this.handleTutorial = this.handleTutorial.bind(this);
         this.handleTutorial_figure = this.handleTutorial_figure.bind(this);
         this.handleTutorial_video = this.handleTutorial_video.bind(this);
+
+        this.newTutorial = this.newTutorial.bind(this);
+        this.discardTutorial = this.discardTutorial.bind(this);
+        this.showWarning = this.showWarning.bind(this);
+        this.hideWarning = this.hideWarning.bind(this);
+    }
+
+    showWarning = () => {
+        this.setState({warning: true});
+        this.state.warning = true;
+    }
+
+    hideWarning = () => {
+        this.setState({warning: false});
+        this.state.warning = false;
     }
 
     componentDidMount() {
@@ -65,7 +85,39 @@ class CreateTutorial extends Component {
         console.log("topic array --> ", this.state.topic_array);
     }
 
+    newTutorial () {
+        this.setState({
+            create_new_tutorial: false,
+            topic: "Topic",
+            subtopic: "Subtopic",
+            title: "Title",
+            short_desc: "Short Description",
+            tutorial_type: "Tutorial Type",
+            tutorial_text: {
+                "html_text": ""
+            },
+            tutorial_video: null,
+            tutorial_figure: null,
+
+            topic_array: [],
+            subtopic_array: [],
+
+            submitted: false,
+            warning: false,
+            discard: false,
+            discarded: false
+        })
+        this.componentDidMount();
+    }
+
+    discardTutorial () {
+        this.setState({discard: true});
+        this.state.discard = true;
+    }
+
     handleTopic = (e) => {
+        this.hideWarning();
+
         this.setState({topic: e});
         this.state.topic = e;
         console.log("topic --> ", this.state.topic);
@@ -86,32 +138,26 @@ class CreateTutorial extends Component {
     }
 
     handleSubtopic = (e) => {
+        this.hideWarning();
+        
         this.setState({subtopic: e});
         this.state.subtopic = e;
         console.log("subtopic --> ", this.state.subtopic);
 
         const subtopicName = this.state.subtopic;
-        // if(subtopicName != 'Subtopic' && subtopicName != "") {
-        //     axios.get(`http://localhost:5000/category_instructor`,  { params: { subtopic_name: subtopicName } })
-        //     .then(res => {
-        //         console.log(res.data);
-        //         this.setState({category_array: res.data});
-        //         this.state.category_array = res.data;
-        //         if(res.data == 0) {
-        //             this.setState({category: "Category"});
-        //             this.state.category = "Category";
-        //         }
-        //     })
-        // }
     }
 
     handleTitle = (e) => {
+        this.hideWarning();
+
         this.setState({title: e});
         this.state.title = e;
         console.log("tutorial title --> ", this.state.title);
     }
 
     handleShortDesc = (e) => {
+        this.hideWarning();
+
         this.setState({short_desc: e});
         this.state.short_desc = e;
         console.log("short desc --> ", this.state.short_desc);
@@ -119,57 +165,61 @@ class CreateTutorial extends Component {
 
     /// image add
     handleTutorial_figure = (image) => {
+        this.hideWarning();
+
         this.setState({tutorial_figure: image});
         this.state.tutorial_figure = image;
-        // console.log("tutorial_figure --> ", this.state.tutorial_figure);
-
-        // const config = {
-        //     headers: {
-        //         'content-type': 'multipart/form-data'
-        //     }
-        // }
-
-        // axios.post(`http://localhost:5000/uploadImage2`, image, config)
-        //     .then(res => {
-        //         console.log(res);
-        //         console.log(res.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-
     }
 
     // video upload
     handleTutorial_video = (video) => {
+        this.hideWarning();
+
         this.setState({tutorial_video: video});
         this.state.tutorial_video = video;
     }
 
     handleTutorial = (e) => {
+        this.hideWarning();
+
         // this.setState({tutorial_text: e});
         this.state.tutorial_text.html_text = e;
         console.log("tutorial_text --> ", this.state.tutorial_text);
     }
 
     onFileUpload = () => {
+        this.hideWarning();
+
         const Tutorial ={
             topic: this.state.topic,
             subtopic: this.state.subtopic,
             title: this.state.title,
             about: this.state.short_desc,
-            type: this.state.tutorial_type,
             text: this.state.tutorial_text,
             image: this.state.tutorial_figure,
             video: this.state.tutorial_video
         }
+        var fileUp = false;
+        var imageUp = false;
+        var videoUp = false;
 
-        axios.post(`http://localhost:5000/uploadTutorial`, Tutorial)
+        if(Tutorial.topic == "Topic" || Tutorial.topic == "" 
+            || Tutorial.subtopic == "Subtopic" || Tutorial.subtopic == ""
+            || Tutorial.title == "Title" || Tutorial.title == ""
+            || Tutorial.about == "Short Description" || Tutorial.about == "" 
+            || Tutorial.text.html_text == "" 
+            )
+        {
+            this.showWarning();
+        }
+        else {
+            axios.post(`http://localhost:5000/uploadTutorial`, Tutorial)
             .then(res => {
                 console.log(res);
 
                 const tutorial_id = res.data;
                 console.log("new tutorial id --> ", tutorial_id);
+                fileUp = true;
 
                 // upload image/video
                 const config = {
@@ -193,6 +243,7 @@ class CreateTutorial extends Component {
                         .then(res => {
                             console.log("Tutorial Image");
                             console.log(res.data);
+                            imageUp = true;
                         })
                         .catch((error) => {
                             console.log(error);
@@ -214,6 +265,7 @@ class CreateTutorial extends Component {
                         .then(res => {
                             console.log("Tutorial Video");
                             console.log(res.data);
+                            videoUp = true;
                         })
                         .catch((error) => {
                             console.log(error);
@@ -222,9 +274,26 @@ class CreateTutorial extends Component {
 
                 
             })
+            .then(res => {
+                if(fileUp && (imageUp || this.state.tutorial_figure == null) && (videoUp || this.state.tutorial_video == null)) {
+                    this.setState({submitted: true});
+                    this.state.submitted = true;
+                }
+                else {
+                    this.setState({submitted: false});
+                    this.state.submitted = false;
+                }
+            })
             .catch((error) => {
                 console.log(error);
             });
+        }
+        
+    }
+
+    onFileDiscard = () => {
+        this.setState({discarded: true});
+        this.state.discarded = true;
     }
 
     render() {
@@ -239,68 +308,107 @@ class CreateTutorial extends Component {
                                 Create a New Tutorial!
                             </h3> */}
 
+                            {!this.state.submitted && !this.state.discarded &&
+                            <div>
+                                {/* <Dropdown /> */}
+                                <DropdownButton
+                                    menuAlign="left"
+                                    title={this.state.topic}
+                                    id="dropdown-menu-align-left"
+                                    style={{ 
+                                        marginLeft: '-25%', 
+                                        marginTop: '2%', maxHeight: '3em'
+                                        , maxWidth: '70%'
+                                    }}
+                                    onSelect={this.handleTopic}
+                                    >
+                                    
+                                    {this.state.topic_array.map((topics) => (
+                                        <Dropdown.Item eventKey={topics.topic_name}>{topics.topic_name}</Dropdown.Item>
+                                    ))}
 
-                            {/* <Dropdown /> */}
-                            <DropdownButton
-                                menuAlign="left"
-                                title={this.state.topic}
-                                id="dropdown-menu-align-left"
-                                style={{ 
-                                    marginLeft: '-25%', 
-                                    marginTop: '2%', maxHeight: '3em'
-                                    , maxWidth: '70%'
-                                }}
-                                onSelect={this.handleTopic}
-                                >
+                                </DropdownButton>
+
+                                <DropdownButton
+                                    menuAlign="left"
+                                    title={this.state.subtopic}
+                                    id="dropdown-menu-align-left"
+                                    style={{ 
+                                        marginLeft: '-25%', 
+                                        marginTop: '2%', 
+                                        maxHeight: '3em'
+                                        , maxWidth: '70%'
+                                    }}
+                                    onSelect={this.handleSubtopic}
+                                    >
+                                    
+                                    {this.state.subtopic_array.map((subtopic_name) => (
+                                        <Dropdown.Item eventKey={subtopic_name}>{subtopic_name}</Dropdown.Item>
+                                    ))}
+
+                                </DropdownButton>
+
+                                <br></br>
+
+                                <Textfield label = "Title of the Tutorial" setText={this.handleTitle} type='text'/>
+                                <Textfield label = "Short Description about the Context" setText={this.handleShortDesc} type='text'/>
+
+                                {/* <div className="checkbox">
+                                    <Checkbox />
+                                </div> */}
+                                {/* <Videoup /> */}
+                                <Imageup setFigure={this.handleTutorial_video}  buttonName="Upload Video" type="tutorial"/> 
                                 
-                                {this.state.topic_array.map((topics) => (
-                                    <Dropdown.Item eventKey={topics.topic_name}>{topics.topic_name}</Dropdown.Item>
-                                ))}
+                                <Box borderRadius={4} {...defaultProps}>
+                                <Htmleditor setHTML={this.handleTutorial}/>
+                                </Box>
 
-                            </DropdownButton>
+                                <Imageup setFigure={this.handleTutorial_figure}  buttonName="Upload Image" type="tutorial"/>
 
-                            <DropdownButton
-                                menuAlign="left"
-                                title={this.state.subtopic}
-                                id="dropdown-menu-align-left"
-                                style={{ 
-                                    marginLeft: '-25%', 
-                                    marginTop: '2%', 
-                                    maxHeight: '3em'
-                                    , maxWidth: '70%'
-                                }}
-                                onSelect={this.handleSubtopic}
-                                >
+                                {
+                                    this.state.warning ? 
+                                    <h6 style={{color: 'red', marginTop: 20, marginLeft: 50}}> Some of your fields are empty. Cannot submit. </h6>
+                                    :
+                                    <div></div>
+                                }
                                 
-                                {this.state.subtopic_array.map((subtopic_name) => (
-                                    <Dropdown.Item eventKey={subtopic_name}>{subtopic_name}</Dropdown.Item>
-                                ))}
+                                <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '10em', maxHeight: '3em' }}
+                                    onClick={this.onFileUpload}>
+                                    Submit Tutorial
+                                </Button>
 
-                            </DropdownButton>
+                                <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '10em', maxHeight: '3em' }}
+                                    onClick={this.onFileDiscard}>
+                                    Discard Tutorial
+                                </Button>
 
-                            <br></br>
+                            </div>
+                            }
 
-                            <Textfield label = "Title of the Tutorial" setText={this.handleTitle} type='text'/>
-                            <Textfield label = "Short Description about the Context" setText={this.handleShortDesc} type='text'/>
 
-                            {/* <div className="checkbox">
-                                <Checkbox />
-                            </div> */}
-                            {/* <Videoup /> */}
-                            <Imageup setFigure={this.handleTutorial_video}  buttonName="Upload Video" type="tutorial"/> 
-                            
-                            <Box borderRadius={4} {...defaultProps}>
-                            <Htmleditor setHTML={this.handleTutorial}/>
-                            </Box>
+                            {this.state.submitted && 
+                                <div id="grade" style={{ marginTop: '15%'}}>
+                                    <h3>Thank you for your contribution.</h3>
+                                    <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
+                                        onClick={this.newTutorial}
+                                        >
+                                        New Tutorial
+                                    </Button>
+                                </div>
+                            }
 
-                            <Imageup setFigure={this.handleTutorial_figure}  buttonName="Upload Image" type="tutorial"/>
-                            
-                            <Button variant="primary" size="sm" style={{ marginLeft: 20, marginTop: 10, maxWidth: '10em', maxHeight: '3em' }}
-                                onClick={this.onFileUpload}>
-                                Submit Tutorial
-                            </Button>
+                            {this.state.discarded && 
+                                <div id="grade" style={{ marginTop: '15%'}}>
+                                    <h3>Create a new tutorial.</h3>
+                                    <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
+                                        onClick={this.newTutorial}
+                                        >
+                                        New Tutorial
+                                    </Button>
+                                </div>
+                            }
 
-                        </div>
+                            </div>
                     </section>
                     </main>
                 </>
