@@ -1,0 +1,21 @@
+#ques_container{
+    text-align: left;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 5%;
+    /* padding-top: 35%; */
+    min-height: 100vh;
+    /* min-width: 150rem; */
+    margin-left: 30%;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+  .ques_card2{
+    text-align: center;
+    /* min-width: 100rem; */
+    border-radius: 10px;
+    border-style: outset;
+    min-height: 100vh;
+  }
+  

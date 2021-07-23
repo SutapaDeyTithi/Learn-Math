@@ -1,0 +1,76 @@
+{
+  "name": "learnmath",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fontsource/roboto": "^4.4.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@trendmicro/react-sidenav": "^0.5.0",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "cra-template": "1.1.2",
+    "draft-js": "^0.11.7",
+    "draft-js-image-plugin": "^2.0.7",
+    "file-upload-with-preview": "^4.1.0",
+    "formik": "^2.2.8",
+    "he": "^1.2.0",
+    "i18next": "^20.2.1",
+    "material-ui-dropzone": "^3.5.0",
+    "material-ui-search-bar": "^1.0.0",
+    "progress": "^2.0.3",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.5.2",
+    "react-bootstrap-table-next": "^4.0.3",
+    "react-bootstrap-validation": "^0.1.11",
+    "react-dom": "^17.0.2",
+    "react-draft-wysiwyg": "^1.14.7",
+    "react-dropdown": "^1.9.2",
+    "react-i18next": "^11.8.12",
+    "react-images-upload": "^1.2.8",
+    "react-mathjax": "^1.0.1",
+    "react-native-web": "^0.17.1",
+    "react-player": "^2.9.0",
+    "react-radio-group": "^3.0.3",
+    "react-responsive-animate-navbar": "^1.1.8",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-select": "^4.3.1",
+    "react-split-pane": "^0.1.92",
+    "react-swipeable-views": "^0.14.0",
+    "reactstrap": "^8.9.0",
+    "styled-components": "^5.2.3",
+    "tachyons": "^4.12.0",
+    "web-vitals": "^1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+1. moderator er review er jonno table
+2. moderator yes bolle, practice table e jabe
+2. moderator yes bolle, exam er jonno ekta table
+
+1. 
+REVIEW table
+a. columns:
+
+question_id serial not null unique
+        constraint question_pk
+            primary key,
+exam_id
+ques_type (written) ---
+ques_text
+ans_text
+explanation
+figure_ques
+figure_ans
+figure_explanation
+ques_status integer,
+level
+attempt integer,
+success integer,
+upvote integer,
+downvote integer,
+created_by   integer

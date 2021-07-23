@@ -1,0 +1,25 @@
+#home {
+    text-align: center;
+    position: relative;
+    position: initial;
+    z-index: 1;
+    padding-top: 8%;
+    height: 100vh;
+}
+
+.welcome-img {
+    width: 60%;
+    align-items: center;
+}
+
+.row2nd {
+    padding-top: 1%;
+    /* padding-bottom: 1%; */
+    /* background-color: #D2D4BF; */
+    /* border-color: olive; */
+    /* opacity: 0.5; */
+}
+
+.firstPage {
+    min-height: 75vh;
+}

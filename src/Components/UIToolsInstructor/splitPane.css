@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  border-color: rgb(1, 2, 1);
+  /* border-inline-width: 2rem; */
+}
+.left {
+  height: 100vh;
+  display: block;
+  width: 70%;
+  /* background-color: green; */
+  overflow-y: scroll;
+}
+.right {
+  height: 100vh;
+  /* background-color: red; */
+  display: block;
+  width: 30%;
+  overflow-y: scroll;
+}

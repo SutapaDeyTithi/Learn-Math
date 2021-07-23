@@ -1,0 +1,46 @@
+.sub{
+    margin-top: 6%;
+}
+#subtopic{
+    text-align: left;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 4%;
+    min-height: 125vh;
+    
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    margin-left: 2%;
+    
+    
+}
+.subtopics{
+    margin-left: 0;
+    margin-top: 15px;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+.card-text{
+    text-align: center;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+.all_img{
+    width:70%;
+    height:70%;
+    align-self: center;
+    /* padding-top: 10px; */
+}
+.card_text{
+    text-align: center;
+    font-size: 16px;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+.my_card{
+    height:40vh;
+}
+.box{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+    
+   
+}
