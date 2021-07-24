@@ -52,6 +52,7 @@ class ExamCorner2 extends React.Component {
       this.hideContents = this.hideContents.bind(this);
 
       this.reviseNow = this.reviseNow.bind(this);
+      this.closeRevise = this.closeRevise.bind(this);
   }
 
   handleSelected = (selected) => {
@@ -167,6 +168,17 @@ class ExamCorner2 extends React.Component {
 
     this.setState({revisingQ: ques});
     this.state.revisingQ = ques;
+    
+  }
+
+  closeRevise = () => {
+    this.setState({revisingOne: false});
+    this.state.revisingOne = false;
+
+    this.setState({revisingQ: null});
+    this.state.revisingQ = null;
+
+    this.showContents();
   }
       
   render() { 
@@ -219,21 +231,28 @@ class ExamCorner2 extends React.Component {
               <div>
 
                   {this.state.nav_selected=="New Exam/Modify Content"?
-                    <div id="grade" style={{ marginTop: '5%'}}>
-                      <h4> 
+                  // style={{ marginTop: '5%'}}
+                    <div id="grade" >
+                      { !this.state.revisingOne && 
+                        <h4> 
                           Contents here require modifications.
-                      </h4>
+                       </h4>
+                      }
 
                       {
-                        this.state.modContentShown &&
+                        this.state.modContentShown && 
                         <div>
-                          <Button variant="primary" size="sm" style={{ 
-                            // marginLeft: '39%', 
-                            marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
-                            onClick={this.hideContents}
-                            >
-                            Hide Contents
-                          </Button>
+                          {
+                            !this.state.revisingOne &&
+                            <Button variant="primary" size="sm" style={{ 
+                              // marginLeft: '39%', 
+                              marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
+                              onClick={this.hideContents}
+                              >
+                              Hide Contents
+                            </Button>
+                          }
+                          
 
                           <ul>
                            
@@ -245,13 +264,13 @@ class ExamCorner2 extends React.Component {
                                       !this.state.revisingOne &&
                                       <div>
                                         <li>Question ID: {listItems.question_id}</li>
-                                        <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
-                                            onClick={ () => {
-                                                this.reviseNow(listItems)
-                                            }}
-                                            >
-                                            Revise
-                                        </Button>
+                                          <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                                              onClick={ () => {
+                                                  this.reviseNow(listItems)
+                                              }}
+                                              >
+                                              Revise
+                                          </Button>
                                       </div>
                                     }
 
@@ -261,7 +280,7 @@ class ExamCorner2 extends React.Component {
                             }
 
                             {this.state.revisingOne &&
-                              <Reviserittenq ques={this.state.revisingQ}/>
+                              <Reviserittenq ques={this.state.revisingQ} closeRevise={this.closeRevise}/>
                             }
 
                           </ul>

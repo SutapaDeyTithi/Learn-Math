@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import './ExamCorner1_1.css'
+import './ExamCorner1_1.css';
+import axios from "axios";
 
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -20,17 +21,19 @@ class popup extends React.Component {
             empty: false,
             inputList: [],
 
-            question: null
+            question: null,
+            numeric: true
         }
-        this.handleTextvalue = this.handleTextvalue.bind(this);
-        this.handleDifficulty_level = this.handleDifficulty_level.bind(this);
-        this.handleExam_type = this.handleExam_type.bind(this);
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleNext = this.handleClose.bind(this);
         
         this.handleRubrikChange = this.handleRubrikChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        
+        this.setEmpty = this.setEmpty.bind(this);
+        this.clearEmpty = this.clearEmpty.bind(this);
+        this.setNumeric = this.setNumeric.bind(this);
     }
 
     componentDidMount() {
@@ -42,27 +45,42 @@ class popup extends React.Component {
         console.log("revising ---> ", this.props.ques.rubrik)
     }
 
+    setEmpty = () => {
+        this.setState({empty: true});
+        this.state.empty = true;
+    }
+
+    clearEmpty = () => {
+        this.setState({empty: false});
+        this.state.empty = false;
+    }
+
+    setNumeric = (value) => {
+        this.setState({numeric: value});
+        this.state.numeric = value;
+    }
+
     handleClickOpen = () => {
         this.state.open = true;
         this.setState({open: true});
     }
 
     handleClose = () => {
-        if(this.state.examTile == "" || (this.state.exam_type == "" || this.state.exam_type == "Exam Type") 
-        || (this.state.difficulty_level == "" || this.state.difficulty_level == "Difficulty Level"))
-        {
-            this.setState({empty: true});
-            this.state.empty = true;
-        }
-        else {
-            this.setState({empty: false});
-            this.state.empty = false;
+        this.setState({
+            open: true,
+            examTile: '',
+            difficulty_level: 'Difficulty Level',
+            exam_type: 'Exam Type',
+            empty: false,
+            inputList: [],
 
-            this.state.open = false;
-            this.setState({open: false});
-            this.props.popup(false);
-        }
-        
+            question: null,
+            numeric: true
+        })
+        // this.props.popup(false);
+        // this.componentDidMount();
+        this.state.question = null;
+        this.props.closeRevise();
     }
 
     handleNext = () => {
@@ -72,49 +90,94 @@ class popup extends React.Component {
         this.setState({open: false});
       }
     
-    handleTextvalue = (event) => {
-        const { value } = event.target;
-        this.setState({examTile: value});
-        this.state.examTile = value;
-        // console.log("exam title: ", this.state.examTile);
-
-        // this.props.setTitle(value);
-
-        this.setState({empty: false});
-        this.state.empty = false;
-    }
-    
-    handleDifficulty_level = (e) => {
-        // const { value } = event.target;
-        this.setState({difficulty_level: e});
-        this.state.difficulty_level = e;
-        // console.log("difficulty level: ", this.state.difficulty_level);
-
-        // this.props.setLevel(e);
-
-        this.setState({empty: false});
-        this.state.empty = false;
-    }
-
-    handleExam_type = (e) => {
-        this.setState({exam_type: e});
-        this.state.exam_type = e;;
-        // console.log("Exam type: ", this.state.exam_type);
-
-        // this.props.setType(e);
-
-        this.setState({empty: false});
-        this.state.empty = false;
-    }
 
       // handle input change
    handleRubrikChange = (e, index, type, quesNo) => {
+    this.clearEmpty();
+    this.setNumeric(true);
   
     console.log("rubrik list --> ", e);
+    if(type == "breakpoint") {
+        this.state.question.rubrik[index].breakpoint = e;
+    }
+    else if(type == "marks") {
+        this.state.question.rubrik[index].marks = e;
+    }
+    
+    this.setState({question: this.state.question});
   };
 
-  handleInputChange = (e) => {
-    console.log("modified --> ", e);
+  handleInputChange = (e, type) => {
+    this.clearEmpty();
+
+    console.log("modified text --> ", e);
+    console.log("type --> ", type);
+    if(type == "question") {
+        this.state.question.ques_text = e;
+    }
+    
+    if(type == "answer") {
+        this.state.question.ans_text = e;
+    }
+    
+    this.setState({question: this.state.question});
+  }
+
+  handleAddClick_rubrik = () => {
+    this.state.question.rubrik.push({ breakpoint: "", marks: "", index: ""});
+    this.setState({question: this.state.question});
+  };
+
+  handleRemoveClick_rubrik = index => {
+    this.state.question.rubrik.splice(index, 1);
+    this.setState({question: this.state.question});
+  };
+
+  submitQuesPaper = () => {
+    console.log("submitting revised ques --> ");
+    var isEmpty = false;
+  
+    if(this.state.question.ques_text == "" || this.state.question.ans_text == "") {
+        this.setEmpty();
+        isEmpty = true;
+    }
+    const re = /^[0-9\b]+$/;
+    if(!isEmpty) {
+        for(var i = 0; i<this.state.question.rubrik.length; i++) {
+            if(this.state.question.rubrik[i].breakpoint == "" || this.state.question.rubrik[i].marks == "") {
+                this.setEmpty();
+                isEmpty = true;
+                break;
+            }
+            else {
+                if(re.test(this.state.question.rubrik[i].marks) == false) {
+                    this.setNumeric(false);
+                    isEmpty = true;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    if(!isEmpty) {
+        axios.post(`http://localhost:5000/uploadRevisedQues`, this.state.question)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+
+            
+            // Question = this.state.exam_paper;
+            // console.log("Question cleared? ", Question);
+            this.handleClose();
+        })
+        .then(res => {
+            this.setState({question: null});
+            this.state.question = null;
+        })
+    }
+
+
   }
         
 
@@ -124,44 +187,7 @@ class popup extends React.Component {
                 {this.state.open == true ?
                 // <div>
                     <div  className="btn-box" style={{ marginTop: 10 }}>
-                        <h3 className="card-title">Revise Content</h3>
-                        
-                        <br></br>
-                        <input  name="title" type="text" placeholder="Exam title" 
-                            onChange={this.handleTextvalue}
-                            style={{ minWidth: '50%', minHeight: '15%', alignItems: 'center'}}
-                        /> 
-                        <br></br><br></br>
-
-
-                        <DropdownButton
-                            // menuAlign="left"
-                            title={this.state.exam_type}
-                            id="dropdown-menu"
-                            style={{ minWidth: '100vh', 
-                            // marginLeft: '-27vh'
-                        }}
-                            onSelect={this.handleExam_type}
-                            >
-                            <Dropdown.Item eventKey="Regular Exam">Regular Exam</Dropdown.Item>
-                            <Dropdown.Item eventKey="Problem of the Week">Problem of the Week</Dropdown.Item>
-                        </DropdownButton>
-
-                        <DropdownButton
-                            // menuAlign="left"
-                            title={this.state.difficulty_level}
-                            id="dropdown-menu"
-                            style={{ minWidth: '100vh', 
-                            // marginLeft: '-27vh'
-                        }}
-                            onSelect={this.handleDifficulty_level}
-                            >
-                            <Dropdown.Item eventKey="Level 1">Level 1</Dropdown.Item>
-                            <Dropdown.Item eventKey="Level 2">Level 2</Dropdown.Item>
-                            <Dropdown.Item eventKey="Level 3">Level 3</Dropdown.Item>
-                            <Dropdown.Item eventKey="Level 4">Level 4</Dropdown.Item>
-                            <Dropdown.Item eventKey="Level 5">Level 5</Dropdown.Item>
-                        </DropdownButton>
+                        <h4 className="card-title">Revise Content</h4>
 
                         {
                         this.state.question != null && 
@@ -171,20 +197,22 @@ class popup extends React.Component {
                                 <br></br>
                                 <Textfield label="Enter Question Text" 
                                 value={this.state.question.ques_text}
-                                setWrittenQues={handleInputChange} 
+                                setWrittenQues={this.handleInputChange} 
                                 type='WrittenQues_revised' fieldType='question'/>
                                 <ImageUp />
                                 <br/>
                                 
                                 <Textfield label="Enter Answer Text"  
                                 value={this.state.question.ans_text}
-                                setWrittenQues={handleInputChange} 
+                                setWrittenQues={this.handleInputChange} 
                                 type='WrittenQues_revised' fieldType='answer'/>
                                 <ImageUp />
                                 {/* https://www.geeksforgeeks.org/file-uploading-in-react-js/ */}
 
 
-                            {/* <div> */}
+                                <h4 style={{ marginTop: '15%' }}> 
+                                    Rubrik Settings
+                                </h4>
 
                                         {this.state.question.rubrik.map((x, i) => {
                                             return (
@@ -214,7 +242,7 @@ class popup extends React.Component {
                                                     marginTop: 10, maxWidth: '5em', maxHeight: '3em', 
                                                     marginLeft: "50%" 
                                                     }}
-                                                    //   onClick={() => handleRemoveClick_rubrik(x.index)}
+                                                      onClick={() => this.handleRemoveClick_rubrik(x.index)}
                                                     >
                                                         Remove
                                                     </Button>
@@ -224,7 +252,7 @@ class popup extends React.Component {
 
                                                 {this.state.question.rubrik.length - 1 === i &&
                                                     <Button variant="primary" size="sm" 
-                                                        // onClick={handleAddClick_rubrik} 
+                                                        onClick={this.handleAddClick_rubrik} 
                                                         style={{ 
                                                         marginTop: 10, maxWidth: '5em', maxHeight: '3em', 
                                                         marginLeft: "50%" }}>
@@ -239,6 +267,8 @@ class popup extends React.Component {
             	            </div>
                         }
 
+                        <br></br><br></br>
+
                 {
                     this.state.empty == true &&
                     <div>
@@ -247,10 +277,26 @@ class popup extends React.Component {
                     </div>
                 }
 
-                <Button variant="primary" size="sm" style={{ marginTop: 15, maxWidth: '5em', maxHeight: '3em' }}
+                {
+                    this.state.numeric == false &&
+                    <div>
+                        <h7 style={{color: 'red', marginTop: 20}}> Marks must be numeric. Cannot save. </h7>
+                        <br/>
+                    </div>
+                }
+
+                <Button variant="primary" size="lg" style={{ marginTop: 15, maxWidth: '7em', maxHeight: '5em', marginLeft: '10%' }}
+                    onClick={this.submitQuesPaper}
+                    >
+                    Submit
+                </Button>
+
+        
+
+                <Button variant="primary" size="lg" style={{ marginTop: 15, maxWidth: '7em', maxHeight: '5em', marginLeft: '3em' }}
                     onClick={this.handleClose}
                     >
-                    Save
+                    Discard
                 </Button>
 
             </div>                             

@@ -497,3 +497,22 @@ exports.loadForwaredQues = async(req, res) => {
         return res.json(error);     
     }
 }
+
+exports.uploadRevisedQues = async(req, res) => {
+    const Question = req.body;
+    console.log("Updating revised ques --> ", Question);
+
+    // insert question paper into database
+    pool.query("UPDATE \"ExamQuestion\" SET ques_text = $1, ans_text = $2, rubrik = $3, ques_status=4 WHERE question_id = $4",
+    [Question.ques_text, Question.ans_text, JSON.stringify(Question.rubrik), Question.question_id], 
+    (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            return res.json(error);
+        }
+        else {
+            return res.json("OK");
+        }
+    }
+    );
+}

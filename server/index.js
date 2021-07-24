@@ -37,7 +37,8 @@ const {
     getAnswerPapers,
     loadQues,
     gradeAns,
-    loadForwaredQues
+    loadForwaredQues,
+    uploadRevisedQues
 } = require("./handlers/instructor");
 
 const {
@@ -84,6 +85,7 @@ app.get('/answerPapers', getAnswerPapers);
 app.get('/loadQues/:id', loadQues);
 app.post('/gradeAns', gradeAns);
 app.get('/loadForwaredQues', loadForwaredQues);
+app.post('/uploadRevisedQues', uploadRevisedQues);
 
 // MODERATOR
 

@@ -68,6 +68,10 @@ export default function MultilineTextFields(props) {
       // console.log("rubrik", props.fieldType, "--->", event.target.value);
       props.setText(event.target.value, props.index)
     }
+
+    if(props.type == "WrittenQues_revised") {
+      props.setWrittenQues(event.target.value, props.fieldType)
+    }
   };
 
   return (
@@ -79,7 +83,7 @@ export default function MultilineTextFields(props) {
           // fullWidth
           // rowsMax={rowMax.rowMax}
           value={props.type == "rubrik" ? props.value : 
-                (props.type == "WrittenQues" ? props.value :
+                ((props.type == "WrittenQues" || props.type == "WrittenQues_revised") ? props.value :
                 state.title)}
           onChange={handleChange}
           variant="outlined"
