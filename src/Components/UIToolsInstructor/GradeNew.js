@@ -271,6 +271,12 @@ class gradeNew extends React.Component {
                         );
                     })
                     }</ul>
+
+                    {(this.state.answer_papers == null || this.state.answer_papers.length == 0) &&
+                        <h4 style={{ marginTop: '10%'}}>
+                            You have no answers to grade.
+                        </h4>
+                    }
                     </div>
 
                     :

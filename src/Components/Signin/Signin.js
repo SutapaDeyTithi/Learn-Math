@@ -55,7 +55,7 @@ class first extends Component {
 
         // must delete this line later
         // auto sign up
-         this.props.onRouteChange("signedin");
+        //  this.props.onRouteChange("signedin");
 
         fetch('http://localhost:5000/login', {
             method: 'POST',
@@ -75,11 +75,13 @@ class first extends Component {
           .then((response) => response.json())
           .then((data) => {
               console.log('This is your data:\n', data);
-              if(data === "loggedin")
-                this.props.onRouteChange("signedin"); 
+              if(data === "error"){
+                console.log('Cannot login!\n');
+              }
               else
               {
-                  
+                this.props.setUserID(data.user_id);
+                this.props.onRouteChange("signedin");
               }
 
           });

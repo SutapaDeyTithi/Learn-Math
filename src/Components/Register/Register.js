@@ -122,11 +122,14 @@ class first extends Component {
           .then((response) => response.json())
           .then((data) => {
               console.log('This is your data:\n', data);
-              if(data === "registered")
-                this.props.onRouteChange("signedin"); 
+              if(data === "error")
+              {
+                console.log('Cannot register!\n');
+              }
               else
               {
-                  
+                this.props.setUserID(data.user_id);
+                this.props.onRouteChange("signedin"); 
               }
 
           });

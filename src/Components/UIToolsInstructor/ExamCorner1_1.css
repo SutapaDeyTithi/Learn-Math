@@ -36,4 +36,31 @@
     background-color:#49675B !important;
   }
 
-  
+  #revise_id{
+    text-align: left;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 1%;
+    min-height: 125vh;
+    margin-left: 20%;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    min-width: initial;
+    overflow-x: hidden;
+  }
+  .revise_card{
+    text-align: center;
+    width: 100vh;
+    border-radius: 10px;
+    border-style: outset;
+    max-height: 100vh;
+  }
+
+  .title_revise{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 50%;
+    /* height: 20rem; */
+    background-color: #e0dede;
+    border-radius: 3px;
+  }

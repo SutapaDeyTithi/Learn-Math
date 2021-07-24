@@ -8,6 +8,7 @@ import '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
  
 import Sidenav from "../UIToolsInstructor/sideNav";
+import Reviserittenq from "../UIToolsInstructor/reviseWrittenQ";
 import Dynamicaddques from "../UIToolsInstructor/dynamic_ques_add";
 import Gradenew from "../UIToolsInstructor/GradeNew";
 import "./ExamCorner2.css";
@@ -33,7 +34,9 @@ class ExamCorner2 extends React.Component {
         },
 
         modContentShown: false,
-        forwardedQ: null
+        forwardedQ: null, 
+        revisingOne: false,
+        revisingQ: null
       }
       this.handleSelected = this.handleSelected.bind(this);
       this.handlePopup = this.handlePopup.bind(this);
@@ -47,6 +50,8 @@ class ExamCorner2 extends React.Component {
 
       this.showContents = this.showContents.bind(this);
       this.hideContents = this.hideContents.bind(this);
+
+      this.reviseNow = this.reviseNow.bind(this);
   }
 
   handleSelected = (selected) => {
@@ -152,6 +157,17 @@ class ExamCorner2 extends React.Component {
     this.setState({modContentShown: false});
     this.state.modContentShown = false;
   }
+
+  reviseNow = (ques) => {
+    console.log("revising a content..");
+    console.log("content --> ", ques);
+
+    this.setState({revisingOne: true});
+    this.state.revisingOne = true;
+
+    this.setState({revisingQ: ques});
+    this.state.revisingQ = ques;
+  }
       
   render() { 
       return (
@@ -186,7 +202,7 @@ class ExamCorner2 extends React.Component {
                 } 
 
                 {this.state.saved && 
-                <div id="grade" style={{ marginTop: '15%'}}>
+                <div id="grade" style={{ marginTop: '10%'}}>
                   <h3>Thank you.</h3>
                   <h3>Contribute by creating new question!</h3>
                   <Button variant="primary" size="sm" style={{ marginTop: '2%', maxWidth: '12em', maxHeight: '3em'}}
@@ -224,19 +240,28 @@ class ExamCorner2 extends React.Component {
                             { this.state.forwardedQ.map((listItems)=>{
                               return (
                                 <div>
-                                    <li>Question ID: {listItems.question_id}</li>
-
-                                    <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
-                                        // onClick={ () => {
-                                        //     this.gradeNow(listItems)
-                                        // }}
-                                        >
-                                        Revise
-                                    </Button>
+                            
+                                    {
+                                      !this.state.revisingOne &&
+                                      <div>
+                                        <li>Question ID: {listItems.question_id}</li>
+                                        <Button variant="primary" size="sm" style={{ marginTop: 10, maxWidth: '8em', maxHeight: '3em' }}
+                                            onClick={ () => {
+                                                this.reviseNow(listItems)
+                                            }}
+                                            >
+                                            Revise
+                                        </Button>
+                                      </div>
+                                    }
 
                                 </div>
                               )
                               })
+                            }
+
+                            {this.state.revisingOne &&
+                              <Reviserittenq ques={this.state.revisingQ}/>
                             }
 
                           </ul>

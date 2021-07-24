@@ -42,6 +42,7 @@ class App extends Component {
           route: '',
           isSignedIn: false,
           role: '',
+          user_id: '',
           user: {
             id: '',
             name: '',
@@ -56,15 +57,24 @@ class App extends Component {
       onRouteChange = (route) => {
         if (route === 'signout') {
           this.setState({isSignedIn: false})
-          this.setState({role: ''})
+          this.setState({role: ''});
+          this.state.role = '';
+          this.state.isSignedIn = false;
         } else if (route === 'signedin') {
           this.setState({isSignedIn: true})
+          this.state.isSignedIn = true;
         }
         this.setState({route: route});
       }
 
       setRole = (role) => {
           this.setState({role: role});
+      }
+
+      setUserID = (id) => {
+        this.setState({user_id: id});
+        this.state.user_id = id;
+        console.log("setting user id --> ", this.state.user_id);
       }
     
       render() {
@@ -77,7 +87,9 @@ class App extends Component {
                           <Navigation
                             isSignedIn={this.state.isSignedIn} 
                             role={this.state.role}
-                            onRouteChange={this.onRouteChange} {...props}
+                            onRouteChange={this.onRouteChange}
+                            setUserID={this.setUserID}
+                            {...props}
                           />
                         )}
                       />
@@ -94,8 +106,8 @@ class App extends Component {
                               
                             }
     
-                            <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} setRole={this.setRole} {...props} /> } />
-                            <Route exact path="/register" render={(props) => <Register onRouteChange={this.onRouteChange} setRole={this.setRole} {...props} /> }/>
+                            <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} setRole={this.setRole} setUserID={this.setUserID} {...props} /> } />
+                            <Route exact path="/register" render={(props) => <Register onRouteChange={this.onRouteChange} setRole={this.setRole} setUserID={this.setUserID} {...props} /> }/>
                          
                             {this.state.role == "student" ?
                                 <div>
@@ -126,11 +138,11 @@ class App extends Component {
                                             {/* INSTRUCTOR */}
                                             {this.state.isSignedIn ?
                                               <div>
-                                                  <Route path="/authHome" component = {InstructorHome}/>
-                                                  <Route path="/createTutorial" component = {CreateTutorial} />
-                                                  <Route path="/createPracticeProblems" component = {PracticeProblems} />
+                                                  <Route path="/authHome" render={(props) => <InstructorHome user_id={this.state.user_id} {...props} />} />
+                                                  <Route path="/createTutorial" render={(props) => <CreateTutorial user_id={this.state.user_id} {...props} />} />
+                                                  <Route path="/createPracticeProblems" render={(props) => <PracticeProblems user_id={this.state.user_id} {...props} />} />
                                                   {/* <Route path="/examCorner" component = {ExamCorner2} /> */}
-                                                  <Route path="/examCorner" component = {ExamCorner2} />
+                                                  <Route path="/examCorner" render={(props) => <ExamCorner2 user_id={this.state.user_id} {...props} />} />
                                               </div>
                                             :
                                             <div>

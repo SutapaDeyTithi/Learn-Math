@@ -35,14 +35,14 @@ exports.signUp = async(req, res) => {
                 }
                 else {
                     // check if new user
-                    pool.query("INSERT INTO \"Users\"(user_name, email, password, privilege, class) VALUES($1, $2, $3, $4, $5)",
+                    pool.query("INSERT INTO \"Users\"(user_name, email, password, privilege, class) VALUES($1, $2, $3, $4, $5) RETURNING user_id",
                         [newUser.username, newUser.email, newUser.pass, newUser.roletype, newUser.classnum], (err, result) => {
                             if (err) {
                                 console.error('Error executing query', err.stack);
                                 return res.json("error");
                             }
                             else {
-                                return res.json("registered");
+                                return res.json(result.rows[0]);
                             }
                         }
                     )
@@ -83,10 +83,24 @@ exports.login = async(req, res) => {
               console.error('Error executing query', err.stack)
               return res.json("error");
             }
-            if(result.rows[0].exists == true)
-                return res.json("loggedin");
-            else
-                return res.json("error");
+            else {
+                if(result.rows[0].exists == true) {
+
+                    pool.query("select * from \"Users\" where email=$1 and password=$2 and privilege=$3", 
+                    [user.email, user.pass, user.roletype], (err, result2) => {
+                        if (err) {
+                        console.error('Error executing query', err.stack)
+                        return res.json("error");
+                        }
+                        else {
+                            return res.json(result2.rows[0]);
+                        }
+                    })
+
+                }
+                else
+                    return res.json("error");
+            }
           })
         
 
