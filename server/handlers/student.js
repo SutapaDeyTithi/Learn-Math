@@ -35,7 +35,7 @@ exports.getCategory = async(req, res) => {
 exports.getMCQ = async(req, res) => {
     console.log("Request for mcq");
     try {
-        const newsub=await pool.query("SELECT * FROM \"MCQ\"");
+        const newsub=await pool.query("SELECT * FROM \"MCQS\"");
         console.log(newsub.rows);
         res.json(newsub.rows);
     } catch (error) {
@@ -45,7 +45,7 @@ exports.getMCQ = async(req, res) => {
 exports.getTrueFalse = async(req, res) => {
     console.log("Request for TrueFalse");
     try {
-        const newsub=await pool.query("SELECT * FROM \"True_False\"");
+        const newsub=await pool.query("SELECT * FROM \"True_Falsee\"");
         console.log(newsub.rows);
         res.json(newsub.rows);
     } catch (error) {
