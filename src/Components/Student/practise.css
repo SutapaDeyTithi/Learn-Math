@@ -5,14 +5,14 @@
     position: initial;
     /* z-index: 1; */
     /* padding-top: 4%; */
-    min-height: 125vh;
+    /* min-height: 20vh; */
     
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     
     overflow-x: hidden;
 }
 .middle{
-    height: 90vh;
+    height: 110vh;
     border-style: outset;
     margin-left:1%;
     border-width: 4px;

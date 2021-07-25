@@ -39,6 +39,35 @@ class Cat extends React.Component {
 
 
     };
+    componentDidMount() {
+        fetch("http://localhost:5000/true")
+            .then(res => res.json())
+            .then((result) => {
+                //console.log(result);
+                this.setState({
+                    question: result,
+                    // mcq_options: result.options
+                });
+                console.log(this.state.question);
+            }
+            )
+        //console.log(mcq_options)
+        // .then(res => res.json())
+        // .then(json => this.setState({ question: json,
+        //  mcq_options:json.options}));
+        //     .then(response => response.json())
+        // .then(data => this.setState({ mcq_options: data.options }))
+        // .then(data => this.setState({ question: data }));
+        // const name_arry = this.props.location.state.name.split('//', 3);
+
+        // this.setState({ subtopic_name: name_arry[1] })
+        // this.setState({ topic_name: name_arry[0] })
+        // this.setState({ category_name: name_arry[2] })
+        // this.setState({mcq_options:question.options})
+
+
+
+    }
     show_three_buttons = e => {
         this.setState({ show_buttons: this.state.show_buttons + 1 })
     }
@@ -89,12 +118,13 @@ class Cat extends React.Component {
                                     !this.state.explanation
                                         ? (
                                             <div>
-                                                <h3 >Question 2</h3>
-                                                <p style={{ paddingTop: 20 }}>
-                                                    ( Identify the given statement is True or False )
-                                        <br></br>
-                                        If x = 7 , y = 6 ,then the value of
-                                        16x<sup>2</sup> - 40xy + 25y<sup>2</sup> = 8. </p>
+                                                {/* <h3 >Question 2</h3> */}
+                                                {/* <p style={{ paddingTop: 20 }}> */}
+                                                <Question1 question_no={2} question={this.state.question} />
+                                                {/* <div style={{ marginTop: 50 }}>
+                                                    <h1> {this.state.question.ques_text}</h1>
+                                                </div> */}
+                                                    {/* </p> */}
                                                 <img src={boy} style={{ width: 300 }}></img>
                                             </div>)
                                         : (<div>
@@ -184,6 +214,14 @@ class Cat extends React.Component {
                                         <Calc />
                                     )
                                     : (<h1></h1>)
+                            }
+                            {
+                                
+                                (<Link to="/drag" className="btn btn-primary next-prob"> 
+                                Continue
+                                </Link>
+                                )
+                               
                             }
 
                         </div>

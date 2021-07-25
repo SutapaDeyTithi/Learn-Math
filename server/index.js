@@ -25,7 +25,15 @@ const {
     getTopic,
     getSubtopic,
     getMCQ,
-    getCategory
+    getCategory,
+    getTrueFalse,
+    getTutorial,
+    getProblemsOfWeek,
+    getProblemsOfWeek_s,
+    POTW_ans_upload,
+    POTW_ans_upload_s,
+    Rating_change
+
 } = require("./handlers/student");
 
 const {
@@ -63,6 +71,13 @@ app.get('/topic', getTopic);
 app.get('/subtopic', getSubtopic);
 app.get('/category', getCategory);
 app.get('/mcq', getMCQ);
+app.get('/true',getTrueFalse);
+app.get('/tutorial',getTutorial);
+// app.get('/POTWQuestion',getProblemsOfWeek);
+app.get('/POTWQuestion_s',getProblemsOfWeek_s);
+app.post('/uploadAnsPOTW',POTW_ans_upload);
+app.post('/uploadAnsPOTW_s',POTW_ans_upload_s);
+app.post('/rating_change',Rating_change);
 
 
 // INSTRUCTOR

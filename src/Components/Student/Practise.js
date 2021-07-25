@@ -5,8 +5,7 @@ import Calc from "./Calculator.js"
 import Question1 from './Question1';
 import Options from "./Options"
 import Explain1 from "./Explain1";
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Practise from "../../Resources/Images/practise.png";
 class Cat extends React.Component {
     constructor(props) {
         super(props);
@@ -104,14 +103,22 @@ class Cat extends React.Component {
                 <section id="practise">
                     {/* <h1>{this.props.location.state.name}</h1> */}
                     <div className="row">
-                        <div className="col-md-2 borderright" style={{ textAlign: "center" }}>
-                            <h3 style={{ marginTop: 70 }}>{this.state.category_name}</h3>
+                        <div className="col-md-2 borderright" style={{ textAlign: "center",marginTop:70 }}>
+                            {/* <h3 style={{ marginTop: 70 }}>{this.props.location.state.name}</h3> */}
+                            <img src={Practise} style={{width:100}}/>
                         </div>
                         <div className="col-md-6 borderright" style={{ textAlign: "center" }}>
                             <div className="middle">
                                 {
                                     !this.state.explanation
-                                        ? (<Question1 question_no={1} question={this.state.question} />)
+                                        ? (<div><Question1 question_no={1} question={this.state.question} />
+                                            {this.state.question.map(filteredName => (
+                                                <img src={`../img/${filteredName.figures}.jpg`} style={{width:350,height:300}}/>
+
+                                            ))
+                                            }
+                                            
+                                        </div>)
                                         : (<Explain1 />)
                                 }
 
@@ -126,13 +133,13 @@ class Cat extends React.Component {
 
                         </div>
                         <div className="col-md-3 third " style={{ textAlign: "center" }}>
-                            
+
 
 
                             {
                                 this.state.show_buttons
                                     ? (
-                                        <div style={{marginTop:60}}>
+                                        <div style={{ marginTop: 60 }}>
                                             {
                                                 this.state.op_name === "40"
                                                     ? (<div className="correct">Correct Answer</div>)
@@ -168,11 +175,11 @@ class Cat extends React.Component {
                             }
                             {
                                 this.state.show_buttons
-                                ?(<Link to="/next" className="btn btn-primary next-prob"> 
-                                Continue
-                                </Link>
-                                )
-                                :(<h1></h1>)
+                                    ? (<Link to="/next" className="btn btn-primary next-prob">
+                                        Continue
+                                    </Link>
+                                    )
+                                    : (<h1></h1>)
                             }
                             {
                                 this.state.index

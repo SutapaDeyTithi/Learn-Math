@@ -11,6 +11,7 @@ import Footer from "./Components/Footer/Footer2";
 import Topic from "./Components/Student/Topic";
 import Sub from "./Components/Student/Sub";
 import Cat from "./Components/Student/Category";
+import Drag_Drop from "./Components/Student/drag_drop";
 // ei sign in register ektu upore tulchilam, eksathe rakhar jonno, eta shorale css noshto hoye jay :3
 // don't touch here
 import Signin from "./Components/Signin/Signin";
@@ -23,6 +24,10 @@ import Tutorial_sub from "./Components/Student/Tutorial_sub"
 import Video from "./Components/Student/Video"
 import Profile from "./Components/Student/Profile";
 import Next from "./Components/Student/next_q";
+import Ready from "./Components/Student/pretest_consent";
+import Test from "./Components/Student/test"
+import Problem from "./Components/Student/Problem_of_the_week"
+import POTW_Questions from "./Components/Student/problem_of_the_week_test"
 
 // INSTRUCTOR
 import PracticeProblems from './Components/Instructor/PracticeProblems';
@@ -117,6 +122,7 @@ class App extends Component {
                                     */}
                                     {this.state.isSignedIn ?
                                       <div>
+                                        <div>
                                         <Route path="/authHome" component={Topic}/>
                                         <Route path="/subtopic" component={Sub} />
                                         <Route path="/category" component={Cat} />
@@ -126,6 +132,12 @@ class App extends Component {
                                         <Route path="/video" component={Video} />
                                         <Route path="/profile" component={Profile}/>
                                         <Route path="/next" component={Next}/>
+                                        <Route path="/drag" component={Drag_Drop}/>
+                                        <Route path="/test_consent_page" component={Ready}/>
+                                        <Route path="/test" component={Test}/>
+                                        <Route path="/problem_of_the_week" component={Problem}/>
+                                        <Route path="/problem_of_the_week_begin" component={POTW_Questions}/>
+                                      </div>
                                       </div>
                                     :
                                       <div></div>

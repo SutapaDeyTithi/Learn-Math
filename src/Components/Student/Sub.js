@@ -34,7 +34,7 @@ class Sub extends React.Component {
                     <h3 className="subtopics">Related Subtopics <img src={subtopic_img} /></h3>
                     <div className="box">
                         <div className="row">
-                            {this.state.subtopic_array.filter(el => el.topicname == this.props.location.state.name).map(filteredName => (
+                            {this.state.subtopic_array.filter(el => el.topic_id == this.props.location.state.name).map(filteredName => (
 
                                 <div className="card my-card" >
 
@@ -45,7 +45,7 @@ class Sub extends React.Component {
                                                 to={{
                                                     pathname: "/category" ,
                                                     state: {
-                                                        name: filteredName.topicname + "//" + filteredName.subtopic_name
+                                                        name: filteredName.topic_id + "//" + filteredName.subtopic_id
                                                     }
                                                 }}>{filteredName.subtopic_name}</Link>
 

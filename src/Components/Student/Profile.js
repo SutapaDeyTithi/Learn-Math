@@ -64,7 +64,7 @@ class Profile extends Component {
                 {
                     !this.state.mode
                         ? (
-                            <div className="profile_body card">
+                            <div className="profile_body card" style={{borderStyle:"outset",borderColor:"green"}}>
                                 <div className="contents">
 
                                     <h6><AccountBoxOutlinedIcon /> {this.state.name} <EditIcon style={{ marginLeft: 350 }} onClick={this.edit} /></h6>

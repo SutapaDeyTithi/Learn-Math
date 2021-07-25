@@ -40,7 +40,7 @@ class topic extends Component {
     }
     componentDidMount() {
         
-        fetch("http://localhost:5000/")
+        fetch("http://localhost:5000/topic")
             .then(res => res.json())
             .then(json => this.setState({ topic_array: json }));
         
@@ -50,7 +50,7 @@ class topic extends Component {
         this.setState({ topic: e.target.value });
 
         this.setState({ clicked_topic: 1 });
-        fetch("http://localhost:5000/topic")
+        fetch("http://localhost:5000/subtopic")
             .then(res => res.json())
             .then(json => this.setState({ data: json }));
 
@@ -60,7 +60,7 @@ class topic extends Component {
         this.setState({ subtopic: e.target.value });
 
         this.setState({ clicked_subtopic: this.clicked_subtopic + 1 });
-        fetch("http://localhost:5000/subtopic")
+        fetch("http://localhost:5000/category")
             .then(res => res.json())
             .then(json => this.setState({ category: json }));
 
@@ -113,7 +113,7 @@ class topic extends Component {
                                         <Link className="link"
                                             to={{
                                                 pathname: "/tutorial_sub",
-                                                state: { name: "Algebra" }
+                                                state: { name: 1 }
                                             }}
                                         >Algebra</Link>
                                         {/* <Sub name="sudipa"/> */}
@@ -130,7 +130,7 @@ class topic extends Component {
                                             to={{
                                                 pathname: "/tutorial_sub",
                                                 state: {
-                                                    name: "Number Theory"
+                                                    name: 4
                                                 }
                                             }}>Number Theory
                                         </Link>
@@ -147,7 +147,7 @@ class topic extends Component {
                                             to={{
                                                 pathname: "/tutorial_sub",
                                                 state: {
-                                                    name: "Geometry"
+                                                    name: 2
                                                 }
                                             }}>Geometry</Link>
                                     </p>
@@ -162,7 +162,7 @@ class topic extends Component {
                                             to={{
                                                 pathname: "/tutorial_sub",
                                                 state: {
-                                                    name: "BrainTeaser"
+                                                    name: 3
                                                 }
                                             }}>BrainTeaser</Link>
                                     </p>
@@ -258,9 +258,9 @@ class topic extends Component {
                                 <div className="radio-buttons">
                                     {this.state.topic_array.map(filteredName => (
                                         <li className="none">
-                                            <input type="radio" className="check" name="platform" value={filteredName.topicname}
+                                            <input type="radio" className="check" name="platform" value={filteredName.topic_id}
                                                 onChange={this.handleChange} />
-                                            {filteredName.topicname}
+                                            {filteredName.topic_name}
                                         </li>
 
                                     ))
@@ -308,12 +308,12 @@ class topic extends Component {
                                 ? (
 
                                     <div>
-
+                                        {/* <h1>{this.state.topic}</h1> */}
                                         <div className="simple">Subtopic</div>
                                         <div className="simplee radio-buttons">
-                                            {this.state.data.filter(el => el.topicname == this.state.topic).map(filteredName => (
+                                            {this.state.data.filter(el => el.topic_id == this.state.topic).map(filteredName => (
                                                 <li className="none">
-                                                    <input type="radio" className="check" name="platform" value={filteredName.subtopic_name}
+                                                    <input type="radio" className="check" name="platform" value={filteredName.subtopic_id}
                                                         onChange={this.handleChange_sub} />
                                                     {filteredName.subtopic_name}
                                                 </li>

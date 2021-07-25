@@ -36,17 +36,18 @@ class Cat extends React.Component {
             <div>
 
                 <section id="category">
-                    { }
+                    
+
                     <h3 >Category      <img className="cat_pic" src={category_pic} /></h3>
                     <div className="box">
                         {/* <h1>{this.props.location.state.name}</h1> */}
                         <div className="row">
 
-                            {this.state.category.filter(el => el.sub_name == this.state.subtopic_name).map(filteredName => (
+                            {this.state.category.filter(el => el.subtopic_id == this.state.subtopic_name).map(filteredName => (
 
 
                                 <div className="card my-card" >
-                                    <img src={`../img/${filteredName.cate_name}.jpg`} className="cat_img_all"></img>
+                                    <img src={`../img/${filteredName.category_name}.jpg`} className="cat_img_all"></img>
                                     {/* <img src={gcd} className="all_img"/> */}
                                     <div className="card-body">
                                         <p className="card_text" >
@@ -56,9 +57,9 @@ class Cat extends React.Component {
                                                 to={{
                                                     pathname: "/practise",
                                                     state: {
-                                                        name: this.props.location.state.name+ "//" + filteredName.cate_name
+                                                        name: this.props.location.state.name+ "//" + filteredName.category_name
                                                     }
-                                                }}>{filteredName.cate_name}</Link>
+                                                }}>{filteredName.category_name}</Link>
                                         </p>
                                     </div>
                                 </div>
