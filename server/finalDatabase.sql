@@ -176,6 +176,7 @@ Create Table "Question"(
 	created_by   integer
 );
 
+-- change
 CREATE TABLE "MCQ" (
     mcq_id serial not null unique
         constraint mcq_pk
@@ -202,6 +203,7 @@ CREATE TABLE "Fill_Blank" (
     figures oid[]
 );
 
+-- change
 CREATE TABLE "True_False" (
     tf_id serial not null unique
         constraint tf_pk
@@ -216,6 +218,7 @@ CREATE TABLE "True_False" (
     options varchar(255)[2]
 );
 
+-- change
 CREATE TABLE "Match" (
     match_id serial not null unique
         constraint match_pk
@@ -308,18 +311,20 @@ CREATE TABLE "Discussion_answer" (
     upvote integer,
     downvote integer
 );
-
+-- change
 Create Table "Problems_of_the_week"(
 	prb_week_id serial not null unique
         constraint prb_week_pk
             primary key,
 	contest_name varchar(255),
 	contest_date date,
-	creators_id integer[],
+	creator_id integer,
 	time_length varchar(255),
 	questions_id integer[],
 	total_participants integer,
-	participants_rank integer[]
+	participants_rank integer[],
+    exam_id integer,
+    this_week int DEFAULT 0
 );
 
 -- insert some data
@@ -346,6 +351,7 @@ Insert into "Question"(category_id, ques_type) VALUES (1, 1);
 Insert into "MCQ"(question_id, ques_text, options) Values(1,'Hablu and Dablu are two friends. One day they were playing together. While playing Hablu said that he had considered two numbers. Sum of them is 160 and one is three times of other. He challenged Dablu to correctly identify the numbers. Can you help him?','{40,50,60,70}');
 
 -- NEW TABLES 
+-- change
 create table "ExamQuestion"
 (
     question_id        serial not null primary key,
@@ -371,6 +377,7 @@ create table "ExamQuestion"
 Insert into "ExamQuestion"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) 
 Values('Circle', 'Regular Exam', 'level 3', 'question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation"},{"marks": 2.3}]');
 
+-- change
 create table "ExamAnswer"
 (
     question_id        serial not null,

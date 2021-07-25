@@ -526,3 +526,139 @@ exports.uploadRevisedQues = async(req, res) => {
     }
     );
 }
+
+exports.infoProblemWeek = async(req, res) => {
+    const status = 1;
+    try {
+        pool.query("SELECT * FROM \"Problems_of_the_week\" WHERE this_week = $1",
+        [status], (err, result) => {
+            if (err) {
+                console.error('Error executing query', err.stack);
+                return res.json("error");
+            }
+            else {
+                // search for subtopics under this topic id
+                const POW = result.rows;
+                console.log("POW --> ", POW);
+                return res.json(POW);
+            }
+        });
+    } catch (error) { 
+        console.log(error);  
+        return res.json(error);     
+    }
+}
+
+exports.contributionIn = async(req, res) => {
+    try {
+        pool.query("SELECT * FROM \"Users\"",
+        [], (err, result) => {
+            if (err) {
+                console.error('Error executing query', err.stack);
+                return res.json("error");
+            }
+            else {
+                const users = result.rows;
+                // console.log("users --> ", users);
+                for(var i = 0; i<users.length; i++) {
+                    const userID = users[i].user_id;
+                    var contri = 0;
+                    pool.query("SELECT COUNT(*) FROM \"Question\" WHERE created_by=$1 AND ques_status=1",
+                        [userID], (err, result) => {
+                            if (err) {
+                                console.error('Error executing query', err.stack);
+                                return res.json("error");
+                            }
+                            else {
+                                // console.log(result.rows[0].count)
+                                contri = contri + parseInt(result.rows[0].count);
+
+                                pool.query("SELECT COUNT(*) FROM \"ExamQuestion\" WHERE created_by=$1 AND ques_status=1",
+                                [userID], (err, result2) => {
+                                    if (err) {
+                                        console.error('Error executing query', err.stack);
+                                        return res.json("error");
+                                    }
+                                    else {
+                                        // console.log(result.rows[0].count)
+                                        contri = contri +  parseInt(result2.rows[0].count);
+
+
+                                        pool.query("SELECT COUNT(*) FROM \"Tutorial\" WHERE created_by=$1 AND tutorial_status=1",
+                                        [userID], (err, result3) => {
+                                            if (err) {
+                                                console.error('Error executing query', err.stack);
+                                                return res.json("error");
+                                            }
+                                            else {
+                                                // console.log(result.rows[0].count)
+                                                contri = contri +  parseInt(result3.rows[0].count);
+
+                                                pool.query("SELECT COUNT(*) FROM \"ExamAnswer\" WHERE evaluated_by=$1",
+                                                [userID], (err, result4) => {
+                                                    if (err) {
+                                                        console.error('Error executing query', err.stack);
+                                                        return res.json("error");
+                                                    }
+                                                    else {
+                                                        // console.log(result.rows[0].count)
+                                                        contri = contri +  parseInt(result4.rows[0].count);
+
+                                                        // -------------------------- update in users table, contribution
+                                                        pool.query("UPDATE \"Users\" SET contribution=$1 WHERE user_id = $2",
+                                                        [contri, userID], (err, result) => {
+                                                            if (err) {
+                                                                console.error('Error executing query', err.stack);
+                                                                return res.json("error");
+                                                            }
+                                                            else {
+                                                                // return res.json("OK");
+                                                                // console.log(userID, " contributed --> ", contri);
+                                                            }
+                                                        });
+
+
+                                                    }
+                                                });
+
+
+                                            }
+                                        });
+
+
+                                    }
+                                });
+
+
+                            }
+                        });
+
+
+                        if(i+1 == users.length) {
+                            pool.query("SELECT * FROM \"Users\" ORDER BY contribution ASC",
+                            [], (err, result) => {
+                                if (err) {
+                                    console.error('Error executing query', err.stack);
+                                    return res.json("error");
+                                }
+                                else {
+                                    // return res.json("OK");
+                                    var newArray = result.rows.slice(0, 4);
+                                    console.log("top contributed --> ", newArray);
+                                    return res.json(newArray);
+                                }
+                            });
+                        }
+                        else {
+                            console.log("top contributed --> ");
+                        }
+
+                }
+            }
+        });
+    } catch (error) { 
+        console.log(error);  
+        return res.json(error);     
+    }
+
+}

@@ -1,0 +1,118 @@
+
+<Grid
+                container
+                spacing={2}
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+                >
+                    <Grid item xs={4} >
+                    {/* <Container className={classes.container}> */}
+                        <Box my={4}>
+                           
+                            {/* <Card className={classes.card}>
+                            <CardActionArea>
+                                <CardMedia
+                                className={classes.media}
+                                image={img1}
+                                title="Contemplative Reptile"
+                                />
+                                <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                Personalised Learning
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                Students practice at their own pace, first filling in gaps in their understanding 
+                                and then accelerating their learning.
+                                </Typography>
+                                <br/>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                                {/* <Button size="small" color="primary">
+                                Share
+                                </Button> */}
+                                {/* <Button size="small" color="primary">
+                                Learn More
+                                </Button>
+                            </CardActions>
+                            </Card>  */}
+
+
+
+                        </Box>
+                    </Grid>
+                    
+                    <Grid item xs={4} >
+                    {/* <Container className={classes.container}> */}
+                        <Box my={4}>
+                           
+                            {/* <Card className={classes.card}>
+                            <CardActionArea>
+                                <CardMedia
+                                className={classes.media}
+                                image={img2}
+                                title="Contemplative Reptile"
+                                />
+                                <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                Quality Content
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                Created by experts, Khan Academy’s library of trusted practice 
+                                and lessons covers math, science, and more. 
+                                Always free for learners and teachers.
+                                </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                                {/* <Button size="small" color="primary">
+                                Share
+                                </Button> */}
+                                {/* <Button size="small" color="primary">
+                                Learn More
+                                </Button>
+                            </CardActions>
+                            </Card>  */}
+
+                        </Box>
+                    </Grid>
+
+                    <Grid item xs={4} >
+                    {/* <Container className={classes.container}> */}
+                        <Box my={4}>
+                           
+                           
+                            {/* <Card className={classes.card}>
+                            <CardActionArea>
+                                <CardMedia
+                                className={classes.media}
+                                image={img3}
+                                title="Contemplative Reptile"
+                                />
+                                <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                Tools to empower teachers
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                With Khan Academy, teachers can identify gaps in their students’ understanding, tailor instruction, 
+                                and meet the needs of every student.
+                                </Typography>
+                                <br/>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions> */}
+                                {/* <Button size="small" color="primary">
+                                Share
+                                </Button> */}
+                                {/* <Button size="small" color="primary">
+                                Learn More
+                                </Button>
+                            </CardActions>
+                            </Card> */}
+
+                        </Box>
+                    </Grid>
+
+                {/* </Container> */}
+            </Grid>

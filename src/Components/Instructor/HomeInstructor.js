@@ -1,16 +1,17 @@
 import React from 'react';
+import axios from "axios";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import Container from "@material-ui/core/Container";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+// import Container from "@material-ui/core/Container";
+// import Card from "@material-ui/core/Card";
+// import CardActionArea from "@material-ui/core/CardActionArea";
+// import CardActions from "@material-ui/core/CardActions";
+// import CardContent from "@material-ui/core/CardContent";
+// import CardMedia from "@material-ui/core/CardMedia";
 // import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
 
@@ -20,6 +21,12 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, 
+    Button
+  } from 'reactstrap';
 
 
 // // / --- Fill Image Card Component Imports --- //
@@ -44,20 +51,20 @@ import avatar4 from "../../Resources/Images/avatar4.jpg";
 
 
 
-// import Button from "./button";
-import {
-    Dialog,
-    Button,
-    FormControl,
-    DialogActions,
-    DialogContent,
-    DialogTitle
-  } from "@material-ui/core/";
+// // import Button from "./button";
+// import {
+//     Dialog,
+//     Button,
+//     FormControl,
+//     DialogActions,
+//     DialogContent,
+//     DialogTitle
+//   } from "@material-ui/core/";
 
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-      maxWidth: 500,
+      minWidth: 500,
     },
     container: {
         display: "flex",
@@ -69,20 +76,20 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: '-10vh',
         padding: theme.spacing(2),
         margin: 'auto',
-        maxWidth: 500,
+        minWidth: 500,
       },
       image: {
-        width: 128,
-        height: 128,
+        minWidth: 128,
+        minHeight: 128,
       },
       img: {
         margin: 'auto',
         display: 'block',
-        maxWidth: '100%',
-        maxHeight: '100%',
+        minWidth: '100%',
+        minHeight: '100%',
       },
-      Card: {
-        maxWidth: 500,
+      Card2: {
+        minWidth: 500,
         minHeight: 1000,
       },
     
@@ -109,11 +116,42 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
     const classes = useStyles();
-    // const theme = useTheme();
+    const [pow, setPow] = React.useState({contest_name: "Not Available"});
+    const [top, setTop] = React.useState(null);
+    const [showing, setShowing] = React.useState(false);
+    const theme = useTheme();
+
+    const OpenPOW = () => {
+    // axios.get(`http://localhost:5000/infoProblemWeek`)
+    //   .then(res => {
+    //       setPow(res.data);
+    //       setShowing(true);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    // });
+    }
+
+    const loadTopContributors = () => {
+        axios.get(`http://localhost:5000/contributionIn`)
+        .then(res => {
+            // console.log("loading top contributors")
+            setTop(res.data);
+            setShowing(true);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    const HideTopContributors = () => {
+        setShowing(false);
+    }
+
     return (
         <>
             <main>
-                <section id="home">
+                <section id="home2">
                     <div className="container-fluid">
                     <div className="firstPage">
                     <Grid
@@ -124,13 +162,30 @@ export default () => {
                     alignItems="flex-start"
                     >
                     <Grid item xs={9}>
-                    <Typography variant="h5" gutterBottom align="left">
+
+                    {
+                        !showing &&
+                        <Button style={{minWidth: '12em'}} 
+                        onClick={loadTopContributors}
+                        >Show Top Contributors</Button>
+                    }
+                    
+                    {
+                        showing &&
+                        <Button style={{minWidth: '12em'}} 
+                        onClick={HideTopContributors}
+                        >Hide Top Contributors</Button>
+                    }
+
+                    <Typography variant="h5" gutterBottom align="left" style={{marginTop: '2em'}}>
                         Top Contributors 
                     </Typography> 
 
                     <GridList className={classes.gridList} cols={2.5}>
-                       
-                        <GridListTile >
+
+                    {
+                    showing &&
+                            <GridListTile >
                             <img src={avatar1} alt="Instructor" />
                             <GridListTileBar
                             title="Instructor"
@@ -145,6 +200,10 @@ export default () => {
                             }
                             />
                         </GridListTile>
+                    }
+                    {showing &&
+                        
+                            
                         <GridListTile >
                             <img src={avatar2} alt="Instructor" />
                             <GridListTileBar
@@ -160,6 +219,8 @@ export default () => {
                             }
                             />
                         </GridListTile>
+                    }
+                    {showing &&
                         <GridListTile >
                             <img src={avatar3} alt="Instructor" />
                             <GridListTileBar
@@ -175,6 +236,8 @@ export default () => {
                             }
                             />
                         </GridListTile>
+                    }
+                    {showing &&
                         <GridListTile >
                             <img src={avatar4} alt="Instructor" />
                             <GridListTileBar
@@ -190,6 +253,14 @@ export default () => {
                             }
                             />
                         </GridListTile>
+                    }
+
+                    
+                       
+                        
+
+
+
 
                     </GridList>
                         </Grid>
@@ -211,29 +282,24 @@ export default () => {
                                 />
                             <br/> <br/>
                             <Box>
-                            {/* <Typography variant="h6" paragraph align="center">
-                            Original
-                            </Typography> */}
-                            <Card className={classes.card}>
-                            <CardActionArea>
-                                <CardMedia
-                                className={classes.media}
-                                image={quiz}
-                                title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                <Typography gutterBottom variant="h6" component="h2">
-                                Upcoming Problem of the Week
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                All About Circle
-                                </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
+                         
+                           
+
+                            <Card style={{minWidth: '15em'}}>
+                                <CardImg top width="100%" src={quiz} alt="Card image cap" />
+                                <CardBody>
+                                <CardTitle tag="h5">Upcoming Problem Of the Week</CardTitle>
+
                             
-                            </CardActions>
+                                <Button style={{minWidth: '7em'}} 
+                                onClick={OpenPOW}
+                                >Go to</Button>
+                                </CardBody>
                             </Card>
+
+
+
+
                         </Box>
                              {/* </CardContent> */}
                             {/* </Card> */}
@@ -241,138 +307,15 @@ export default () => {
                         </Grid>
                         </div>
 
-                            <div className='row2nd'>
-                            {/* <Card className={classes.card}> */}
-                            {/* <CardContent> */}
+                            {/* <div className='row2nd'>
+                    
                                 <Typography variant="h4" gutterBottom>
                                     See What We're About
                                 </Typography>
-                            {/* </CardContent> */}
-                            {/* </Card> */}
+                          
+                            </div>  */}
 
-                            
-                            {/* <Button variant="outlined" color="primary">
-                                Get Started
-                            </Button> */}
-                        </div> 
-
-                <Grid
-                container
-                spacing={2}
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
-                >
-                    <Grid item xs={4} >
-                    {/* <Container className={classes.container}> */}
-                        <Box my={4}>
-                            {/* <Typography variant="h6" paragraph align="center">
-                            Original
-                            </Typography> */}
-                            <Card className={classes.card}>
-                            <CardActionArea>
-                                <CardMedia
-                                className={classes.media}
-                                image={img1}
-                                title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                Personalised Learning
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                Students practice at their own pace, first filling in gaps in their understanding 
-                                and then accelerating their learning.
-                                </Typography>
-                                <br/>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                {/* <Button size="small" color="primary">
-                                Share
-                                </Button> */}
-                                <Button size="small" color="primary">
-                                Learn More
-                                </Button>
-                            </CardActions>
-                            </Card>
-                        </Box>
-                    </Grid>
-                    
-                    <Grid item xs={4} >
-                    {/* <Container className={classes.container}> */}
-                        <Box my={4}>
-                            {/* <Typography variant="h6" paragraph align="center">
-                            Original
-                            </Typography> */}
-                            <Card className={classes.card}>
-                            <CardActionArea>
-                                <CardMedia
-                                className={classes.media}
-                                image={img2}
-                                title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                Quality Content
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                Created by experts, Khan Academy’s library of trusted practice 
-                                and lessons covers math, science, and more. 
-                                Always free for learners and teachers.
-                                </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                {/* <Button size="small" color="primary">
-                                Share
-                                </Button> */}
-                                <Button size="small" color="primary">
-                                Learn More
-                                </Button>
-                            </CardActions>
-                            </Card>
-                        </Box>
-                    </Grid>
-
-                    <Grid item xs={4} >
-                    {/* <Container className={classes.container}> */}
-                        <Box my={4}>
-                            {/* <Typography variant="h6" paragraph align="center">
-                            Original
-                            </Typography> */}
-                            <Card className={classes.card}>
-                            <CardActionArea>
-                                <CardMedia
-                                className={classes.media}
-                                image={img3}
-                                title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                Tools to empower teachers
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                With Khan Academy, teachers can identify gaps in their students’ understanding, tailor instruction, 
-                                and meet the needs of every student.
-                                </Typography>
-                                <br/>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                {/* <Button size="small" color="primary">
-                                Share
-                                </Button> */}
-                                <Button size="small" color="primary">
-                                Learn More
-                                </Button>
-                            </CardActions>
-                            </Card>
-                        </Box>
-                    </Grid>
-
-                {/* </Container> */}
-            </Grid>
+                
             </div>
             </section>
             </main>
