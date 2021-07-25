@@ -35,6 +35,8 @@ import CreateTutorial from './Components/Instructor/CreateTutorial';
 import ExamCorner from './Components/Instructor/ExamCorner1';
 import ExamCorner2 from './Components/Instructor/ExamCorner2';
 import InstructorHome from './Components/Instructor/HomeInstructor';
+import EditProfile from "./Components/Instructor/editProfile";
+
 
 
 class App extends Component {
@@ -155,6 +157,7 @@ class App extends Component {
                                                   <Route path="/createPracticeProblems" render={(props) => <PracticeProblems user_id={this.state.user_id} {...props} />} />
                                                   {/* <Route path="/examCorner" component = {ExamCorner2} /> */}
                                                   <Route path="/examCorner" render={(props) => <ExamCorner2 user_id={this.state.user_id} {...props} />} />
+                                                  <Route path="/profile" render={(props) => <EditProfile user_id={this.state.user_id} {...props} />} />
                                               </div>
                                             :
                                             <div>

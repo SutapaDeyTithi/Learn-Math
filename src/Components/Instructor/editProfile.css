@@ -1,0 +1,54 @@
+.profile{
+    text-align: left;
+    /* position: relative; */
+    position: initial;
+    z-index: 1;
+    padding-top: 5%;
+    min-height: 125vh;
+    
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    min-width: initial;
+    overflow-x: hidden;
+}
+.profile_body{
+    height: 52vh;
+    border-style: solid;
+    margin-left:1%;
+    border-width: 1px;
+    margin-right: 1%;
+    border-radius: 5px;
+    width:600px;
+    margin-left: 20%;
+    margin-top: 4%;
+    
+}
+.profile_body2{
+    height: 55vh;
+    border-style: solid;
+    margin-left:1%;
+    border-width: 1px;
+    margin-right: 1%;
+    border-radius: 5px;
+    width:600px;
+    margin-left: 20%;
+    margin-top: 4%;
+    
+}
+.contents{
+    margin-top: 25px;
+    margin-left: 20px;
+}
+.custom{
+    width:70px;
+    height:40px;
+    margin-left: 250px;
+    margin-top: 30px;
+    
+}
+.next_prob{
+    width:90px;
+    height:30px;
+    border-radius: 4px;
+    margin-top:100px;
+    margin-left: 300px;
+}

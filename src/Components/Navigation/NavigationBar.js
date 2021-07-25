@@ -91,7 +91,7 @@ class NavigationBar extends Component {
                             <Nav className="ml-auto" navbar>
 
                                 <NavItem>
-                                    <NavLink className="nav-links" to="">
+                                    <NavLink className="nav-links" to="/problem_of_the_week">
                                         Problem of the week
                                     </NavLink>
                                 </NavItem>
@@ -99,7 +99,7 @@ class NavigationBar extends Component {
 
                                 <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
-                                    <NavLink className="nav-links" to="">
+                                    <NavLink className="nav-links" to="/test">
                                         Regular Test
                                     </NavLink>
                                 </NavItem>

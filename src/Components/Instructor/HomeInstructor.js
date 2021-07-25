@@ -22,6 +22,8 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import create_exam from "../../Resources/ImagesInstructor/create_exam.png";
+import Profile from "./editProfile";
+
 
 import {
     Card, CardImg, CardText, CardBody,
@@ -120,6 +122,7 @@ export default () => {
     const [pow, setPow] = React.useState({contest_name: "Not Available"});
     const [top, setTop] = React.useState(null);
     const [showing, setShowing] = React.useState(false);
+    const [showingProfile, setShowingProfile] = React.useState(false);
     const theme = useTheme();
 
     const OpenPOW = () => {
@@ -134,6 +137,7 @@ export default () => {
     }
 
     const loadTopContributors = () => {
+        if(!showingProfile) {
         axios.get(`http://localhost:5000/contributionIn`)
         .then(res => {
             // console.log("loading top contributors")
@@ -143,10 +147,16 @@ export default () => {
         .catch((error) => {
             console.log(error);
         });
+        }  
     }
 
     const HideTopContributors = () => {
         setShowing(false);
+    }
+
+    const viewProfile = () => {
+        setShowing(false);
+        setShowingProfile(true);
     }
 
     return (
@@ -172,14 +182,14 @@ export default () => {
                     }
                     
                     {
-                        showing &&
+                        showing && !showingProfile &&
                         <Button style={{minWidth: '12em'}} 
                         onClick={HideTopContributors}
                         >Hide Top Contributors</Button>
                     }
 
                     {   
-                    showing &&
+                    showing && !showingProfile &&
                         <div>
                              <Typography variant="h5" gutterBottom align="left" style={{marginTop: '2em'}}>
                                 Top Contributors 
@@ -191,7 +201,7 @@ export default () => {
                     <br></br><br></br>
 
                     {
-                    !showing &&
+                    !showing && !showingProfile &&
                         <img src={create_exam} alt="Instructor" style={{maxWidth: '70vh', maxHeight: '70vh'}}/>
                             
                     }
@@ -271,15 +281,11 @@ export default () => {
                         </GridListTile>
                     }
 
-                    
-                       
-                        
-
-
 
 
                     </GridList>
                         </Grid>
+
 
                         
 
@@ -288,11 +294,20 @@ export default () => {
                         <Grid item xs={2} >
                             {/* <Card className={classes.card}> */}
                             {/* <CardContent>  */}
+                            {
+                                !showingProfile &&
+                                <Button style={{minWidth: '12em'}} 
+                                onClick={viewProfile}
+                                >View Profile</Button>
+                            }
+                            {/* <br></br> */}
+
                             <SearchBar
                                 onChange={() => console.log('onChange')}
                                 onRequestSearch={() => console.log('onRequestSearch')}
                                 style={{
                                     margin: '0 auto',
+                                    marginTop: '3em',
                                     maxWidth: 800
                                 }}
                                 />
