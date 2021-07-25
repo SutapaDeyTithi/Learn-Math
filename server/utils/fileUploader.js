@@ -341,12 +341,12 @@ const storageImageWques = multer.diskStorage({
   
 const uploadImageWques = multer({ storage: storageImageWques }); 
 
-module.exports.WquesImage = [uploadImageWques.single('file'), (req, res) => {
+module.exports.WquesImage = [uploadImageWques.single('file'), async(req, res) => {
       const ques_id = req.params.id;
       console.log("ques_id --> ", ques_id);
       console.log("file path", pathWques);
 
-      pool.query("UPDATE \"Match\" SET figure_ques=$2 WHERE question_id=$1",
+      await pool.query("UPDATE \"ExamQuestion\" SET figure_ques=$2 WHERE question_id=$1",
         [ques_id, pathWques], 
             (err, result) => {
                 if (err) {
@@ -354,7 +354,7 @@ module.exports.WquesImage = [uploadImageWques.single('file'), (req, res) => {
                     return res.json("ERROR");
                 }
                 else {
-                    console.log("newMatch figure_ques insterted ");
+                    console.log("Written figure_ques insterted ");
                     return res.json({ status: 'OK', uploaded: true });
                 }
             }

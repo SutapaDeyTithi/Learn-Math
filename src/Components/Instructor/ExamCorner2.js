@@ -107,6 +107,41 @@ class ExamCorner2 extends React.Component {
     this.state.exam_paper.level = e;
   }
 
+  imageUp = (ques_id_list, ques_image, Question, index) => {
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      },
+    }
+
+    // Create an object of formData
+    const formData = new FormData();
+    // Update the formData object
+    formData.append(
+        "file",
+        ques_image,
+    );
+
+
+    axios.post("http://localhost:5000/WquesImage/" + ques_id_list[index] 
+      , formData, config)
+          .then(res => {
+              console.log("Written Ques Image");
+              console.log(res.data);
+
+              if(index < ques_id_list.length) {
+                if(Question.question_array[index+1].ques_image != null) {
+                  this.imageUp(ques_id_list, Question.question_array[index+1].ques_image, Question, index+1);
+                }
+              }
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+
+
+  }
+
   setQuesArray = (e) => {
     // this.setState({exam_paper.question_array: e});
     // console.log("setting exam_level --> ", this.state);
@@ -131,22 +166,16 @@ class ExamCorner2 extends React.Component {
           console.log(ques_id_list);
 
          
-          // Question = this.state.exam_paper;
-          // console.log("Question cleared? ", Question);
-
           //-------------- now upload images
-          for(var count=0; count < Question.question_array.length; count++) {
-            if(Question.question_array[count].ques_image != null) {
-              console.log("upload img for q id --> ", ques_id_list[count]);
-
+            if(Question.question_array[0].ques_image != null) {
+              console.log("upload img for q id --> ", ques_id_list[0], "", Question.question_array[0].ques_image);
+              this.imageUp(ques_id_list, Question.question_array[0].ques_image, Question, 0);
               
             }
             else {
-              console.log("image null..", ques_id_list[count]);
+              console.log("image null..", ques_id_list[0]);
             }
-          }
-
-
+          
 
       })
       .then(res => {

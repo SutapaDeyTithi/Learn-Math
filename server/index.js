@@ -50,7 +50,8 @@ const {
     MCQexplnImage,
     MCQquesImage,
     TFquesImage,
-    MatchquesImage
+    MatchquesImage,
+    WquesImage
 } = require("./utils/fileUploader")
 
 // COMMON
@@ -86,6 +87,7 @@ app.post('/uploadImageMCQques/:id', MCQquesImage);
 app.post('/uploadImageMCQexpln/:id', MCQexplnImage);
 app.post('/uploadImageMatchingques/:id', MatchquesImage);
 app.post('/uploadImageTFques/:id', TFquesImage);
+app.post('/WquesImage/:id', WquesImage);
 
 app.get('/answerPapers', getAnswerPapers);
 app.get('/loadQues/:id', loadQues);
