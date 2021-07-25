@@ -86,11 +86,11 @@ class sideNav extends React.Component {
                     Regrade
                 </NavText>
             </NavItem> */}
-            <NavItem eventKey="Grade Submissions/Graded">
+            {/* <NavItem eventKey="Grade Submissions/Graded">
                 <NavText>
                  Graded
                 </NavText>
-            </NavItem>
+            </NavItem> */}
         </NavItem>
     </SideNav.Nav>
 </SideNav>

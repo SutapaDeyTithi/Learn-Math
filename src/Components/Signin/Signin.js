@@ -14,7 +14,8 @@ class first extends Component {
 
             role: "",
             email:"",
-            pass:""
+            pass:"",
+            error: false
           };
         this.handleChangeStudent = this.handleChangeStudent.bind(this);
         this.handleChangeInstructor = this.handleChangeInstructor.bind(this);
@@ -24,10 +25,25 @@ class first extends Component {
         this.handleChange_role = this.handleChange_role.bind(this);
         this.handleChange_email = this.handleChange_email.bind(this);
         this.handleChange_pass = this.handleChange_pass.bind(this);
+
+        this.setError =  this.setError.bind(this);
+        this.clearError =  this.clearError.bind(this);
+    }
+
+    setError = () => {
+        this.setState({error: true});
+        this.state.error = true;
+    }
+
+    clearError = () => {
+        this.setState({error: false});
+        this.state.error = false;
     }
 
     handleChange_role = () => {
-        console.log("setting role..");
+        this.clearError();
+
+       
         if(this.state.student == true) {
             //this.setState({ role: 'student' });
             this.state.role = 'student';
@@ -77,6 +93,7 @@ class first extends Component {
               console.log('This is your data:\n', data);
               if(data === "error"){
                 console.log('Cannot login!\n');
+                this.setError();
               }
               else
               {
@@ -84,7 +101,10 @@ class first extends Component {
                 this.props.onRouteChange("signedin");
               }
 
-          });
+          })
+          .catch((error) => {
+              this.setError();
+          })
         //this.props.onRouteChange("signedin");             
     }
 
@@ -114,10 +134,12 @@ class first extends Component {
     }
 
     handleChange_email(e) {
+        this.clearError();
         //console.log("Fruit Selected!!");
         this.setState({ email: e.target.value });
     }
     handleChange_pass(e) {
+        this.clearError();
         //console.log("Fruit Selected!!");
         this.setState({ pass: e.target.value });
     }
@@ -151,7 +173,10 @@ class first extends Component {
                         /> 
                         Moderator
                         </p> 
-                        {/* authHome */}
+                        {
+                            this.state.error &&
+                            <h7 style={{color: 'red', marginTop: 2}}> Incorrect fields. try Again. </h7>
+                        }
                         <Link to="/authHome" className="btn btn-primary " onClick={this.handleSubmit}>Submit</Link>
                         <br></br> 
                         <p style={{marginTop:10}}>Don't have an account??   <Link to="/register">Register</Link></p>

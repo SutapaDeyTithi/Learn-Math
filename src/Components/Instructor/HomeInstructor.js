@@ -22,6 +22,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import create_exam from "../../Resources/ImagesInstructor/create_exam.png";
+import teacher from "../../Resources/ImagesInstructor/teacher_avatar.png";
 
 import {
     Card, CardImg, CardText, CardBody,
@@ -166,14 +167,14 @@ export default () => {
 
                     {
                         !showing &&
-                        <Button style={{minWidth: '12em'}} 
+                        <Button color='primary' style={{minWidth: '12em'}} 
                         onClick={loadTopContributors}
                         >Show Top Contributors</Button>
                     }
                     
                     {
                         showing &&
-                        <Button style={{minWidth: '12em'}} 
+                        <Button color='primary' style={{minWidth: '12em'}} 
                         onClick={HideTopContributors}
                         >Hide Top Contributors</Button>
                     }
@@ -204,7 +205,7 @@ export default () => {
                             <GridListTile >
                             <img src={avatar1} alt="Instructor" />
                             <GridListTileBar
-                            title="Instructor"
+                            title={top[0].user_name}
                             classes={{
                                 root: classes.titleBar,
                                 title: classes.title,
@@ -223,7 +224,7 @@ export default () => {
                         <GridListTile >
                             <img src={avatar2} alt="Instructor" />
                             <GridListTileBar
-                            title="Instructor"
+                            title={top[1].user_name}
                             classes={{
                                 root: classes.titleBar,
                                 title: classes.title,
@@ -240,7 +241,7 @@ export default () => {
                         <GridListTile >
                             <img src={avatar3} alt="Instructor" />
                             <GridListTileBar
-                            title="Instructor"
+                            title={top[2].user_name}
                             classes={{
                                 root: classes.titleBar,
                                 title: classes.title,
@@ -257,7 +258,7 @@ export default () => {
                         <GridListTile >
                             <img src={avatar4} alt="Instructor" />
                             <GridListTileBar
-                            title="Instructor"
+                            title={top[3].user_name}
                             classes={{
                                 root: classes.titleBar,
                                 title: classes.title,
@@ -286,13 +287,16 @@ export default () => {
                         <Grid spacing={6}/>
 
                         <Grid item xs={2} >
-                            {/* <Card className={classes.card}> */}
-                            {/* <CardContent>  */}
+                        <Button color='primary' style={{minWidth: '10em'}} 
+                                onClick={OpenPOW}
+                                >View Profile</Button>
+
                             <SearchBar
                                 onChange={() => console.log('onChange')}
                                 onRequestSearch={() => console.log('onRequestSearch')}
                                 style={{
                                     margin: '0 auto',
+                                    marginTop: '3em',
                                     maxWidth: 800
                                 }}
                                 />
@@ -307,9 +311,9 @@ export default () => {
                                 <CardTitle tag="h5">Upcoming Problem Of the Week</CardTitle>
 
                             
-                                <Button style={{minWidth: '7em'}} 
+                                <Button color='primary' style={{minWidth: '10em'}} 
                                 onClick={OpenPOW}
-                                >Go to</Button>
+                                >See More</Button>
                                 </CardBody>
                             </Card>
 

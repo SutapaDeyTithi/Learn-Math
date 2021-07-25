@@ -1,4 +1,9 @@
 const pool=require("../utils/db");
+const {
+    validateSignUpData,
+    validateLoginData,
+    reduceUserDetails,
+  } = require("../utils/validators");
 
 exports.signUp = async(req, res) => {
     console.log("signing up..")
@@ -17,6 +22,12 @@ exports.signUp = async(req, res) => {
         console.log(newUser.pass);
         console.log(newUser.roletype);
         console.log(newUser.classnum);
+
+        const { valid, errors } = validateSignUpData(newUser);
+  
+        if (!valid) {
+          return res.status(400).json(errors);
+        }
 
         // have to check validity
         // const { valid, errors } = validateSignUpData(newUser);
@@ -71,6 +82,12 @@ exports.login = async(req, res) => {
         console.log(user.email);
         console.log(user.pass);
         console.log(user.roletype);
+
+        const { valid, errors } = validateLoginData(user);
+  
+        if (!valid) {
+          return res.status(400).json(errors);
+        }
 
         // have to check validity
         // const { valid, errors } = validateSignUpData(newUser);
