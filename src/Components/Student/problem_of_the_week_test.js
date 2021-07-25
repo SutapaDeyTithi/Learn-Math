@@ -15,13 +15,19 @@ class problem extends React.Component {
             image3: null,
             upload_done: 0,
             index: 0,
-            end: 0,ques_id :0
+            end: 0,ques_id :0,user_id:1,exam_id:0
 
         };
         this.onImageChange = this.onImageChange.bind(this);
         
 
 
+    }
+    getinfos(q){
+        this.setState({
+            ques_id:q.question_id,
+            exam_id:q.exam_id
+        })
     }
     onImageChange = event => {
         if (event.target.files && event.target.files[0]) {
@@ -37,7 +43,7 @@ class problem extends React.Component {
         this.setState({
             upload_done: 1
         })
-        fetch('http://localhost:5000/uploadAnsPOTW', {
+        fetch('http://localhost:5000/uploadAnsPOTW_s', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -45,10 +51,13 @@ class problem extends React.Component {
             },
             body: JSON.stringify({
 
-                email: '1605014_ugrad.cse.buet.ac.bd',
-                image1: this.state.image,
-                contest_name: 'All about circles!',
-                question_id :1
+                // email: '1605014_ugrad.cse.buet.ac.bd',
+                // image1: this.state.image,
+                // contest_name: 'All about circles!',
+                question_id :1,
+                exam_id:1,
+                answer :this.state.image,
+                submitted_by:this.state.user_id
 
             })
         })
@@ -61,7 +70,7 @@ class problem extends React.Component {
         })
     }
     componentDidMount() {
-        fetch("http://localhost:5000/POTWQuestion")
+        fetch("http://localhost:5000/POTWQuestion_s")
             //console.log(res);
             .then(res => res.json())
 
@@ -100,11 +109,12 @@ class problem extends React.Component {
 
                                     {this.state.question.map(filteredName => (
                                         <div>
-                                            <h5>Question 1</h5>
+                                            <h5>Question {filteredName.question_id }</h5>
                                             <hr></hr>
-                                            <h5>{filteredName.q_text}</h5>
+                                            {/* {this.getinfos(filteredName)} */}
+                                            <h5>{filteredName.ques_text}</h5>
 
-                                            <img src={`../img/${filteredName.q_figures}`} style={{ width: 200, height: 200 }} />
+                                            <img src={'http://localhost:5000/'+filteredName.figure_ques} style={{ width: 200, height: 200 }} />
                                         </div>
 
 

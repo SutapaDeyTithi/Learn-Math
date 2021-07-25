@@ -2,6 +2,7 @@ import React from 'react';
 import Rank from "../../Resources/Images/image 92.png";
 import level from "../../Resources/Images/image 93.png";
 import Table_Rating from "./table_rating";
+import axios from 'axios';
 class score extends React.Component {
     constructor(props) {
         super(props);
@@ -11,22 +12,20 @@ class score extends React.Component {
         };
     };
     componentDidMount() {
-        fetch('http://localhost:5000/rating_change', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-
-                u_id :1,
-                level :4,
-                rank :500
-
-            })
-        })
-            .then((response) => response.json())
-
+        const Question = {
+            user_id: 1,
+            level: 5,
+            rank:500
+          };
+          axios.post('http://localhost:5000/rating_change', Question)
+          .then(res => {
+              console.log(res);
+              console.log(res.data);
+    
+             
+              // Question = this.state.exam_paper;
+              // console.log("Question cleared? ", Question);
+          })
 
     }
     render() {

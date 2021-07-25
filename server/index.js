@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 // const pool=require("./utils/db");
 
 // IMPORT MODULES
@@ -20,7 +21,9 @@ const {
     getTrueFalse,
     getTutorial,
     getProblemsOfWeek,
+    getProblemsOfWeek_s,
     POTW_ans_upload,
+    POTW_ans_upload_s,
     Rating_change
 
 } = require("./handlers/student");
@@ -43,8 +46,10 @@ app.get('/category', getCategory);
 app.get('/mcq', getMCQ);
 app.get('/true',getTrueFalse);
 app.get('/tutorial',getTutorial);
-app.get('/POTWQuestion',getProblemsOfWeek);
+// app.get('/POTWQuestion',getProblemsOfWeek);
+app.get('/POTWQuestion_s',getProblemsOfWeek_s);
 app.post('/uploadAnsPOTW',POTW_ans_upload);
+app.post('/uploadAnsPOTW_s',POTW_ans_upload_s);
 app.post('/rating_change',Rating_change);
 
 // INSTRUCTOR

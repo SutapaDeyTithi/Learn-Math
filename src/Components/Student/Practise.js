@@ -114,7 +114,6 @@ class Cat extends React.Component {
                                         ? (<div><Question1 question_no={1} question={this.state.question} />
                                             {this.state.question.map(filteredName => (
                                                 <img src={`../img/${filteredName.figures}.jpg`} style={{width:350,height:300}}/>
-                                                
 
                                             ))
                                             }
