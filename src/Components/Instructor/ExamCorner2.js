@@ -20,6 +20,7 @@ class ExamCorner2 extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+        user_id: '',
         nav_selected: '',
         popup: true,
         saved: false,
@@ -53,6 +54,12 @@ class ExamCorner2 extends React.Component {
 
       this.reviseNow = this.reviseNow.bind(this);
       this.closeRevise = this.closeRevise.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({user_id: this.props.user_id});
+    this.state.user_id = this.props.user_id;
+    console.log("user id --> ", this.state.user_id);
   }
 
   handleSelected = (selected) => {
@@ -110,6 +117,7 @@ class ExamCorner2 extends React.Component {
 
     if(this.state.exam_paper != null) {
       const Question = {
+        user_id: this.state.user_id,
         level: this.state.exam_level,
         type: this.state.exam_type,
         title: this.state.exam_title,
@@ -307,7 +315,7 @@ class ExamCorner2 extends React.Component {
                     <div id="grade">     
                       {/* <h5>Grade Answer Paper</h5> */}
                       {/* {console.log("nav_selected --> ", this.state.nav_selected)} */}
-                        <Gradenew />
+                        <Gradenew user_id={this.state.user_id}/>
                     </div>
                     :
                     <div>

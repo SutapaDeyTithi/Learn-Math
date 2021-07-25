@@ -14,6 +14,7 @@ class PracticeProblem extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_id: '',
             create_new_ques: false,
             topic: "Topic",
             subtopic: "Subtopic",
@@ -85,6 +86,11 @@ class PracticeProblem extends Component {
     }
 
     componentDidMount() {
+        this.setState({user_id: this.props.user_id});
+        this.state.user_id = this.props.user_id;
+        console.log("user id --> ", this.state.user_id);
+
+
         fetch("http://localhost:5000/topic")
             .then(res => res.json())
             .then(json => this.setState({ topic_array: json }));
@@ -165,6 +171,7 @@ class PracticeProblem extends Component {
         && this.state.correct_option != '' && this.state.explanation != ''
         ) {
             var ques = {
+                user_id: this.state.user_id,
                 ques_type: this.state.Ques_type,
                 ques_text: this.state.ques_text,
                 option1: this.state.option1, 

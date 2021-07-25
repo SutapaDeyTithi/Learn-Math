@@ -28,6 +28,7 @@ class CreateTutorial extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_id: '',
             create_new_tutorial: false,
             topic: "Topic",
             subtopic: "Subtopic",
@@ -78,6 +79,9 @@ class CreateTutorial extends Component {
     }
 
     componentDidMount() {
+        this.setState({user_id: this.props.user_id});
+        this.state.user_id = this.props.user_id;
+        console.log("user id --> ", this.state.user_id);
 
         fetch("http://localhost:5000/topic")
             .then(res => res.json())
@@ -191,6 +195,7 @@ class CreateTutorial extends Component {
         this.hideWarning();
 
         const Tutorial ={
+            user_id: this.state.user_id,
             topic: this.state.topic,
             subtopic: this.state.subtopic,
             title: this.state.title,

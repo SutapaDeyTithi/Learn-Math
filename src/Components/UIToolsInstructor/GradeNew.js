@@ -16,6 +16,7 @@ class gradeNew extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+        user_id: '',
         unchecked: [],
         grading_one: false,
        
@@ -72,6 +73,10 @@ class gradeNew extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({user_id: this.props.user_id});
+        this.state.user_id = this.props.user_id;
+        console.log("user id --> ", this.state.user_id);
+
         axios.get(`http://localhost:5000/answerPapers`)
         .then(res => {
             console.log(res);
@@ -201,7 +206,7 @@ class gradeNew extends React.Component {
             }
 
             if(this.state.nonnumber == false) {
-                axios.post(`http://localhost:5000/gradeAns`, this.state.answer_paper)
+                axios.post(`http://localhost:5000/gradeAns/`+ this.state.user_id, this.state.answer_paper)
                 .then(res => {
                     console.log("answer graded");
                     console.log(res.data);

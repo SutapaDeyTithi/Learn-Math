@@ -9,6 +9,7 @@ exports.uploadQues = async(req, res) => {
 
     if(req.body.Question.ques_type == 'MCQ') {
         const Question = {
+            user_id: req.body.Question.user_id,
             ques_type: req.body.Question.ques_type,
             ques_text: req.body.Question.ques_text,
             option1: req.body.Question.option1, 
@@ -33,8 +34,8 @@ exports.uploadQues = async(req, res) => {
                 else {
                     const id = result.rows[0].category_id;
     
-                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
-                    [1, id, 0], (err, result) => {
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by) VALUES($1, $2, $3, $4) RETURNING question_id",
+                    [1, id, 0, Question.user_id], (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
@@ -74,6 +75,7 @@ exports.uploadQues = async(req, res) => {
     }
     else if(req.body.Question.ques_type == 'Matching') {
         const Question = {
+            user_id: req.body.Question.user_id,
             ques_type: req.body.Question.ques_type,
             ques_text1: req.body.Question.ques_text1,
             ques_text2: req.body.Question.ques_text2,
@@ -94,8 +96,8 @@ exports.uploadQues = async(req, res) => {
                 else {
                     const id = result.rows[0].category_id;
     
-                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
-                    [1, id, 0], (err, result) => {
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by) VALUES($1, $2, $3, $4) RETURNING question_id",
+                    [1, id, 0, Question.user_id], (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
@@ -136,6 +138,7 @@ exports.uploadQues = async(req, res) => {
     }
     else if(req.body.Question.ques_type == 'True/False') {
         const Question = {
+            user_id: req.body.Question.user_id,
             ques_type: req.body.Question.ques_type,
             ques_text: req.body.Question.ques_text,
             ans_text: req.body.Question.is_true,
@@ -155,8 +158,8 @@ exports.uploadQues = async(req, res) => {
                 else {
                     const id = result.rows[0].category_id;
     
-                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status) VALUES($1, $2, $3) RETURNING question_id",
-                    [1, id, 0], (err, result) => {
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by) VALUES($1, $2, $3, $4) RETURNING question_id",
+                    [1, id, 0, Question.user_id], (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
@@ -293,6 +296,7 @@ exports.getCategory_from_a_subtopic = async(req, res) => {
 exports.uploadTutorial = async(req, res) => {
     console.log("Uploading Tutorial..");
     const Tutorial = {
+        user_id: req.body.user_id,
         subtopic_name: req.body.subtopic,
         title: req.body.title,
         about: req.body.about,
@@ -315,8 +319,8 @@ exports.uploadTutorial = async(req, res) => {
 
             // insert question paper into database
             var tutorial_id;
-            pool.query("Insert into \"Tutorial\"(subtopic_id, tutorial_title, about, tutorial_text) VALUES($1, $2, $3, $4) RETURNING tutorial_id",
-            [subtopic_id, Tutorial.title, Tutorial.about, JSON.stringify(Tutorial.text)], 
+            pool.query("Insert into \"Tutorial\"(subtopic_id, tutorial_title, about, tutorial_text, created_by) VALUES($1, $2, $3, $4, $5) RETURNING tutorial_id",
+            [subtopic_id, Tutorial.title, Tutorial.about, JSON.stringify(Tutorial.text), Tutorial.user_id], 
             (err, result) => {
                 if (err) {
                     console.error('Error executing query', err.stack);
@@ -348,8 +352,8 @@ exports.uploadWrittenQues = async(req, res) => {
         var exam_id;
 
         // insert question paper into database
-        exam_id = await pool.query("Insert into \"ExamQuestion\"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) VALUES($1, $2, $3, $4, $5, $6) RETURNING exam_id",
-        [Question.title, Question.type, Question.level, Question.question_array[0].ques_text, Question.question_array[0].ans_text, JSON.stringify(Question.question_array[0].rubrik)], 
+        exam_id = await pool.query("Insert into \"ExamQuestion\"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik, created_by, ques_status) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING exam_id",
+        [Question.title, Question.type, Question.level, Question.question_array[0].ques_text, Question.question_array[0].ans_text, JSON.stringify(Question.question_array[0].rubrik), Question.user_id, 0], 
         (err, result) => {
             if (err) {
                 console.error('Error executing query', err.stack);
@@ -368,8 +372,8 @@ exports.uploadWrittenQues = async(req, res) => {
                     // }
         
                     // insert question paper into database
-                    pool.query("Insert into \"ExamQuestion\"(exam_id, exam_title, exam_type, exam_level, ques_text, ans_text, rubrik) VALUES($1, $2, $3, $4, $5, $6, $7)",
-                    [exam_id, Question.title, Question.type, Question.level, Question.question_array[i].ques_text, Question.question_array[i].ans_text, JSON.stringify(Question.question_array[i].rubrik)], 
+                    pool.query("Insert into \"ExamQuestion\"(exam_id, exam_title, exam_type, exam_level, ques_text, ans_text, rubrik, created_by, ques_status) VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+                    [exam_id, Question.title, Question.type, Question.level, Question.question_array[i].ques_text, Question.question_array[i].ans_text, JSON.stringify(Question.question_array[i].rubrik), Question.user_id, 0], 
                     (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
@@ -451,6 +455,9 @@ exports.loadQues = async(req, res) => {
 
 
 exports.gradeAns = async(req, res) => {
+    const user_id = req.params.id;
+    console.log("graded by --> ", user_id);
+
     const answer_id = req.body.answer_id;
     const rubrik = req.body.rubrik;
     console.log("inserting grades for answer id ", answer_id);
@@ -458,8 +465,8 @@ exports.gradeAns = async(req, res) => {
 
     const status = 1;
     try {
-            pool.query("UPDATE \"ExamAnswer\" SET rubrik=$1, answer_status=$2 WHERE answer_id = $3",
-            [JSON.stringify(rubrik), status, answer_id], (err, result) => {
+            pool.query("UPDATE \"ExamAnswer\" SET rubrik=$1, answer_status=$2, evaluated_by=$4 WHERE answer_id = $3",
+            [JSON.stringify(rubrik), status, answer_id, user_id], (err, result) => {
                 if (err) {
                     console.error('Error executing query', err.stack);
                     return res.json("error");

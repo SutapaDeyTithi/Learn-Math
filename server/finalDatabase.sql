@@ -166,13 +166,13 @@ Create Table "Question"(
             references "Category"
             on update cascade on delete cascade,
 	ques_type   integer not null,
-    ques_status integer,
+    ques_status integer DEFAULT 0,
     ques_pattern integer,
 	level integer,
-	attempt integer,
-	success integer,
-	upvote integer,
-	downvote integer,
+	attempt integer DEFAULT 0,
+	success integer DEFAULT 0,
+	upvote integer DEFAULT 0,
+	downvote integer DEFAULT 0,
 	created_by   integer
 );
 

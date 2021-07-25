@@ -83,7 +83,7 @@ app.post('/uploadImageMCQexpln/:id', MCQexplnImage);
 
 app.get('/answerPapers', getAnswerPapers);
 app.get('/loadQues/:id', loadQues);
-app.post('/gradeAns', gradeAns);
+app.post('/gradeAns/:id', gradeAns);
 app.get('/loadForwaredQues', loadForwaredQues);
 app.post('/uploadRevisedQues', uploadRevisedQues);
 
