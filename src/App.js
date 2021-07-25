@@ -82,7 +82,7 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <Route 
-                      path="" 
+                      // exact path="" 
                       render={(props) => ( 
                           <Navigation
                             isSignedIn={this.state.isSignedIn} 

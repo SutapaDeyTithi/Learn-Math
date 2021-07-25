@@ -211,7 +211,8 @@ CREATE TABLE "True_False" (
             references "Question"
             on update cascade on delete cascade,
     ques_text text,
-    figures oid[],
+    figure_ques text,
+    figure_explanation text,
     options varchar(255)[2]
 );
 
@@ -223,8 +224,10 @@ CREATE TABLE "Match" (
 	    constraint fk_question
             references "Question"
             on update cascade on delete cascade,
-    ques_text text,
-    figures oid[],
+    ques_left text,
+    ques_right text,
+    figure_ques text,
+    figure_explanation text,
     left_options varchar(255)[],
     right_options varchar(255)[]
 );

@@ -145,7 +145,7 @@ class ExamCorner2 extends React.Component {
     
 
     // ask server to send contents that require modifications
-    axios.get(`http://localhost:5000/loadForwaredQues`)
+    axios.get(`http://localhost:5000/loadForwaredQues/`+this.state.user_id)
       .then(res => {
           this.setState({forwardedQ: res.data});
           this.state.forwardedQ = res.data;

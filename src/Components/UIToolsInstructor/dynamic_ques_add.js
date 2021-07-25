@@ -121,6 +121,9 @@ export default function FloatingActionButtonZoom(props) {
 
   // handle input change
   const handleRubrikChange = (e, index, type, quesNo) => {
+    setRubrikEmpty(0);
+    setRubrikMarksNumber(1);
+
     const list = [...rubrikList];
    if(list[quesNo]["rubrik"][index] == null )
    list[quesNo]["rubrik"].push({ breakpoint: "", marks: "", index: ""});

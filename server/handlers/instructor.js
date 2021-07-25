@@ -19,6 +19,7 @@ exports.uploadQues = async(req, res) => {
             ans_text: req.body.Question.ans_text,
             explanation: req.body.Question.explanation,
             category: req.body.Question.category, 
+            difficulty_level: req.body.Question.difficulty_level
             // ques_fig: req.body.Question.ques_figure
         }
         // console.log(Question.ques_fig);
@@ -34,8 +35,8 @@ exports.uploadQues = async(req, res) => {
                 else {
                     const id = result.rows[0].category_id;
     
-                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by) VALUES($1, $2, $3, $4) RETURNING question_id",
-                    [1, id, 0, Question.user_id], (err, result) => {
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by, level) VALUES($1, $2, $3, $4, $5) RETURNING question_id",
+                    [1, id, 0, Question.user_id, Question.difficulty_level], (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
@@ -82,6 +83,7 @@ exports.uploadQues = async(req, res) => {
             ans_text: 'matching',
             explanation: req.body.Question.explanation,
             category: req.body.Question.category, 
+            difficulty_level: req.body.Question.difficulty_level
             // ques_fig: req.body.Question.ques_figure
         }
         console.log(Question);
@@ -96,8 +98,8 @@ exports.uploadQues = async(req, res) => {
                 else {
                     const id = result.rows[0].category_id;
     
-                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by) VALUES($1, $2, $3, $4) RETURNING question_id",
-                    [1, id, 0, Question.user_id], (err, result) => {
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by, level) VALUES($1, $2, $3, $4, $5) RETURNING question_id",
+                    [1, id, 0, Question.user_id, Question.difficulty_level], (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
@@ -144,6 +146,7 @@ exports.uploadQues = async(req, res) => {
             ans_text: req.body.Question.is_true,
             explanation: req.body.Question.explanation,
             category: req.body.Question.category, 
+            difficulty_level: req.body.Question.difficulty_level
             // ques_fig: req.body.Question.ques_figure
         }
         console.log(Question);
@@ -158,8 +161,8 @@ exports.uploadQues = async(req, res) => {
                 else {
                     const id = result.rows[0].category_id;
     
-                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by) VALUES($1, $2, $3, $4) RETURNING question_id",
-                    [1, id, 0, Question.user_id], (err, result) => {
+                    pool.query("Insert into \"Question\"(ques_type, category_id, ques_status, created_by, level) VALUES($1, $2, $3, $4, $5) RETURNING question_id",
+                    [1, id, 0, Question.user_id, Question.difficulty_level], (err, result) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
@@ -346,13 +349,12 @@ exports.uploadWrittenQues = async(req, res) => {
     try {
         const Question = req.body;
         console.log("req body --> ", Question);
-        console.log("\n ---------- start ---------- ");
-        console.log("inserting question paper into database --> ");
 
         var exam_id;
+        var ques_id_list = [];
 
         // insert question paper into database
-        exam_id = await pool.query("Insert into \"ExamQuestion\"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik, created_by, ques_status) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING exam_id",
+        await pool.query("Insert into \"ExamQuestion\"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik, created_by, ques_status) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING exam_id, question_id",
         [Question.title, Question.type, Question.level, Question.question_array[0].ques_text, Question.question_array[0].ans_text, JSON.stringify(Question.question_array[0].rubrik), Question.user_id, 0], 
         (err, result) => {
             if (err) {
@@ -361,44 +363,43 @@ exports.uploadWrittenQues = async(req, res) => {
             else {
                 exam_id = result.rows[0].exam_id;
                 console.log("new exam id --> ", exam_id);
+                ques_id_list.push(result.rows[0].question_id);
 
                 for(var i = 1; i<Question.question_array.length; i++) {
-                    // console.log("Question --> ", Question.question_array[i]);
-                    //  console.log("Rubrik");
-                    // console.log("Rubrik --> ", Question.question_array[i].rubrik);
-        
-                    // for(var j=0; j<Question.question_array[i].rubrik.length; j++){
-                    //     // console.log(Question.question_array[i].rubrik[j]);
-                    // }
         
                     // insert question paper into database
-                    pool.query("Insert into \"ExamQuestion\"(exam_id, exam_title, exam_type, exam_level, ques_text, ans_text, rubrik, created_by, ques_status) VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+                    pool.query("Insert into \"ExamQuestion\"(exam_id, exam_title, exam_type, exam_level, ques_text, ans_text, rubrik, created_by, ques_status) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING question_id",
                     [exam_id, Question.title, Question.type, Question.level, Question.question_array[i].ques_text, Question.question_array[i].ans_text, JSON.stringify(Question.question_array[i].rubrik), Question.user_id, 0], 
-                    (err, result) => {
+                    (err, result2) => {
                         if (err) {
                             console.error('Error executing query', err.stack);
                         }
                         else {
                             // exam_id = result.rows[0].exam_id;
-                            console.log("current exam id --> ", exam_id);
+                            const q_id = result2.rows[0].question_id;
+                            ques_id_list.push(q_id);
+
+                            console.log(i, " --> ", Question.question_array.length);
+
+                            if(i == Question.question_array.length) {
+                                console.log("will return this ques_id list --> ", ques_id_list);
+                                // have to return the ques ids
+                                return res.json(ques_id_list);
+                            }
                         }
                     }
                     );
+
+                    
                 }
 
+                
 
             }
         }
-        );
-
-       
-        console.log(" ---------- end ---------- ");
-
-
         
-
-
-        return res.json("OK");
+        );
+       
     } catch (error) { 
         console.log(error);    
         return res.json("ERROR");   
@@ -483,11 +484,12 @@ exports.gradeAns = async(req, res) => {
 
 exports.loadForwaredQues = async(req, res) => {
     console.log("loading forwarded questions");
+    const user_id = req.params.id;
 
     const status = 2;
     try {
-        pool.query("SELECT * FROM \"ExamQuestion\" WHERE ques_status = $1",
-        [status], (err, result) => {
+        pool.query("SELECT * FROM \"ExamQuestion\" WHERE ques_status = $1 AND created_by=$2",
+        [status, user_id], (err, result) => {
             if (err) {
                 console.error('Error executing query', err.stack);
                 return res.json("error");
@@ -510,8 +512,9 @@ exports.uploadRevisedQues = async(req, res) => {
     console.log("Updating revised ques --> ", Question);
 
     // insert question paper into database
-    pool.query("UPDATE \"ExamQuestion\" SET ques_text = $1, ans_text = $2, rubrik = $3, ques_status=4 WHERE question_id = $4",
-    [Question.ques_text, Question.ans_text, JSON.stringify(Question.rubrik), Question.question_id], 
+    const status = 3;
+    pool.query("UPDATE \"ExamQuestion\" SET ques_text = $1, ans_text = $2, rubrik = $3, ques_status=$5 WHERE question_id = $4",
+    [Question.ques_text, Question.ans_text, JSON.stringify(Question.rubrik), Question.question_id, status], 
     (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);

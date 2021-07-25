@@ -175,3 +175,188 @@ module.exports.MCQexplnImage = [uploadMCQexplnImage.single('file'), (req, res) =
             }
         ); 
   }];
+
+
+// True/False ques figure
+var pathTFques;
+const storageImageTFques = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/files/questions')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        const filePath = `public/files/questions/${originalname}`;
+        pathTFques = filePath.replace('public/','');;
+        cb(null, originalname);
+    }
+  })
+  
+const uploadImageTFques = multer({ storage: storageImageTFques }); 
+
+module.exports.TFquesImage = [uploadImageTFques.single('file'), (req, res) => {
+      const ques_id = req.params.id;
+      console.log("ques_id --> ", ques_id);
+      console.log("file path", pathTFques);
+
+      pool.query("UPDATE \"True_False\" SET figure_ques=$2 WHERE question_id=$1",
+        [ques_id, pathTFques], 
+            (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("ERROR");
+                }
+                else {
+                    console.log("new True/False figure_ques insterted ");
+                    return res.json({ status: 'OK', uploaded: true });
+                }
+            }
+        ); 
+  }];
+
+
+  // True/False explanation figure
+var pathTFexpln;
+const storageTFexplnImage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/files/questions')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        const filePath = `public/files/questions/${originalname}`;
+        pathTFexpln = filePath.replace('public/','');;
+        cb(null, originalname);
+    }
+  })
+  
+const uploadTFexplnImage = multer({ storage: storageTFexplnImage }); 
+
+module.exports.TFexplnImage = [uploadTFexplnImage.single('file'), (req, res) => {
+      const ques_id = req.params.id;
+      console.log("ques_id --> ", ques_id);
+      console.log("file path", pathTFexpln);
+
+      pool.query("UPDATE \"True_False\" SET figure_explanation=$2 WHERE question_id=$1",
+        [ques_id, pathTFexpln], 
+            (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("ERROR");
+                }
+                else {
+                    console.log("new True_False figure_explanation insterted ");
+                    return res.json({ status: 'OK', uploaded: true });
+                }
+            }
+        ); 
+  }];
+
+// Match ques figure
+var pathMatchques;
+const storageImageMatchques = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/files/questions')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        const filePath = `public/files/questions/${originalname}`;
+        pathMatchques = filePath.replace('public/','');;
+        cb(null, originalname);
+    }
+  })
+  
+const uploadImageMatchques = multer({ storage: storageImageMatchques }); 
+
+module.exports.MatchquesImage = [uploadImageMatchques.single('file'), (req, res) => {
+      const ques_id = req.params.id;
+      console.log("ques_id --> ", ques_id);
+      console.log("file path", pathMatchques);
+
+      pool.query("UPDATE \"Match\" SET figure_ques=$2 WHERE question_id=$1",
+        [ques_id, pathMatchques], 
+            (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("ERROR");
+                }
+                else {
+                    console.log("newMatch figure_ques insterted ");
+                    return res.json({ status: 'OK', uploaded: true });
+                }
+            }
+        ); 
+  }];
+
+
+// Match explanation figure
+var pathMatchexpln;
+const storageMatchexplnImage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/files/questions')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        const filePath = `public/files/questions/${originalname}`;
+        pathMatchexpln = filePath.replace('public/','');;
+        cb(null, originalname);
+    }
+  })
+  
+const uploadMatchexplnImage = multer({ storage: storageMatchexplnImage }); 
+
+module.exports.matchexplnImage = [uploadMatchexplnImage.single('file'), (req, res) => {
+      const ques_id = req.params.id;
+      console.log("ques_id --> ", ques_id);
+      console.log("file path", pathMatchexpln);
+
+      pool.query("UPDATE \"Match\" SET figure_explanation=$2 WHERE question_id=$1",
+        [ques_id, pathMatchexpln], 
+            (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("ERROR");
+                }
+                else {
+                    console.log("new Match figure_explanation insterted ");
+                    return res.json({ status: 'OK', uploaded: true });
+                }
+            }
+        ); 
+  }];
+
+//   ---------------- PRACTICE PROBLEMS END ----------------------------------
+
+// WRITTEN QUES FIGURE
+var pathWques;
+const storageImageWques = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/files/questions')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        const filePath = `public/files/questions/${originalname}`;
+        pathWques = filePath.replace('public/','');;
+        cb(null, originalname);
+    }
+  })
+  
+const uploadImageWques = multer({ storage: storageImageWques }); 
+
+module.exports.WquesImage = [uploadImageWques.single('file'), (req, res) => {
+      const ques_id = req.params.id;
+      console.log("ques_id --> ", ques_id);
+      console.log("file path", pathWques);
+
+      pool.query("UPDATE \"Match\" SET figure_ques=$2 WHERE question_id=$1",
+        [ques_id, pathWques], 
+            (err, result) => {
+                if (err) {
+                    console.error('Error executing query', err.stack);
+                    return res.json("ERROR");
+                }
+                else {
+                    console.log("newMatch figure_ques insterted ");
+                    return res.json({ status: 'OK', uploaded: true });
+                }
+            }
+        ); 
+  }];

@@ -46,7 +46,9 @@ const {
     TutorialIamge,
     TutorialVideo,
     MCQexplnImage,
-    MCQquesImage
+    MCQquesImage,
+    TFquesImage,
+    MatchquesImage
 } = require("./utils/fileUploader")
 
 // COMMON
@@ -80,11 +82,13 @@ app.post('/uploadTutorialImage/:id', TutorialIamge);
 app.post('/uploadTutorialVideo/:id', TutorialVideo);
 app.post('/uploadImageMCQques/:id', MCQquesImage);
 app.post('/uploadImageMCQexpln/:id', MCQexplnImage);
+app.post('/uploadImageMatchingques/:id', MatchquesImage);
+app.post('/uploadImageTFques/:id', TFquesImage);
 
 app.get('/answerPapers', getAnswerPapers);
 app.get('/loadQues/:id', loadQues);
 app.post('/gradeAns/:id', gradeAns);
-app.get('/loadForwaredQues', loadForwaredQues);
+app.get('/loadForwaredQues/:id', loadForwaredQues);
 app.post('/uploadRevisedQues', uploadRevisedQues);
 
 // MODERATOR

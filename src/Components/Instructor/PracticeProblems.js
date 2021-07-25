@@ -251,7 +251,8 @@ class PracticeProblem extends Component {
                     },
                 }
 
-                if(Question.ques_figure != null && this.state.Ques_type == 'MCQ') {
+                //  && this.state.Ques_type == 'MCQ'
+                if(Question.ques_figure != null) {
                     // Create an object of formData
                     const formData = new FormData();
                     // Update the formData object
@@ -260,8 +261,22 @@ class PracticeProblem extends Component {
                         Question.ques_figure,
                     );
 
+                    const links = ["http://localhost:5000/uploadImageMCQques/", 
+                                    "http://localhost:5000/uploadImageMatchingques/",
+                                    "http://localhost:5000/uploadImageTFques/"];
+                    var link = null;
+                    if(this.state.Ques_type == 'MCQ') {
+                        link = links[0];
+                    }
+                    else if(this.state.Ques_type == 'Matching') {
+                        link = links[1];
+                    }
+                    else if(this.state.Ques_type == 'True/False') {
+                        link = links[2];
+                    }
+                    
                     // "?" + (new URLSearchParams({id: tutorial_id})).toString()
-                    axios.post(`http://localhost:5000/uploadImageMCQques/`+ ques_id 
+                    axios.post(link + ques_id 
                     , formData, config)
                         .then(res => {
                             console.log("MCQ Ques Image");
@@ -631,7 +646,7 @@ class PracticeProblem extends Component {
                              {this.state.Ques_type == 'True/False'?
                                 <div  style={{ marginLeft: '30%', marginTop: '8%' }}>
                                     <Textfield label = "Enter Statement" setText={this.handleQuesText} type='text'/>
-                                    <Imageup />
+                                    <Imageup setFigure={this.handleQues_figure}/>
 
                                     <br></br><br></br>
 
@@ -652,7 +667,7 @@ class PracticeProblem extends Component {
 
                                     <br></br><br></br>
                                     <Textfield label = "Enter Explanation" setText = {this.handleExplanation} type='text'/>
-                                    <Imageup />
+                                    <Imageup setFigure={this.handleExp_figure}/>
 
                                 </div>
                              :
@@ -663,11 +678,11 @@ class PracticeProblem extends Component {
                                             <Textfield label = "Enter Statement 1" setText={this.handleQuesText} type='text'/>
                                             <br></br>
                                             <Textfield label = "Enter Statement 2" setText={this.handleQuesText2} type='text'/>  
-                                            <Imageup />    
+                                            <Imageup setFigure={this.handleQues_figure}/>    
 
                                             <br></br><br></br>
                                             <Textfield label = "Enter Explanation" setText = {this.handleExplanation} type='text'/>
-                                            <Imageup />                              
+                                            <Imageup setFigure={this.handleExp_figure}/>                              
                                         </div>
                                     :
                                         <div>
