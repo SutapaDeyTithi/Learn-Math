@@ -365,6 +365,12 @@ exports.uploadWrittenQues = async(req, res) => {
                 console.log("new exam id --> ", exam_id);
                 ques_id_list.push(result.rows[0].question_id);
 
+                if(Question.question_array.length == 1) {
+                    console.log("will return this ques_id list --> ", ques_id_list);
+                    // have to return the ques ids
+                    return res.json(ques_id_list);
+                }
+
                 for(var i = 1; i<Question.question_array.length; i++) {
         
                     // insert question paper into database

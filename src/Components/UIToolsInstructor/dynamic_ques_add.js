@@ -175,7 +175,7 @@ export default function FloatingActionButtonZoom(props) {
 
 
   // ques & ans
-  const [inputList, setInputList] = useState([{question: "", answer: "", index: ""}]);
+  const [inputList, setInputList] = useState([{question: "", answer: "", index: "", ques_image: null}]);
   const [quesEmpty, setQuesEmpty] = React.useState(0);
   const [quesNoRubrik, setQuesNoRubrik] = React.useState(0);
 
@@ -190,6 +190,17 @@ export default function FloatingActionButtonZoom(props) {
     setInputList(list);
     // console.log("ques list --> ", inputList);
   };
+
+  const handleImageChange = (e, index) => {
+    console.log("image");
+
+    const list = [...inputList];
+    list[index]["ques_image"] = e;
+    
+
+    setInputList(list);
+    console.log("----> ", inputList);
+  }
   
   // handle click event of the Remove button
   const handleRemoveClick = index => {
@@ -200,7 +211,7 @@ export default function FloatingActionButtonZoom(props) {
   
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([...inputList, { question: "", answer: "", index: "" }]);
+    setInputList([...inputList, {question: "", answer: "", index: "", ques_image: null}]);
   };
 
   const submitQuesPaper = () => {
@@ -241,7 +252,8 @@ export default function FloatingActionButtonZoom(props) {
         question_paper.push({
           ques_text: item.question,
           ans_text: item.answer,
-          rubrik: rubrikList[item.index]["rubrik"].map(obj => ({...obj}))
+          rubrik: rubrikList[item.index]["rubrik"].map(obj => ({...obj})),
+          ques_image: item.ques_image
         });
       } 
         
@@ -368,13 +380,13 @@ else {
           <Textfield label="Enter Question Text" 
           value={x.question}
           writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='question'/>
-          <ImageUp />
+          <ImageUp  writtenQuesNo={i} setFigure={handleImageChange} type='WrittenQuesImage'/>
           <br/>
          
           <Textfield label="Enter Answer Text"  
           value={x.answer}
           writtenQuesNo={i} setWrittenQues={handleInputChange} type='WrittenQues' fieldType='answer'/>
-          <ImageUp />
+          {/* <ImageUp /> */}
           {/* https://www.geeksforgeeks.org/file-uploading-in-react-js/ */}
 
         {/* {console.log("ques x --> ", x)} */}

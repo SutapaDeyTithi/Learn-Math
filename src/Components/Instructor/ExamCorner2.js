@@ -113,6 +113,7 @@ class ExamCorner2 extends React.Component {
     this.state.exam_paper.question_array = e;
     // this.setState({exam_paper: this.state.exam_paper});
     // ---------------- submit here
+    console.log("........", this.state.exam_paper.question_array);
    
 
     if(this.state.exam_paper != null) {
@@ -126,12 +127,27 @@ class ExamCorner2 extends React.Component {
       console.log("will submit this --> ", Question);
       axios.post(`http://localhost:5000/uploadWrittenQues`, Question)
       .then(res => {
-          console.log(res);
-          console.log(res.data);
+          const ques_id_list = res.data;
+          console.log(ques_id_list);
 
          
           // Question = this.state.exam_paper;
           // console.log("Question cleared? ", Question);
+
+          //-------------- now upload images
+          for(var count=0; count < Question.question_array.length; count++) {
+            if(Question.question_array[count].ques_image != null) {
+              console.log("upload img for q id --> ", ques_id_list[count]);
+
+              
+            }
+            else {
+              console.log("image null..", ques_id_list[count]);
+            }
+          }
+
+
+
       })
       .then(res => {
         this.setState({exam_paper: []});

@@ -32,7 +32,12 @@ class Image extends Component {
 			console.log(this.state.selectedFile);
 			console.log("Adding the image to the Ques..")
 			// this.props.setFigure(formData);
-			this.props.setFigure(this.state.selectedFile);
+			if(this.props.type=='WrittenQuesImage')
+			{
+				this.props.setFigure(this.state.selectedFile, this.props.writtenQuesNo);
+			}
+			else
+				this.props.setFigure(this.state.selectedFile);
 		}
 	
 	
