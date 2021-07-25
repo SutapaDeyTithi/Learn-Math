@@ -76,10 +76,22 @@ exports.POTW_ans_upload = async(req, res) => {
     const newanswer = {
         email: req.body.email,
         image1: req.body.image1,
-        image2: req.body.image2,
-        image3: req.body.image3,
-        contest_name:req.body.contest_name
+        contest_name:req.body.contest_name,
+        question_id : req.body.question_id
     };
-    pool.query("INSERT INTO \"Problems_of_the_week_answer\"(email, image1,image2, image3,contest_name) VALUES($1, $2, $3, $4,$5)",
-                        [newanswer.email, newanswer.image1, newanswer.image2,newanswer.image3,newanswer.contest_name]);
+    pool.query("INSERT INTO \"Problems_of_the_week_answer\"(email, image1,contest_name,question_id) VALUES($1, $2, $3, $4)",
+                        [newanswer.email, newanswer.image1, newanswer.contest_name,newanswer.question_id]);
+}
+
+exports.Rating_change = async(req, res) => {
+    const newanswer = {
+        u_id:req.body.u_id,
+        level:req.body.level,
+        rank:req.body.rank
+    };
+    console.log("hello");
+    console.log(newanswer.u_id);
+    
+    pool.query("INSERT INTO \"users_rating\"(u_id,level,rank) VALUES($1, $2, $3)",
+                        [newanswer.user_id, newanswer.level, newanswer.rank]);
 }

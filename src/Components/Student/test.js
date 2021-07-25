@@ -45,18 +45,27 @@ import Table_Rating from "./table_rating";
 import Exam from "../../Resources/Images/exam.png";
 import Calc from "./Calculator.js"
 import axios from 'axios';
+import Score from "./showscore";
 export default function Test() {
     // let inputf = '';
     const [questions_array, setQuestion_array] = useState([]);
     const [data, setData] = useState([]);
 
     useEffect(async () => {
-        const result = await fetch(
-            "http://localhost:5000/POTWQuestion"
-        );
-        const temp=await result.json();
-        setData(temp.hits);
-        console.log(data);
+        // const result = await fetch(
+        //     "http://localhost:5000/POTWQuestion"
+        // );
+        // const temp=await result.json();
+        // setData(temp.hits);
+        // console.log(data);
+        // const requestOptions = {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ title: 'React PUT Request Example' })
+        // };
+        // fetch('https://jsonplaceholder.typicode.com/posts/1', requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => this.setState({ postId: data.id }));
     });
     const questions = [
         {
@@ -147,29 +156,9 @@ export default function Test() {
         <div style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
 
             {
-                showScore
-                    ? (<div>
-                        <div className="row">
-                            <div className="card col-md-4" style={{ marginTop: 150, textAlign: "center", marginLeft: 200, width: 400, height: 200, borderStyle: "outset", borderColor: "green" }}>
-                                <h5 style={{ paddingTop: 30, color: "black" }}>You just completed the test</h5>
-                                {
-                                    score >= 2 ? (<h5 style={{ paddingTop: 10, color: "black" }}>Your level is upgraded to level 4</h5>)
-                                        : (<h5 style={{ paddingTop: 10, color: "black" }}>Your current level is 3</h5>)
-                                }
+                showScore ?(<Score ans={score} ques={questions.length}/>)
 
-                                <h6 style={{ paddingTop: 10 }}>Total Score: {score} / {questions.length}</h6>
-                            </div>
-                            <div className="card col-md-3" style={{ marginTop: 100, textAlign: "left", marginLeft: 200, width: 80, height: 120, borderStyle: "outset", borderColor: "green" }}>
-                                <h5><img src={Rank} style={{ width: 40, marginBottom: 20, marginRight: 10 }} />Current level : 4</h5>
-                                <h5><img src={level} style={{ width: 40, marginRight: 10 }} />Current rank : 1435</h5>
-                            </div>
-                            <div className="col-md-3" style={{ marginTop: 0, textAlign: "left", marginLeft: 900, width: 20, height: 220 }}>
-                                <h5 style={{ backgroundColor: "#49675B", textAlign: "center", color: 'white', height: 30, marginBottom: 0 }}>Top Rated</h5>
-                                <Table_Rating />
-                            </div>
-                        </div>
-                    </div>)
-                    : (
+                                        : (
                         <div className="row">
 
                             <div className="col-md-2 borderright" style={{ textAlign: "center" }}>

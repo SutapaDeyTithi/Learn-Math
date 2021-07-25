@@ -20,7 +20,9 @@ const {
     getTrueFalse,
     getTutorial,
     getProblemsOfWeek,
-    POTW_ans_upload
+    POTW_ans_upload,
+    Rating_change
+
 } = require("./handlers/student");
 
 const {
@@ -43,6 +45,7 @@ app.get('/true',getTrueFalse);
 app.get('/tutorial',getTutorial);
 app.get('/POTWQuestion',getProblemsOfWeek);
 app.post('/uploadAnsPOTW',POTW_ans_upload);
+app.post('/rating_change',Rating_change);
 
 // INSTRUCTOR
 app.get('/subtopics_instructor', getSubtopic_from_a_topic);

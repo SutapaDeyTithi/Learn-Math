@@ -15,12 +15,11 @@ class problem extends React.Component {
             image3: null,
             upload_done: 0,
             index: 0,
-            end: 0
+            end: 0,ques_id :0
 
         };
         this.onImageChange = this.onImageChange.bind(this);
-        this.onImageChange2 = this.onImageChange2.bind(this);
-        this.onImageChange3 = this.onImageChange3.bind(this);
+        
 
 
     }
@@ -32,22 +31,8 @@ class problem extends React.Component {
             });
         }
     };
-    onImageChange2 = event => {
-        if (event.target.files && event.target.files[0]) {
-            let img = event.target.files[0];
-            this.setState({
-                image2: URL.createObjectURL(img)
-            });
-        }
-    };
-    onImageChange3 = event => {
-        if (event.target.files && event.target.files[0]) {
-            let img = event.target.files[0];
-            this.setState({
-                image3: URL.createObjectURL(img)
-            });
-        }
-    };
+   
+    
     upload = event => {
         this.setState({
             upload_done: 1
@@ -62,9 +47,9 @@ class problem extends React.Component {
 
                 email: '1605014_ugrad.cse.buet.ac.bd',
                 image1: this.state.image,
-                image2: this.state.image2,
-                image3: this.state.image3,
-                contest_name: 'All about circles!'
+                contest_name: 'All about circles!',
+                question_id :1
+
             })
         })
             .then((response) => response.json())
@@ -134,12 +119,8 @@ class problem extends React.Component {
                                 </div>
                                 <div className="col-md-4 third " style={{ textAlign: "center" }}>
                                     <h5>Write your answer for individual questions in seperate pages and upload images </h5>
-                                    <label>First answer</label><input type="file" name="myImage" onChange={this.onImageChange} style={{ marginLeft: 25, marginBottom: 15, marginTop: 30 }} />
-                                    <br></br>
-                                    <label>Second answer</label><input type="file" name="myImage2" onChange={this.onImageChange2} style={{ marginLeft: 9, marginBottom: 15 }} />
-                                    <br></br>
-                                    <label>Third answer</label><input type="file" name="myImage3" onChange={this.onImageChange3} style={{ marginLeft: 23, marginBottom: 15 }} />
-                                    <br></br>
+                                    <label>Answer</label><input type="file" name="myImage" onChange={this.onImageChange} style={{ marginLeft: 25, marginBottom: 15, marginTop: 30 }} />
+                                    
                                     <button className="submit" onClick={this.upload} style={{ marginLeft: -50 }}>Upload</button>
                                     {
                                         this.state.index
@@ -150,7 +131,7 @@ class problem extends React.Component {
                                             : (<h1></h1>)
                                     }
                                     {
-                                        this.state.upload_done===1 && this.state.image !=null && this.state.image2 !=null && this.state.image3 !=null?(
+                                        this.state.upload_done===1 && this.state.image !=null ?(
                                             <div>
                                             <button className="submit"onClick={this.end_quiz} style={{marginLeft:-50}}>End Test</button>
                                             <Alert severity="success" style={{marginTop:50}}>You have successfully uploaded answers</Alert>
