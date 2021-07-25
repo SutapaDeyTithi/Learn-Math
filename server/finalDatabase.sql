@@ -9,7 +9,7 @@ CREATE TABLE "Users" (
     email varchar(255) not null unique,
     password varchar(255) not null ,
     dob varchar(255),
-    image oid,
+    image text,
     privilege varchar(255) not null,
     rank integer,
     level integer,

@@ -21,6 +21,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import create_exam from "../../Resources/ImagesInstructor/create_exam.png";
 
 import {
     Card, CardImg, CardText, CardBody,
@@ -177,11 +178,26 @@ export default () => {
                         >Hide Top Contributors</Button>
                     }
 
-                    <Typography variant="h5" gutterBottom align="left" style={{marginTop: '2em'}}>
-                        Top Contributors 
-                    </Typography> 
+                    {   
+                    showing &&
+                        <div>
+                             <Typography variant="h5" gutterBottom align="left" style={{marginTop: '2em'}}>
+                                Top Contributors 
+                            </Typography> 
+                        </div>
+                            
+                    }
+
+                    <br></br><br></br>
+
+                    {
+                    !showing &&
+                        <img src={create_exam} alt="Instructor" style={{maxWidth: '70vh', maxHeight: '70vh'}}/>
+                            
+                    }
 
                     <GridList className={classes.gridList} cols={2.5}>
+
 
                     {
                     showing &&
