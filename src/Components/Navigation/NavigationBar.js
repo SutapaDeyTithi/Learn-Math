@@ -15,6 +15,10 @@ import "./NavigationBar.css";
 import logo_image from "../../Resources/Images/image 6.png";
 import avatar from "../../Resources/Images/image 33.png";
 
+// import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
+// import Badge from "@material-ui/core/Badge";
+
+
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
@@ -119,9 +123,9 @@ class NavigationBar extends Component {
                                 </NavItem>
                                 <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
-                                    <NavLink className="nav-links" to="">
+                                <NavLink className="nav-links" to="/forum">
                                     Forum
-                                    </NavLink>
+                                </NavLink>
                                 </NavItem>
 
                                 {/* <NavItem>
@@ -178,9 +182,9 @@ class NavigationBar extends Component {
                                 </NavItem>
                                 <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
-                                    <NavLink className="nav-links" to="/forum">
-                                        Forum
-                                    </NavLink>
+                                <NavLink className="nav-links" to="/forum">
+                                    Forum
+                                </NavLink>
                                 </NavItem>
                                 <li className="divider-vertical-second-menu"></li>
                                 <NavItem>
@@ -194,6 +198,63 @@ class NavigationBar extends Component {
                 </>
             );
         }
+        else if (this.props.role == "moderator") {
+            return (
+              <>
+                <Navbar className="navbar-expand-lg fixed-top" light>
+                  <NavbarBrand href="/">
+                    <div className="logo">Learn Math</div>
+                  </NavbarBrand>
+                  <NavbarToggler onClick={this.toggle} />
+    
+                  <Collapse isOpen={this.props.navStateOpen} navbar>
+                    <Nav className="ml-auto" navbar>
+                      <NavItem>
+                        <NavLink
+                          className="nav-links"
+                          to="/dashboard"
+                          activeClassName="selected"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </NavItem>
+                      <li className="divider-vertical-second-menu"></li>
+                      <NavItem>
+                        <NavLink className="nav-links" to="/checkContent">
+                          Check Content
+                        </NavLink>
+                      </NavItem>
+                      <li className="divider-vertical-second-menu"></li>
+                      <NavItem>
+                        <NavLink className="nav-links" to="/management">
+                          Management
+                          {/*<span className="circle">
+                              30
+                            </span>*/}
+                        </NavLink>
+                      </NavItem>
+                      <li className="divider-vertical-second-menu"></li>
+                      <NavItem>
+                        <NavLink className="nav-links" to="/forum">
+                          Forum
+                        </NavLink>
+                      </NavItem>
+                      <li className="divider-vertical-second-menu"></li>
+                      <NavItem>
+                        <NavLink
+                          className="nav-links"
+                          to="/"
+                          onClick={this.onSubmitSignOut}
+                        >
+                          Sign Out
+                        </NavLink>
+                      </NavItem>
+                    </Nav>
+                  </Collapse>
+                </Navbar>
+              </>
+            );
+          }
     }
     }
 }

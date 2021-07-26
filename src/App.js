@@ -36,6 +36,20 @@ import ExamCorner from './Components/Instructor/ExamCorner1';
 import ExamCorner2 from './Components/Instructor/ExamCorner2';
 import InstructorHome from './Components/Instructor/HomeInstructor';
 
+//Moderator
+import ModeratorHome from "./Components/Moderator/ModeratorHome";
+import Notification from "./Components/Moderator/Notification";
+import ContentCheck from "./Components/Moderator/ContentCheck";
+import Popup from "./Components/Moderator/FileDetails";
+import FileContent from "./Components/Moderator/FileContent";
+import Management from "./Components/Moderator/management";
+import Mark_Distribution from "./Components/Moderator/MarkDistribution";
+import Manage_data from "./Components/Moderator/manage_data";
+import Form from "./Components/Feedback_Form/feedback_form";
+import Forum from "./Components/Forum/forum"
+import Forum_question from "./Components/Forum/forum_ques";
+import Forum_Ask from "./Components/Forum/forum_ask";
+
 
 class App extends Component {
     constructor(props) {
@@ -155,6 +169,24 @@ class App extends Component {
                                                   <Route path="/createPracticeProblems" render={(props) => <PracticeProblems user_id={this.state.user_id} {...props} />} />
                                                   {/* <Route path="/examCorner" component = {ExamCorner2} /> */}
                                                   <Route path="/examCorner" render={(props) => <ExamCorner2 user_id={this.state.user_id} {...props} />} />
+
+                                                  <Route exact path="/forum" component={Forum} />
+                                                  <Route
+                                                    exact
+                                                    path="/forum/:quesID"
+                                                    component={Forum_question}
+                                                  />
+                                                  <Route
+                                                    exact
+                                                    path="/forum/ask/question"
+                                                    component={Forum_Ask}
+                                                  />
+                                                  <Route
+                                                    exact
+                                                    path="/feedback"
+                                                    component={Form}
+                                                  />
+                                              
                                               </div>
                                             :
                                             <div>
@@ -165,6 +197,59 @@ class App extends Component {
                                         :
                                         <div>
                                             {/* MODERATOR */}
+
+                                            {/* MODERATOR */}
+                            <div>
+                              <Route
+                                path="/authHome"
+                                component={InstructorHome}
+                              />
+                              <Route
+                                path="/dashboard"
+                                component={InstructorHome}
+                              />
+                              <Route
+                                exact
+                                path="/checkContent/:quesID"
+                                component={Popup}
+                              />
+                              <Route
+                                exact
+                                path="/checkContent/:quesID/file+details"
+                                component={Popup}
+                              />
+                              <Route
+                                exact
+                                path="/checkContent/:quesID/content"
+                                component={FileContent}
+                              />
+                              <Route
+                                exact
+                                path="/checkContent/:quesID/mark+distribution"
+                                component={Mark_Distribution}
+                              />
+                              <Route
+                                exact
+                                path="/checkContent"
+                                component={ContentCheck}
+                              />
+                              <Route
+                                path="/management"
+                                component={Management}
+                              />
+                              <Route exact path="/forum" component={Forum} />
+                              <Route
+                                exact
+                                path="/forum/:quesID"
+                                component={Forum_question}
+                              />
+                              <Route
+                                exact
+                                path="/forum/ask/question"
+                                component={Forum_Ask}
+                              />
+                            </div>
+                            
 
                                         </div>
                                     }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {  useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';

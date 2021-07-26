@@ -69,6 +69,17 @@ const {
     WquesImage
 } = require("./utils/fileUploader")
 
+// MODERATOR 
+const {
+
+    get_forum_ques,
+    get_Topic,
+    get_forum_answer,
+    get_User,
+    post_forum_ques,
+    postforums,
+  } = require("./handlers/moderator");
+
 // COMMON
 app.post('/signUp', signUp);
 app.post('/login', login);
@@ -129,6 +140,15 @@ app.get('/infoProblemWeek', infoProblemWeek);
 app.get('/contributionIn', contributionIn);
 
 // MODERATOR
+// MODERATOR
+//app.get("/todo", getTODOS);
+//app.post("/todo", postTODOS);
+app.get("/get_forum", get_forum_ques);
+app.get("/get_topic", get_Topic);
+app.get("/get_forum_ans", get_forum_answer);
+app.get("/get_User", get_User);
+app.post("/post_forum_ques", post_forum_ques);
+app.post("/postforums", postforums);
 
 
 app.listen(5000, ()=>{
