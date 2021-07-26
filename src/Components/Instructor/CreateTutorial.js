@@ -280,14 +280,14 @@ class CreateTutorial extends Component {
                 
             })
             .then(res => {
-                if(fileUp && (imageUp || this.state.tutorial_figure == null) && (videoUp || this.state.tutorial_video == null)) {
+                // if(fileUp && (imageUp || this.state.tutorial_figure == null) && (videoUp || this.state.tutorial_video == null)) {
                     this.setState({submitted: true});
                     this.state.submitted = true;
-                }
-                else {
-                    this.setState({submitted: false});
-                    this.state.submitted = false;
-                }
+                // }
+                // else {
+                //     this.setState({submitted: false});
+                //     this.state.submitted = false;
+                // }
             })
             .catch((error) => {
                 console.log(error);

@@ -29,4 +29,42 @@ created_by   integer
 --------------------
 What is division?
 
-The division is a method of distributing a group of things into equal parts. The division is a primary arithmetic operation in which numbers are combined and divided in such a way that it forms a new number.
+The division is a method of distributing a group of things into equal parts. 
+The division is a primary arithmetic operation in which numbers are combined and divided in such a way that it forms a new number.
+
+---------------------------------------------------
+
+tutorial 1:
+
+title: 
+Learn division
+
+about:
+What is division?
+
+text: 
+
+The division is a method of distributing a group of things into equal parts. 
+The division is a primary arithmetic operation in which numbers are combined and divided in such a way that it forms a new number.
+
+
+-----------------------------------------------------
+
+Short Question 1: MCQ
+
+
+------------------------------------------------------
+
+Written Question 1:
+
+Problem of the week:
+
+
+Regular exam:
+
+
+
+------------------------------------------------------
+Grading:
+
+

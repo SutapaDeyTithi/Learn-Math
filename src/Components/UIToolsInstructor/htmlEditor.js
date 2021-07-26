@@ -30,7 +30,8 @@ onEditorStateChange = editorState => {
       this.setState({
         editorState,
       });
-     this.props.setHTML(rawContentState);
+    //  this.props.setHTML(rawContentState);
+    this.props.setHTML(editorState.getCurrentContent().getPlainText());
     };
 
     _uploadImageCallBack(file) {

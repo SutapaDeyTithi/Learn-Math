@@ -19,7 +19,7 @@ class topic extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-
+        
         this.topic = " "
         this.clicked_topic = -1
         this.clicked_subtopic = -1
@@ -28,7 +28,7 @@ class topic extends Component {
         this.clicked_link = 0
         this.search_topic_item = " "
         this.state = {
-            count: 0,
+            count: 0,user_id: '',
             data: [],
             category: [],
             topic_array: []
@@ -39,7 +39,9 @@ class topic extends Component {
 
     }
     componentDidMount() {
-
+        this.setState({user_id: this.props.user_id});
+        this.state.user_id = this.props.user_id;
+        console.log("user id --> ", this.props.user_id);
         fetch("http://localhost:5000/topic")
             //console.log(res);
             .then(res => res.json())
@@ -95,13 +97,11 @@ class topic extends Component {
         return (
 
             <section id="topic">
-                <h1>{this.props.status}</h1>
                 <div className="row">
 
                     <div className="col-md-9 left">
                         <div className="popular">
                             <h3>Popular <img className="logop" src={popular} /></h3>
-
 
                         </div>
                         <div className="row">

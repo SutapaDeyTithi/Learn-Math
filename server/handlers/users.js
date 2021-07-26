@@ -23,11 +23,11 @@ exports.signUp = async(req, res) => {
         console.log(newUser.roletype);
         console.log(newUser.classnum);
 
-        const { valid, errors } = validateSignUpData(newUser);
+        // const { valid, errors } = validateSignUpData(newUser);
   
-        if (!valid) {
-          return res.status(400).json(errors);
-        }
+        // if (!valid) {
+        //   return res.status(400).json(errors);
+        // }
 
         // have to check validity
         // const { valid, errors } = validateSignUpData(newUser);
@@ -83,11 +83,11 @@ exports.login = async(req, res) => {
         console.log(user.pass);
         console.log(user.roletype);
 
-        const { valid, errors } = validateLoginData(user);
+        // const { valid, errors } = validateLoginData(user);
   
-        if (!valid) {
-          return res.status(400).json(errors);
-        }
+        // if (!valid) {
+        //   return res.status(400).json(errors);
+        // }
 
         // have to check validity
         // const { valid, errors } = validateSignUpData(newUser);
