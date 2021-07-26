@@ -1,0 +1,8 @@
+#home {
+    text-align: center;
+    position: relative;
+    position: initial;
+    z-index: 1;
+    padding-top: 8%;
+    height: 100vh;
+}
