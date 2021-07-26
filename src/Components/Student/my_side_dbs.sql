@@ -28,3 +28,19 @@ CREATE TABLE "True_Falsee" (
 );
 INSERT INTO "True_Falsee"(question_id, ques_text, options) VALUES (2,'( Identify the given statement is True or False )
 If x = 7 , y = 6 ,then the value of 16x2 - 40xy + 25y2 = 8.','{True,False}');
+
+
+
+--------------------------ager gula niso hoyto
+drop table past_challenges;
+create table "past_challenges"(
+    user_id integer,
+    contest_name text unique,
+    time text,
+    duration integer,
+    creators text,
+    level text,
+    registered integer,
+    standings text
+
+)

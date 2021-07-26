@@ -46,11 +46,14 @@ import Exam from "../../Resources/Images/exam.png";
 import Calc from "./Calculator.js"
 import axios from 'axios';
 import Score from "./showscore";
-export default function Test() {
+import Options from "./show_options";
+import props from 'prop-types';
+export default function Test(props) {
     // let inputf = '';
     const [questions_array, setQuestion_array] = useState([]);
     const [data, setData] = useState([]);
-
+    const [user,setuser]=useState(0);
+    //setuser(props.user_id);
     useEffect(async () => {
         // const result = await fetch(
         //     "http://localhost:5000/POTWQuestion"
@@ -126,6 +129,7 @@ export default function Test() {
     };
     const showcalc = e => {
         setIndex(1);
+        console.log("hello");
     }
     const hidecalc = e => {
         setIndex(0);
@@ -156,14 +160,26 @@ export default function Test() {
         <div style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
 
             {
-                showScore ?(<Score ans={score} ques={questions.length}/>)
+                showScore ? (
+                    <div > 
+                        
+                        {
+                            
+                            <Score ans={score} ques={questions.length} uid={props.user_id}/>
+                                
+                        }
 
-                                        : (
+                    </div>)
+
+
+                    : (
                         <div className="row">
 
                             <div className="col-md-2 borderright" style={{ textAlign: "center" }}>
                                 <h3 style={{ marginTop: 70 }}></h3>
                                 <img src={Exam} />
+                                <h1>{props.user_id}</h1>
+
                                 {/* <h1 style={{ marginTop: 70 }}>Input:{inputf}</h1> */}
                             </div>
                             <div className="col-md-6 borderright" style={{ textAlign: "center" }}>
@@ -186,8 +202,8 @@ export default function Test() {
                                 )}
                                 {
                                     !index
-                                        ? (<button className="show-calc" onClick={() => showcalc}>Show Calculator</button>)
-                                        : (<button className="show-calc" onClick={() => hidecalc}>Hide Calculator</button>)
+                                        ? (<button className="show-calc" onClick={() => showcalc(1)}>Show Calculator</button>)
+                                        : (<button className="show-calc" onClick={() => hidecalc(1)}>Hide Calculator</button>)
                                 }
                             </div>
                             <div className="col-md-3 third " style={{ textAlign: "center" }}>
@@ -213,24 +229,37 @@ export default function Test() {
                                                                     <button onClick={() => onChangeVal(value)} style={{ height: 30, borderRadius: 5 }}>Submit</button>
                                                                 </div>
                                                             )
-                                                            : (<div className="radio-buttons">
-
-
+                                                            :(
+                                                                <div>
                                                                 {questions[currentQuestion].answerOptions.map((answerOption) => (
-                                                                    // <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
-                                                                    <li className="none">
-
-                                                                        <input type="radio" className="check" name="platform" value={answerOption}
-                                                                            onClick={() => handleAnswerOptionClick(answerOption.isCorrect)} />
-                                                                        <MathJax.Node inline formula={answerOption.answerText} />
-
-                                                                    </li>
+                                                                    <div>
+                                                                    
+                                                                    <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)} style={{width:15,height:15,borderRadius:20,marginRight:10}}>
+                                                                    </button><MathJax.Node inline formula={answerOption.answerText} />
+                                                                    <br></br>
+                                                                    </div>
+                                                                   
                                                                 ))}
-                                                            </div>
+                                                                </div>
                                                             )
+                                                            // : (<div className="radio-buttons">
+
+
+                                                            //     {questions[currentQuestion].answerOptions.map((answerOption) => (
+                                                            //         // <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+                                                            //         <li className="none">
+
+                                                            //             <input type="radio" className="check" name="platform" value={answerOption}
+                                                            //                 onClick={() => handleAnswerOptionClick(answerOption.isCorrect)} />
+                                                            //             <MathJax.Node inline formula={answerOption.answerText} />
+
+                                                            //         </li>
+                                                            //     ))}
+                                                            // </div>
+                                                           // )
                                                     }
 
-
+                                                
                                                 </MathJax.Provider>
                                                 {
                                                     index

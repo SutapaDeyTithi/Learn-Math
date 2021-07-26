@@ -123,3 +123,28 @@ exports.Rating_change = async(req, res) => {
                                                             }
                                                         });
 }
+exports.past_challenges = async(req, res) => {
+    const newanswer = {
+        user_id :req.body.user_id,
+        contest_name:req.body.contest_name,
+        time :req.body.time,
+        duration:req.body.duration,
+        creators:req.body.creators,
+        level:req.body.level,
+        registered:req.body.registered,
+        standings:req.body.standings
+    };
+    console.log(req.body);
+    pool.query("INSERT INTO \"past_challenges\"(user_id, contest_name,time,duration,creators,level,registered,standings) VALUES($1, $2, $3, $4,$5,$6,$7,$8)",
+                        [newanswer.user_id, newanswer.contest_name, newanswer.time,newanswer.duration,newanswer.creators,newanswer.level,newanswer.registered,newanswer.standings]);
+}
+exports.get_prev_contests= async(req, res) => {
+    console.log("Request for prev contests");
+    try {
+        const newsub=await pool.query("SELECT * FROM \"past_challenges\"");
+        console.log(newsub.rows);
+        res.json(newsub.rows);
+    } catch (error) {
+        console.log(error);  
+    }
+}

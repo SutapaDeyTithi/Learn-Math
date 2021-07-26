@@ -55,7 +55,7 @@ class problem extends React.Component {
                         </div>
                     </div>
                 </div>
-                <h5 style={{ backgroundColor: "#49675B", color: 'white', width: 610, marginLeft: 50, marginTop: 50, textAlign: 'center', height: 30, marginBottom: 0 }}>Past Challenges</h5>
+                <h5 style={{ backgroundColor: "#49675B", color: 'white', width: 593, marginLeft: 50, marginTop: 50, textAlign: 'center', height: 30, marginBottom: 0 }}>Past Challenges</h5>
                 <div className="row" style={{ marginLeft: 0 }}>
                     <div className="col-md-3" style={{ marginLeft: -14 }}>
                         <Past_table />

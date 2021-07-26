@@ -23,12 +23,7 @@ class problem extends React.Component {
 
 
     }
-    getinfos(q){
-        this.setState({
-            ques_id:q.question_id,
-            exam_id:q.exam_id
-        })
-    }
+    
     onImageChange = event => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
@@ -62,6 +57,35 @@ class problem extends React.Component {
             })
         })
             .then((response) => response.json())
+        
+            fetch('http://localhost:5000/pastContests', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+    
+                    // email: '1605014_ugrad.cse.buet.ac.bd',
+                    // image1: this.state.image,
+                    // contest_name: 'All about circles!',
+                    user_id:1,
+
+                    contest_name:'All about circles',
+                    time:'26/07/21',
+                    duration:3,
+                    creators:'John , King',
+                    level:'3-4',
+                    registered:100,
+                    standings:'pending'
+
+
+
+    
+                })
+            })
+                .then((response) => response.json())
+    
 
     }
     end_quiz = e => {
