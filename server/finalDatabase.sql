@@ -19,7 +19,7 @@ CREATE TABLE "Users" (
 INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Sutapa', 'tithisutapa52@gmail.com', '123', 'instructor', 'files/users/avatar2.jpg');
 INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Tithi', 'tithi123@gmail.com', '123', 'instructor', 'files/users/avatar2.jpg');
 INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Sudipta', 'sudiptadey@gmail.com', '123', 'instructor', 'files/users/Sudipta.jpg');
-INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Joya', 'sudiptadey@gmail.com', '123', 'instructor', 'files/users/Joya.jpg');
+INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Joya', 'sudiptadey2@gmail.com', '123', 'instructor', 'files/users/Joya.jpg');
 INSERT INTO "Users"(user_name, email, password, privilege, class) VALUES('sudipa', '1605014@ugrad.cse.buet.ac.bd', '123', 'student', 5);
 
 
