@@ -39,7 +39,9 @@ class topic extends Component {
 
     }
     componentDidMount() {
-
+        this.setState({user_id: this.props.user_id});
+        this.state.user_id = this.props.user_id;
+        console.log("user id --> ", this.props.user_id);
         fetch("http://localhost:5000/topic")
             //console.log(res);
             .then(res => res.json())
@@ -100,7 +102,6 @@ class topic extends Component {
                     <div className="col-md-9 left">
                         <div className="popular">
                             <h3>Popular <img className="logop" src={popular} /></h3>
-                            <h1>{this.props.user_id}</h1>
 
                         </div>
                         <div className="row">

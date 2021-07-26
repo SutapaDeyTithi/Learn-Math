@@ -115,31 +115,31 @@ class App extends Component {
     
                             <Route exact path="/signin" render={(props) => <Signin onRouteChange={this.onRouteChange} setRole={this.setRole} setUserID={this.setUserID} {...props} /> } />
                             <Route exact path="/register" render={(props) => <Register onRouteChange={this.onRouteChange} setRole={this.setRole} setUserID={this.setUserID} {...props} /> }/>
-                   
+                         
                             {this.state.role == "student" ?
                                 <div>
                                     {/* STUDENT */}
                                     {/* /practice --> /authHome 
                                         for generalising all the roles :'(
                                     */}
-                                    
                                     {this.state.isSignedIn ?
                                       <div>
-                                        
-                                        <Route path="/authHome" render={(props) => <Topic user_id={this.state.user_id} {...props} />}/>
-                                        <Route path="/subtopic" render={(props) => <Sub user_id={this.state.user_id} {...props} />} />
-                                        <Route path="/category" render={(props) => <Cat user_id={this.state.user_id} {...props} />} />
-                                        <Route path="/practise" render={(props) => <Practise user_id={this.state.user_id} {...props} />} />
-                                        <Route path="/tutorial" render={(props) => <Tutorial user_id={this.state.user_id} {...props} />}  />
-                                        <Route path="/tutorial_sub" render={(props) => <Tutorial_sub user_id={this.state.user_id} {...props} />}  />
-                                        <Route path="/video" render={(props) => <Video user_id={this.state.user_id} {...props} />}  />
-                                        <Route path="/profile" render={(props) => <Profile user_id={this.state.user_id} {...props} />}/>
-                                        <Route path="/next" render={(props) => <Next user_id={this.state.user_id} {...props} />}/>
-                                        <Route path="/drag" render={(props) => <Drag_Drop user_id={this.state.user_id} {...props} />}/>
-                                        <Route path="/test_consent_page" render={(props) => <Ready user_id={this.state.user_id} {...props} />}/>
-                                        <Route path="/test" render={(props) => <Test user_id={this.state.user_id} {...props} />} />
-                                        <Route path="/problem_of_the_week" render={(props) => <Problem user_id={this.state.user_id} {...props} />}component={Problem}/>
-                                        <Route path="/problem_of_the_week_begin" render={(props) => <POTW_Questions user_id={this.state.user_id} {...props} />}/>
+                                        <div>
+                                        <Route path="/authHome" render={(props) => <Topic user_id={this.state.user_id} {...props} />} />
+                                        <Route path="/subtopic" component={Sub} />
+                                        <Route path="/category" component={Cat} />
+                                        <Route path="/practise" component={Practise} />
+                                        <Route path="/tutorial" component={Tutorial} />
+                                        <Route path="/tutorial_sub" component={Tutorial_sub} />
+                                        <Route path="/video" component={Video} />
+                                        <Route path="/profile" render={(props) => <Profile user_id={this.state.user_id} {...props} />} />
+                                        <Route path="/next" component={Next}/>
+                                        <Route path="/drag" component={Drag_Drop}/>
+                                        <Route path="/test_consent_page" component={Ready}/>
+                                        <Route path="/test" render={(props) => <Test user_id={this.state.user_id} {...props} />}/>
+                                        <Route path="/problem_of_the_week" component={Problem}/>
+                                        <Route path="/problem_of_the_week_begin" component={POTW_Questions}/>
+                                      </div>
                                       </div>
                                     :
                                       <div></div>
@@ -152,11 +152,12 @@ class App extends Component {
                                             {/* INSTRUCTOR */}
                                             {this.state.isSignedIn ?
                                               <div>
-                                                  <Route path="/authHome" component = {InstructorHome}/>
-                                                  <Route path="/createTutorial" component = {CreateTutorial} />
-                                                  <Route path="/createPracticeProblems" component = {PracticeProblems} />
-                                                  <Route path="/examCorner" component = {ExamCorner} />
-                                                  <Route path="/createExam" component = {ExamCorner2} />
+                                                  <Route path="/authHome" render={(props) => <InstructorHome user_id={this.state.user_id} {...props} />} />
+                                                  <Route path="/createTutorial" render={(props) => <CreateTutorial user_id={this.state.user_id} {...props} />} />
+                                                  <Route path="/createPracticeProblems" render={(props) => <PracticeProblems user_id={this.state.user_id} {...props} />} />
+                                                  {/* <Route path="/examCorner" component = {ExamCorner2} /> */}
+                                                  <Route path="/examCorner" render={(props) => <ExamCorner2 user_id={this.state.user_id} {...props} />} />
+                                                  {/* <Route path="/profile" render={(props) => <EditProfile user_id={this.state.user_id} {...props} />} /> */}
                                               </div>
                                             :
                                             <div>
@@ -175,7 +176,7 @@ class App extends Component {
                           </div>
                     </Switch>
     
-                    <Footer />
+                    {/* <Footer /> */}
                 </div>
             </BrowserRouter>
         );
@@ -186,5 +187,3 @@ export default App;
 
 //npm run nodemon
 //npm run start
-
-// jhamela hoile, CSE408 -> Learn Math Final Codebase -> CSE408-master theke add korbo :| 

@@ -9,6 +9,16 @@ exports.getTopic = async(req, res) => {
     } catch (error) {        
     }
 }
+exports.getusers = async(req, res) => {
+    console.log("Request for users");
+    try {        
+        const newsub=await pool.query("SELECT * FROM \"Users\"");
+        console.log(newsub.rows);
+        res.json(newsub.rows);
+    } catch (error) {        
+    }
+}
+
 
 exports.getSubtopic = async(req, res) => {
     console.log("Request for subtopics");
@@ -123,6 +133,44 @@ exports.Rating_change = async(req, res) => {
                                                             }
                                                         });
 }
+// exports.getmail = async(req, res) => {
+//     const newanswer = {
+//         user_id:req.body.user_id,
+//         email:req.body.email
+        
+//     };
+//     console.log(req.body);
+//     pool.query("UPDATE \"Users\" SET email=$2 WHERE user_id = $1",
+//                                                         [newanswer.user_id, newanswer.email], (err, result) => {
+//                                                             if (err) {
+//                                                                 console.error('Error executing query', err.stack);
+//                                                                 return res.json("error");
+//                                                             }
+//                                                             else {
+//                                                                 // return res.json("OK");
+//                                                                 //console.log(userID, " contributed --> ", contri);
+//                                                             }
+//                                                         });
+// }
+// // exports.Chng_class = async(req, res) => {
+//     const newanswer = {
+//         user_id:req.body.user_id,
+//         class:req.body.class
+        
+//     };
+//     console.log(req.body);
+//     pool.query("UPDATE \"Users\" SET class=$2 WHERE user_id = $1",
+//                                                         [newanswer.user_id, newanswer.class], (err, result) => {
+//                                                             if (err) {
+//                                                                 console.error('Error executing query', err.stack);
+//                                                                 return res.json("error");
+//                                                             }
+//                                                             else {
+//                                                                 // return res.json("OK");
+//                                                                 //console.log(userID, " contributed --> ", contri);
+//                                                             }
+//                                                         });
+// }
 exports.past_challenges = async(req, res) => {
     const newanswer = {
         user_id :req.body.user_id,

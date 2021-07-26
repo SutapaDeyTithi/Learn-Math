@@ -26,7 +26,12 @@ const {
     POTW_ans_upload_s,
     Rating_change,
     past_challenges,
-    get_prev_contests
+    get_prev_contests,
+    getusers,
+    // getmail, 
+    // Chng_class
+    //postname
+    
 
 } = require("./handlers/student");
 
@@ -55,6 +60,12 @@ app.post('/uploadAnsPOTW_s',POTW_ans_upload_s);
 app.post('/rating_change',Rating_change);
 app.post('/pastContests',past_challenges);
 app.get('/prev_contests',get_prev_contests);
+app.get('/all_user',getusers);
+// app.post('/mail_change',getmail);
+// app.post('/class_change',Chng_class);
+// app.post('/name_change',postname);
+// app.post('/class_chng',getClass);
+// app.post('/name_cng',get_name);
 
 // INSTRUCTOR
 app.get('/subtopics_instructor', getSubtopic_from_a_topic);

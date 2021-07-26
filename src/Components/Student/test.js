@@ -178,7 +178,7 @@ export default function Test(props) {
                             <div className="col-md-2 borderright" style={{ textAlign: "center" }}>
                                 <h3 style={{ marginTop: 70 }}></h3>
                                 <img src={Exam} />
-                                <h1>{props.user_id}</h1>
+                                
 
                                 {/* <h1 style={{ marginTop: 70 }}>Input:{inputf}</h1> */}
                             </div>
