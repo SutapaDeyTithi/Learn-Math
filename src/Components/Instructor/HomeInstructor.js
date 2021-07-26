@@ -203,7 +203,7 @@ export default () => {
                     {
                     showing &&
                             <GridListTile >
-                            <img src={avatar1} alt="Instructor" />
+                            <img src={'http://localhost:5000/' + top[0].image} alt="Instructor" />
                             <GridListTileBar
                             title={top[0].user_name}
                             classes={{
@@ -222,7 +222,7 @@ export default () => {
                         
                             
                         <GridListTile >
-                            <img src={avatar2} alt="Instructor" />
+                            <img src={'http://localhost:5000/' + top[1].image} alt="Instructor" />
                             <GridListTileBar
                             title={top[1].user_name}
                             classes={{
@@ -239,7 +239,7 @@ export default () => {
                     }
                     {showing &&
                         <GridListTile >
-                            <img src={avatar3} alt="Instructor" />
+                            <img src={'http://localhost:5000/' + top[2].image} alt="Instructor" />
                             <GridListTileBar
                             title={top[2].user_name}
                             classes={{
@@ -256,7 +256,7 @@ export default () => {
                     }
                     {showing &&
                         <GridListTile >
-                            <img src={avatar4} alt="Instructor" />
+                            <img src={'http://localhost:5000/' + top[3].image} alt="Instructor" />
                             <GridListTileBar
                             title={top[3].user_name}
                             classes={{

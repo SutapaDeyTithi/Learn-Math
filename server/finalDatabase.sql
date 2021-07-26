@@ -9,13 +9,19 @@ CREATE TABLE "Users" (
     email varchar(255) not null unique,
     password varchar(255) not null ,
     dob varchar(255),
-    image text,
+    image text DEFAULT 'files/users/avatar2.jpg',
     privilege varchar(255) not null,
     rank integer,
     level integer,
     class integer,
     contribution integer
 );
+INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Sutapa', 'tithisutapa52@gmail.com', '123', 'instructor', 'files/users/avatar2.jpg');
+INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Tithi', 'tithi123@gmail.com', '123', 'instructor', 'files/users/avatar2.jpg');
+INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Sudipta', 'sudiptadey@gmail.com', '123', 'instructor', 'files/users/Sudipta.jpg');
+INSERT INTO "Users"(user_name, email, password, privilege, image) VALUES('Joya', 'sudiptadey@gmail.com', '123', 'instructor', 'files/users/Joya.jpg');
+INSERT INTO "Users"(user_name, email, password, privilege, class) VALUES('sudipa', '1605014@ugrad.cse.buet.ac.bd', '123', 'student', 5);
+
 
 CREATE TABLE "User_History" (
     user_history_id serial not null unique
@@ -329,7 +335,6 @@ Create Table "Problems_of_the_week"(
 
 -- insert some data
 
-INSERT INTO "Users"(user_name, email, password, privilege, class) VALUES('sudipa', '1605014@ugrad.cse.buet.ac.bd', '123', 'student', 5);
 
 Insert into "Topic"(topic_name) Values('Algebra');
 Insert into "Topic"(topic_name) Values('Geometry');

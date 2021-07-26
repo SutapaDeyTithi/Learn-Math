@@ -556,9 +556,10 @@ exports.infoProblemWeek = async(req, res) => {
 }
 
 exports.contributionIn = async(req, res) => {
+    const privilege = 'instructor';
     try {
-        pool.query("SELECT * FROM \"Users\"",
-        [], (err, result) => {
+        pool.query("SELECT * FROM \"Users\" WHERE privilege=$1",
+        [privilege], (err, result) => {
             if (err) {
                 console.error('Error executing query', err.stack);
                 return res.json("error");
