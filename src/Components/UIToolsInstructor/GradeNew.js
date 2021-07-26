@@ -329,16 +329,39 @@ class gradeNew extends React.Component {
                                         <Typography>
                                             Question Text: <br></br>{this.state.question_paper.ques_text}
                                         </Typography>
-                                        <Typography>
-                                            Question Figure: <br></br>{this.state.question_paper.figure_ques}
-                                        </Typography>
+                                        {
+                                            (this.state.question_paper.figure_ques != null) &&
+
+                                            <div>
+                                            <Typography>
+                                                Question Figure: 
+                                            </Typography>
+                                            <img variant="bottom" style={{width: '80%', height: '80%', marginLeft: '10%', marginBottom: '1%'}}
+                                            src={'http://localhost:5000/' + this.state.question_paper.figure_ques} />
+                                            </div>
+                                        }
+
+                                        
+                                  
                                         <br></br>
                                         <Typography>
                                             Answer Text: <br></br>{this.state.question_paper.ans_text}
                                         </Typography>
-                                        <Typography>
-                                            Answer Figure: <br></br>{this.state.question_paper.figure_ans}
-                                        </Typography>
+
+                                        {
+                                            (this.state.question_paper.figure_ans != null) &&
+
+                                            <div>
+                                                <Typography>
+                                                    Answer Figure: 
+                                                </Typography>
+
+                                                <img variant="bottom" style={{width: '80%', height: '80%', marginLeft: '10%', marginBottom: '1%'}}
+                                                    src={'http://localhost:5000/' + this.state.question_paper.figure_ans} />
+                                             </div>
+                                        }
+                                        
+                                        
                                         
                                     </div>
                                 }

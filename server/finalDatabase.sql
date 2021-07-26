@@ -392,6 +392,15 @@ create table "ExamAnswer"
     rubrik             json,
     evaluated_by       integer
 );
+-- ------------------- SUDIPA
+Insert into "ExamQuestion"(exam_title, exam_type, exam_level, ques_text,figure_ques, ans_text, rubrik)
+Values('All about circles', 'POTW', 'level 3', 'Find the circumference of the circle [10] +Find the area [5] + Draw a circle with double area shown in the picture [10]','Circle1.png', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation", "marks": 2}]');
+
+Insert into "ExamQuestion"(exam_title, exam_type, exam_level, ques_text, ans_text, rubrik)
+Values('Circle', 'Regular Exam', 'level 3', 'question?', 'answer..', '[{"breakpoint":"formula", "marks": 2},{"breakpoint": "calculation", "marks": 2}]');
+
+Insert into "ExamAnswer"(question_id, exam_id, answer) Values(1, 1, 'files/answers/ans1.png');
+Insert into "ExamAnswer"(question_id, exam_id, answer) Values(2, 2, 'files/answers/ans2.jpg');
 
 
 
