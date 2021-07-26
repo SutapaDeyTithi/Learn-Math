@@ -184,7 +184,17 @@ exports.past_challenges = async(req, res) => {
     };
     console.log(req.body);
     pool.query("INSERT INTO \"past_challenges\"(user_id, contest_name,time,duration,creators,level,registered,standings) VALUES($1, $2, $3, $4,$5,$6,$7,$8)",
-                        [newanswer.user_id, newanswer.contest_name, newanswer.time,newanswer.duration,newanswer.creators,newanswer.level,newanswer.registered,newanswer.standings]);
+                        [newanswer.user_id, newanswer.contest_name, newanswer.time,newanswer.duration,newanswer.creators,newanswer.level,newanswer.registered,newanswer.standings], (err, result) => {
+                            if (err) {
+                                console.error('Error executing query', err.stack);
+                                return res.json("error");
+                            }
+                            else {
+                                // return res.json("OK");
+                                //console.log(userID, " contributed --> ", contri);
+                            }
+                            
+                            });
 }
 exports.get_prev_contests= async(req, res) => {
     console.log("Request for prev contests");

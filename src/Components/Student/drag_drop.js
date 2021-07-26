@@ -42,6 +42,7 @@ class dr_dr extends Component {
         //this.handleChange = this.handleChange.bind(this);
         this.state = {
             state_chg: 1,
+            show_ans:0
         }
 
 
@@ -52,7 +53,9 @@ class dr_dr extends Component {
 
 
     };
-
+    ans_show = e=>{
+        this.setState({show_ans:1})
+    }
 
 
 
@@ -66,7 +69,7 @@ class dr_dr extends Component {
         return (
             <div className="row">
                 <div className="col-md-2 borderright" style={{ textAlign: "center" }}>
-                    <h3 style={{ marginTop: 70 }}>Simplify</h3>
+                    <h3 style={{ marginTop: 70 }}>Matching</h3>
                 </div>
                 <div className="col-md-6 borderright" style={{ textAlign: "center" }}>
                     <TaskList tasks={TASKS} />
@@ -87,11 +90,26 @@ class dr_dr extends Component {
                     }
 
                     {
-                        !this.state.state_chg &&
-                        (<Link to="/test_consent_page" className="btn btn-primary next-prob">
+                        !this.state.state_chg 
+                        ?(
+                        <div>
+                            {
+                                this.state.show_ans ===1
+                                ?(<h5>The numbers that can be divided by 2 are called even number and others are called odd number.
+                                    <br></br>
+                                    So in this sense 2,4,6 should go in even group and 1,3,5 should go in odd group.
+                                </h5>)
+                                :(<button style={{width:150,height:50,backgroundColor:"#49675B",color:'white',borderRadius:5}} onClick={this.ans_show}>Show answer</button>)
+                            }
+                            
+                            <br></br>
+                            {/* <h4>Hello</h4> */}
+                            <Link to="/test_consent_page" className="btn btn-primary next-prob">
                             Continue
-                        </Link>
+                            </Link>
+                        </div>
                         )
+                        :(<h1></h1>)
                     }
 
                 </div>

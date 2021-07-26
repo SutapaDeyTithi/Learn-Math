@@ -22,7 +22,8 @@ class Cat extends React.Component {
             show_buttons: 0,
             explanation: 0,
             answer: 0,
-            op_name: ""
+            op_name: "",
+            disc:0
 
 
 
@@ -95,7 +96,9 @@ class Cat extends React.Component {
     option_value(value) {
         this.setState({ op: value });
     }
-
+    show_discussion = e  =>{
+        this.setState({disc:1});
+    }
     render() {
         return (
             <div>
@@ -159,7 +162,9 @@ class Cat extends React.Component {
                                             }
 
                                             <br></br>
-                                            <button className="submit2">Join Discussion</button>
+                                            <Link to="/discussions">
+                                            <button className="submit2" onClick={this.show_discussion}>Join Discussion</button>
+                                            </Link>
                                         </div>
                                     )
                                     : (

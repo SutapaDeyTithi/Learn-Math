@@ -28,6 +28,7 @@ import Ready from "./Components/Student/pretest_consent";
 import Test from "./Components/Student/test"
 import Problem from "./Components/Student/Problem_of_the_week"
 import POTW_Questions from "./Components/Student/problem_of_the_week_test"
+import Disc from "./Components/Student/Discussion";
 
 // INSTRUCTOR
 import PracticeProblems from './Components/Instructor/PracticeProblems';
@@ -139,6 +140,7 @@ class App extends Component {
                                         <Route path="/test" render={(props) => <Test user_id={this.state.user_id} {...props} />}/>
                                         <Route path="/problem_of_the_week" component={Problem}/>
                                         <Route path="/problem_of_the_week_begin" component={POTW_Questions}/>
+                                        <Route path="/discussions" component={Disc}/>
                                       </div>
                                       </div>
                                     :

@@ -10,7 +10,9 @@ class problem extends React.Component {
             count: 0,
             data: [],
             category: [],
-            topic_array: []
+            topic_array: [],
+            contests:[],
+            ok:0
 
         };
 
@@ -19,7 +21,15 @@ class problem extends React.Component {
     }
     componentDidMount() {
 
+        fetch("http://localhost:5000/prev_contests")
+            //console.log(res);
+            .then(res => res.json())
 
+            .then(json =>
+                this.setState({ contests: json }));
+        if(this.state.contests.length===0){
+            this.setState({ok:0});
+        }
 
     }
 
@@ -48,9 +58,16 @@ class problem extends React.Component {
                                 <h5 className="card-text">Problem of the week</h5>
                                 <p className="card-text">All about circles</p>
                                 <hr></hr>
-                                <Link to="/problem_of_the_week_begin">
+                                
+                                {
+                                    this.state.ok === 0 ?(<Link to="/problem_of_the_week_begin">
                                     < button className="submit" style={{ marginLeft: 60 }}>Start </button>
-                                </Link>
+                                </Link>)
+                                :(< button className="submit"  style={{ marginLeft: 60 }}>Ended</button>)
+                                }
+                                {/* // <Link to="/problem_of_the_week_begin">
+                                //     < button className="submit" style={{ marginLeft: 60 }}>Start </button>
+                                // </Link> */}
                             </div>
                         </div>
                     </div>
